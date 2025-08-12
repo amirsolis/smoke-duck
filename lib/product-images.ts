@@ -2,8 +2,8 @@
 export const productImages = {
   // Vapes - Reemplaza estas URLs con tus imágenes reales
   vapes: {
-    "STIIIZY 40s Blue Dream": "/images/vapes/stiiizy-blue-dream.jpg",
-    "CAKE OG Classics Hawaiian Guava": "/images/vapes/cake-hawaiian-guava.jpg",
+    "STIIIZY 40s Blue Dream": "https://drive.google.com/uc?id=1ZmyG6upGYAquS6GQmvk-vJ0SIngR5-t_",
+    "CAKE OG Classics Hawaiian Guava": "/images/vapes/cake-hawaiian-guava.jpg", // Placeholder hasta que tengas la imagen correcta
     "BOUTIQ switch Hawaiian Snow Sour Slush": "/images/vapes/boutiq-hawaiian-snow.jpg",
     "Camino Sours Watermelon Spritz": "/images/vapes/camino-watermelon.jpg",
     "CAKE Designer Distillate Strawberry Mango": "/images/vapes/cake-strawberry-mango.jpg",
@@ -46,17 +46,42 @@ export const productImages = {
   },
 }
 
+// Función para verificar si la imagen existe
+export const checkImageExists = async (imagePath: string): Promise<boolean> => {
+  try {
+    const response = await fetch(imagePath, { method: "HEAD" })
+    return response.ok
+  } catch {
+    return false
+  }
+}
+
 // Función para obtener imagen del producto
-export const getProductImage = (productName: string, category: "vapes" | "flowers"): string => {
+export const getProductImage = async (productName: string, category: "vapes" | "flowers"): Promise<string> => {
   const image = productImages[category][productName]
 
-  // Si no hay imagen personalizada, usar placeholder
-  if (!image) {
-    const query = `${category === "vapes" ? "cannabis vape cartridge" : "cannabis flower buds"} ${productName} product photography`
-    return `/placeholder.svg?height=400&width=400&query=${encodeURIComponent(query)}`
+  // Debug: mostrar en consola qué imagen se está buscando
+  console.log(`🔍 Buscando imagen para: "${productName}" en categoría: "${category}"`)
+  console.log(`📁 Ruta mapeada: ${image || "No encontrada"}`)
+
+  // Si hay imagen personalizada, verificar si existe
+  if (image) {
+    console.log(`🌐 Verificando si existe: ${image}`)
+    const exists = await checkImageExists(image)
+    console.log(`✅ Imagen existe: ${exists}`)
+
+    if (exists) {
+      return image
+    } else {
+      console.warn(`⚠️ Imagen no encontrada en: ${image}`)
+    }
   }
 
-  return image
+  // Si no hay imagen personalizada o no existe, usar placeholder
+  const query = `${category === "vapes" ? "cannabis vape cartridge" : "cannabis flower buds"} ${productName} product photography`
+  const fallback = `/placeholder.svg?height=400&width=400&query=${encodeURIComponent(query)}`
+  console.log(`🔄 Usando fallback: ${fallback}`)
+  return fallback
 }
 
 // Imagen por defecto si no se encuentra
