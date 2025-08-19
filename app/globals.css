@@ -1,6 +1,5 @@
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -37,7 +36,8 @@
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+  --font-special-gothic-expanded: "Special Gothic Expanded One";
 }
 
 .dark {
@@ -73,6 +73,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  --font-special-gothic-expanded: "Special Gothic Expanded One";
 }
 
 @theme inline {
@@ -114,15 +115,32 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Configuración de fuentes */
-  --font-sans: 'Fugaz One', ui-sans-serif, system-ui, sans-serif; /* Aquí se cambia la fuente */
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-heading: var(--font-special-gothic-expanded);
+  --font-special-gothic-expanded: var(--font-special-gothic-expanded);
 }
 
 @layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
   * {
-    @apply border-border outline-ring/50;
+    @apply border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .font-special-gothic-expanded {
+    font-family: var(--font-special-gothic-expanded), ui-sans-serif, system-ui, sans-serif;
   }
 }

@@ -12,6 +12,8 @@ function getButtonClasses(variant?: string, size?: string, className?: string) {
     secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
     ghost: "hover:bg-accent hover:text-accent-foreground",
     link: "text-primary underline-offset-4 hover:underline",
+    // NUEVA VARIANTE AGREGADA
+    'solid-black': "bg-black text-white hover:bg-white hover:text-black",
   }
 
   const sizeClasses = {
@@ -29,7 +31,7 @@ function getButtonClasses(variant?: string, size?: string, className?: string) {
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
+  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "solid-black" // Agrega la nueva variante aquí
   size?: "default" | "sm" | "lg" | "icon"
 }
 
