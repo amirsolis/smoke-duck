@@ -1,12 +1,12 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Special_Gothic_Expanded_One } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
 
-const specialGothicExpanded = Special_Gothic_Expanded_One({
+const inter = Inter({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-special-gothic-expanded",
+  weight: ["400", "600", "700"],
+  variable: "--font-inter",
 })
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className={specialGothicExpanded.variable}>
+    <html lang="es" className={inter.variable}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   )

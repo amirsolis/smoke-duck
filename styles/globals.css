@@ -114,10 +114,6 @@
 }
 
 @layer base {
-  * {
-    /* Fixed invalid border-border class to use border */
-    @apply border outline-ring/50;
-  }
   body {
     @apply bg-background text-foreground;
   }
