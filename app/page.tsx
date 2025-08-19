@@ -3,6 +3,14 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { getProductImage } from "@/lib/product-images"
 
 // Reemplazando iconos de lucide-react con SVG inline
@@ -493,16 +501,18 @@ export default function DispensarioPage() {
                 alt="Smoke Duck Logo"
                 className="h-17 w-17 rounded-full object-cover"
               />
+              
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+           <nav className="hidden md:flex items-center space-x-8">
               <button
                 onClick={() => scrollToSection("inicio")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium font-special-gothic-expanded"
               >
                 INICIO
               </button>
+
               <button
                 onClick={() => scrollToSection("vapes")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium font-special-gothic-expanded"
@@ -518,12 +528,6 @@ export default function DispensarioPage() {
             </nav>
 
             {/* Mobile Navigation */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-gray-700 hover:text-green-600 transition-colors font-medium font-special-gothic-expanded"
-            >
-              <ChevronDownIcon className="w-6 h-6" />
-            </button>
             {mobileMenuOpen && (
               <nav className="md:hidden mt-4 pb-4 border-t border-green-200 pt-4">
                 <div className="flex flex-col space-y-4">
@@ -544,11 +548,9 @@ export default function DispensarioPage() {
                     className="text-left text-gray-700 hover:text-green-600 transition-colors font-medium font-special-gothic-expanded"
                   >
                     FLOWERS
-                  </button>
                 </div>
               </nav>
             )}
-          </div>
         </div>
       </header>
 
@@ -564,19 +566,20 @@ export default function DispensarioPage() {
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col sm:flex-row gap-4 justify-start">
               <Button
-                size="lg"
-                onClick={() => scrollToSection("vapes")}
-                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-special-gothic-expanded"
-              >
-                VER VAPES
-              </Button>
-              <Button
-                size="lg"
-                onClick={() => scrollToSection("flowers")}
-                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-special-gothic-expanded"
-              >
-                VER FLOWERS
-              </Button>
+  size="lg"
+  onClick={() => scrollToSection("vapes")}
+  className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-special-gothic-expanded"
+>
+  VER VAPES
+</Button>
+
+<Button
+  size="lg"
+  onClick={() => scrollToSection("flowers")}
+  className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-special-gothic-expanded"
+>
+  VER FLOWERS
+</Button>
             </div>
           </div>
         </div>
@@ -592,7 +595,7 @@ export default function DispensarioPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {vapesProducts.map((product, index) => (
+           {vapesProducts.map((product, index) => (
               <Card
                 key={index}
                 className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col"
@@ -639,12 +642,11 @@ export default function DispensarioPage() {
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-purple-700 bg-clip-text text-transparent">
-              FLOWERS
-            </h3>
+              FLOWERS         </h3>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {flowersProducts.map((product, index) => (
+          {flowersProducts.map((product, index) => (
               <Card
                 key={index}
                 className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white/90 backdrop-blur-sm border-purple-200"
