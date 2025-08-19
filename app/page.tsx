@@ -492,18 +492,16 @@ export default function DispensarioPage() {
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-green-200 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white backdrop-blur-sm border-b shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <img
                 src="/images/smoke-duck-logo.png"
                 alt="Smoke Duck Logo"
-                className="h-10 w-10 rounded-full object-cover"
+                className="h-15 w-15 rounded-full object-cover"
               />
-              <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-purple-600 bg-clip-text text-transparent">
-                SMOKE DUCK
-              </span>
+              
             </div>
 
             {/* Desktop Navigation */}
@@ -512,7 +510,7 @@ export default function DispensarioPage() {
                 onClick={() => scrollToSection("inicio")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium"
               >
-                Inicio
+                INICIO
               </button>
 
               
@@ -521,13 +519,13 @@ export default function DispensarioPage() {
                 onClick={() => scrollToSection("vapes")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium"
               >
-                Vapes
+                VAPES
               </button>
               <button
                 onClick={() => scrollToSection("flowers")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium"
               >
-                Flowers
+                FLOWERS
               </button>
             </nav>
 

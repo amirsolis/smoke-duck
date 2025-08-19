@@ -1,5 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -113,8 +114,7 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Configuración de fuentes */
-  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-    "Noto Color Emoji";
+  --font-sans: 'Fugaz One', ui-sans-serif, system-ui, sans-serif; /* Aquí se cambia la fuente */
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
