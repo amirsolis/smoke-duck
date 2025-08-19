@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,333 +46,275 @@ const vapesProducts = [
     type: "vape cartridge",
     strain: "hawaiian guava",
     description: "",
-    content: "Cont. 0.5g",
+    content: "Cont. 1 g",
   },
   {
-    name: "BOUTIQ switch Hawaiian Snow Sour Slush",
+    name: "BOUTIQ Switch Hawaiian Snow Sour Slush",
     type: "vape cartridge",
     strain: "hawaiian snow",
-    content: "Cont. 1g",
-  },
-  {
-    name: "Camino Sours Watermelon Spritz",
-    type: "gummies",
-    strain: "watermelon",
-    content: "Cont. 100mg",
+    content: "Cont. 1 g",
   },
   {
     name: "CAKE Designer Distillate Strawberry Mango",
     type: "vape cartridge",
     strain: "strawberry mango",
-    content: "Cont. 0.8g",
+    content: "Cont. 1.25 g",
   },
   {
     name: "The Cure Company Papaya",
     type: "vape cartridge",
     strain: "papaya",
-    content: "Cont. 1g",
-  },
-  {
-    name: "Camino Uplifting Pineapple Habanero",
-    type: "gummies",
-    strain: "pineapple habanero",
-    content: "Cont. 100mg",
+    content: "Cont. 1 g",
   },
   {
     name: "8-BIT BUDS Infused Live Rosin Piña Colada",
     type: "vape cartridge",
     strain: "piña colada",
-    content: "Cont. 0.5g",
+    content: "Cont. 1 g",
   },
   {
     name: "Cure Injoy Strawnana",
     type: "vape cartridge",
     strain: "strawnana",
-    content: "Cont. 1g",
+    content: "Cont. 1 g",
   },
   {
     name: "Muha Meds Live Resin Sour Diesel",
     type: "vape cartridge",
     strain: "sour diesel",
-    content: "Cont. 1g",
+    content: "Cont. 1 g",
   },
   {
     name: "Cali Clear Sour Diesel",
     type: "vape cartridge",
     strain: "sour diesel",
-    content: "Cont. 0.8g",
+    content: "Cont. 1 g",
   },
   {
     name: "Crystal Clear Blue Dream",
     type: "vape cartridge",
     strain: "blue dream",
-    content: "Cont. 1g",
+    content: "Cont. 1 g",
   },
   {
     name: "DAB DADDY Thin Mint Cookies x Jealousy",
     type: "vape cartridge",
     strain: "thin mint cookies",
-    content: "Cont. 0.5g",
+    content: "Cont. 1 g",
   },
   {
     name: "Gramlin Sour Apple Pie",
     type: "vape cartridge",
     strain: "sour apple pie",
-    content: "Cont. 1g",
+    content: "Cont. 1 g",
   },
   {
     name: "Pretty Dope Strawberry Mimosa",
     type: "vape cartridge",
     strain: "strawberry mimosa",
-    content: "Cont. 0.8g",
+    content: "Cont. 1 g",
   },
   {
     name: "Side Hustle Blue Dream",
     type: "vape cartridge",
     strain: "blue dream",
-    content: "Cont. 1g",
+    content: "Cont. 1 g",
   },
   {
     name: "Gelato Green Crack",
     type: "vape cartridge",
     strain: "green crack",
-    content: "Cont. 0.5g",
+    content: "Cont. 1 g",
   },
   {
     name: "Cabo Canabotanica",
     type: "vape cartridge",
     strain: "hybrid",
-    content: "Cont. 1g",
+    content: "Cont. 1 g",
   },
   {
     name: "BIG CHIEF Pineapple Express",
     type: "vape cartridge",
     strain: "pineapple express",
-    content: "Cont. 1g",
+    content: "Cont. 1 g",
   },
   {
     name: "West Coast Cure Orange Creamsicle",
     type: "vape cartridge",
     strain: "orange creamsicle",
-    content: "Cont. 0.8g",
+    content: "Cont. 1 g",
   },
   {
     name: "Kushy Punch Blue Raspberry",
     type: "gummies",
     strain: "blue raspberry",
-    content: "Cont. 100mg",
+    content: "Cont. 1 g",
+  },
+  {
+    name: "Eureka AIO Tropical Twist",
+    type: "gummies",
+    strain: "Tropical Twist",
+    content: "Cont. 1 g",
   },
 ]
 
 const flowersProducts = [
   {
-    name: "RUNTZ OG",
+    name: "Blue Runtz",
     type: "cannabis flower",
-    strain: "runtz",
-    description: "Una variedad premium con sabores dulces y efectos potentes.",
-    effects: ["Eufórico", "Relajado"],
-    calmingLevel: 3,
+    strain: "Híbrido",
+    description: "",
+    effects: ["Relajado", "Hormigueo", "Eufórico"],
+    calmingLevel: 2.5,
     thcLevel: 4,
     prices: [
-      { weight: "7 g", price: 500 },
-      { weight: "14 g", price: 900 },
-      { weight: "28 g", price: 1800 },
+      { weight: "7 g", price: 1300 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3300 },
     ],
   },
   {
-    name: "DANTE'S INFERNO",
+    name: "Gak Bx1",
     type: "cannabis flower",
-    strain: "hybrid",
-    description: "Intenso y ardiente, perfecto para usuarios experimentados.",
-    effects: ["Enfocado", "Energizante"],
-    calmingLevel: 2,
-    thcLevel: 5,
+    strain: "Híbrido",
+    description: "",
+    effects: ["Energético", "Charlatán", "Feliz"],
+    calmingLevel: 3.5,
+    thcLevel: 3,
     prices: [
-      { weight: "7 g", price: 600 },
+      { weight: "7 g", price: 1300 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3300 },
+    ],
+  },
+  {
+    name: "Golden Goat",
+    type: "cannabis flower",
+    strain: "Híbrido",
+    effects: ["Energético", "Enfocado", "Elevado"],
+    calmingLevel: 4.5,
+    thcLevel: 3.5,
+    prices: [
+      { weight: "7 g", price: 750 },
+      { weight: "14 g", price: 1300 },
+      { weight: "28 g", price: 2500 },
+    ],
+  },
+  {
+    name: "Guava",
+    type: "cannabis flower",
+    strain: "Sativa",
+    effects: ["Charlatán", "Enfocado", "Energético"],
+    calmingLevel: 4,
+    thcLevel: 3.5,
+    prices: [
+      { weight: "7 g", price: 700 },
       { weight: "14 g", price: 1100 },
       { weight: "28 g", price: 2000 },
     ],
   },
   {
-    name: "GENOLADE",
+    name: "Lantz",
     type: "cannabis flower",
-    strain: "hybrid",
-    effects: ["Eufórico"],
-    calmingLevel: 3,
-    thcLevel: 3,
+    strain: "Híbrido",
+    effects: ["Enfocado", "Eufórico", "Relajado"],
+    calmingLevel: 2.5,
+    thcLevel: 4.5,
     prices: [
-      { weight: "7 g", price: 450 },
-      { weight: "14 g", price: 850 },
-      { weight: "28 g", price: 1600 },
-    ],
-  },
-  {
-    name: "SIRI",
-    type: "cannabis flower",
-    strain: "sativa",
-    effects: ["Enfocado", "Energizante"],
-    calmingLevel: 1,
-    thcLevel: 3,
-    prices: [
-      { weight: "7 g", price: 400 },
-      { weight: "14 g", price: 750 },
-      { weight: "28 g", price: 1400 },
-    ],
-  },
-  {
-    name: "GOLDEN GAS",
-    type: "cannabis flower",
-    strain: "indica",
-    effects: ["Relajado"],
-    calmingLevel: 5,
-    thcLevel: 4,
-    prices: [
-      { weight: "7 g", price: 550 },
-      { weight: "14 g", price: 1000 },
-      { weight: "28 g", price: 1900 },
-    ],
-  },
-  {
-    name: "THE SOUP",
-    type: "cannabis flower",
-    strain: "hybrid",
-    effects: ["Eufórico", "Relajado"],
-    calmingLevel: 4,
-    thcLevel: 3,
-    prices: [
-      { weight: "7 g", price: 480 },
-      { weight: "14 g", price: 900 },
-      { weight: "28 g", price: 1700 },
-    ],
-  },
-  {
-    name: "RAINBOW",
-    type: "cannabis flower",
-    strain: "hybrid",
-    effects: ["Eufórico"],
-    calmingLevel: 3,
-    thcLevel: 3,
-    prices: [
-      { weight: "7 g", price: 420 },
-      { weight: "14 g", price: 800 },
-      { weight: "28 g", price: 1500 },
-    ],
-  },
-  {
-    name: "DRIPPIN' AIN'T EASY",
-    type: "cannabis flower",
-    strain: "indica",
-    effects: ["Relajado"],
-    calmingLevel: 5,
-    thcLevel: 4,
-    prices: [
-      { weight: "7 g", price: 520 },
-      { weight: "14 g", price: 950 },
-      { weight: "28 g", price: 1800 },
-    ],
-  },
-  {
-    name: "LEMONCHERRY",
-    type: "cannabis flower",
-    strain: "hybrid",
-    effects: ["Eufórico", "Enfocado"],
-    calmingLevel: 2,
-    thcLevel: 3,
-    prices: [
-      { weight: "7 g", price: 460 },
-      { weight: "14 g", price: 870 },
-      { weight: "28 g", price: 1650 },
-    ],
-  },
-  {
-    name: "LAZEL FUEL",
-    type: "cannabis flower",
-    strain: "sativa",
-    effects: ["Enfocado", "Energizante"],
-    calmingLevel: 1,
-    thcLevel: 4,
-    prices: [
-      { weight: "7 g", price: 580 },
-      { weight: "14 g", price: 1050 },
+      { weight: "7 g", price: 700 },
+      { weight: "14 g", price: 1100 },
       { weight: "28 g", price: 2000 },
     ],
   },
   {
-    name: "POP TARTZ",
+    name: "Mt. Hood Magic",
     type: "cannabis flower",
-    strain: "hybrid",
-    effects: ["Eufórico"],
-    calmingLevel: 3,
-    thcLevel: 3,
-    prices: [
-      { weight: "7 g", price: 440 },
-      { weight: "14 g", price: 820 },
-      { weight: "28 g", price: 1550 },
-    ],
-  },
-  {
-    name: "ALL GAS",
-    type: "cannabis flower",
-    strain: "indica",
-    effects: ["Relajado"],
-    calmingLevel: 5,
-    thcLevel: 5,
-    prices: [
-      { weight: "7 g", price: 650 },
-      { weight: "14 g", price: 1200 },
-      { weight: "28 g", price: 2200 },
-    ],
-  },
-  {
-    name: "F. BERRIES",
-    type: "cannabis flower",
-    strain: "hybrid",
-    effects: ["Eufórico", "Relajado"],
+    strain: "Híbrido",
+    effects: ["Eufórico", "Elevado", "Creativo"],
     calmingLevel: 4,
+    thcLevel: 3.75,
+    prices: [
+      { weight: "7 g", price: 750 },
+      { weight: "14 g", price: 1300 },
+      { weight: "28 g", price: 2500 },
+    ],
+  },
+  {
+    name: "Mixed Berry",
+    type: "cannabis flower",
+    strain: "Híbrido",
+    effects: ["Excitado", "Creativo", "Hambriento"],
+    calmingLevel: 2.5,
     thcLevel: 3,
     prices: [
-      { weight: "7 g", price: 470 },
-      { weight: "14 g", price: 880 },
-      { weight: "28 g", price: 1680 },
+      { weight: "7 g", price: 1300 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3300 },
     ],
   },
   {
-    name: "HEAD HUNTER",
+    name: "OG Diesel Kush",
     type: "cannabis flower",
-    strain: "sativa",
-    effects: ["Enfocado", "Energizante"],
-    calmingLevel: 1,
+    strain: "Híbrido",
+    effects: ["Charlatán", "Feliz", "Creativo"],
+    calmingLevel: 3.5,
     thcLevel: 4,
     prices: [
-      { weight: "7 g", price: 560 },
-      { weight: "14 g", price: 1020 },
-      { weight: "28 g", price: 1950 },
+      { weight: "7 g", price: 1500 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3600 },
     ],
   },
   {
-    name: "PERMANENT OCTANE",
+    name: "Skittlez Mintz",
     type: "cannabis flower",
-    strain: "indica",
-    effects: ["Relajado"],
-    calmingLevel: 5,
+    strain: "Híbrido",
+    effects: ["Risueño", "Charlatán", "Hambriento"],
+    calmingLevel: 3.5,
     thcLevel: 5,
     prices: [
-      { weight: "7 g", price: 620 },
-      { weight: "14 g", price: 1150 },
-      { weight: "28 g", price: 2100 },
+      { weight: "7 g", price: 1300 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3300 },
     ],
   },
   {
-    name: "VICE CITY",
+    name: "Agent Orange",
     type: "cannabis flower",
-    strain: "hybrid",
-    effects: ["Eufórico", "Enfocado"],
-    calmingLevel: 2,
-    thcLevel: 4,
+    strain: "Híbrido",
+    effects: ["Enfocado", "Elevado", "Feliz"],
+    calmingLevel: 4.5,
+    thcLevel: 3,
     prices: [
-      { weight: "7 g", price: 540 },
-      { weight: "14 g", price: 980 },
-      { weight: "28 g", price: 1850 },
+      { weight: "7 g", price: 1300 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3300 },
+    ],
+  },
+  {
+    name: "Red Bullz",
+    type: "cannabis flower",
+    strain: "Híbrido",
+    effects: ["Excitado", "Energético", "Enfocado"],
+    calmingLevel: 4.5,
+    thcLevel: 3,
+    prices: [
+      { weight: "7 g", price: 1500 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3600 },
+    ],
+  },
+  {
+    name: "White Runtz",
+    type: "cannabis flower",
+    strain: "Híbrido",
+    effects: ["Relajado", "Hormigueo", "Eufórico"],
+    calmingLevel: 2.5,
+    thcLevel: 3.5,
+    prices: [
+      { weight: "7 g", price: 1000 },
+      { weight: "14 g", price: 1650 },
+      { weight: "28 g", price: 3000 },
     ],
   },
 ]
@@ -405,6 +346,15 @@ const renderEffects = (effects: string[]) => {
     Enfocado: "🎯",
     Eufórico: "✨",
     Relajado: "🧘",
+    Energético: "⚡",
+    Charlatán: "💬",
+    Feliz: "😊",
+    Hormigueo: "🌟",
+    Elevado: "🚀",
+    Creativo: "🎨",
+    Excitado: "🔥",
+    Hambriento: "🍽️",
+    Risueño: "😄",
   }
 
   return (
@@ -413,7 +363,7 @@ const renderEffects = (effects: string[]) => {
       <div className="space-y-1">
         {effects.map((effect, index) => (
           <div key={index} className="flex items-center text-sm text-gray-600">
-            <span className="mr-2">{effectIcons[effect as keyof typeof effectIcons]}</span>
+            <span className="mr-2">{effectIcons[effect as keyof typeof effectIcons] || "🌿"}</span>
             <span>{effect}</span>
           </div>
         ))}
@@ -473,8 +423,51 @@ const ProductImage = ({
   )
 }
 
+const toTitleCase = (str: string) => {
+  return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
+}
+
+const getDailyPromo = () => {
+  const today = new Date()
+  const dayOfMonth = today.getDate()
+  const dayOfWeek = today.getDay() // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+  // Días específicos del mes (7, 14, 21, 28)
+  if ([7, 14, 21, 28].includes(dayOfMonth)) {
+    return {
+      title: "Promo del Día",
+      text: "7g por $500 en las flores Green House (Lantz, Mt. Hood Magic, Guava y Golden Goat) y 7g por $777 en cualquier flor Indoor (todas las demás del catálogo) - Pregunta por tu promo",
+      bgColor: "bg-gradient-to-r from-purple-600 to-purple-700",
+      textColor: "text-white",
+    }
+  }
+
+  // Martes (día 2)
+  if (dayOfWeek === 2) {
+    return {
+      title: "Promo del Día - Martes",
+      text: "Los prerolados STIIIZY y Sluggers en $1150 - Pregunta por tu promo",
+      bgColor: "bg-gradient-to-r from-green-600 to-green-700",
+      textColor: "text-white",
+    }
+  }
+
+  // Jueves (día 4)
+  if (dayOfWeek === 4) {
+    return {
+      title: "Promo del Día - Jueves",
+      text: "Todos los vapes en $1150 - Pregunta por tu promo",
+      bgColor: "bg-gradient-to-r from-orange-500 to-red-600",
+      textColor: "text-white",
+    }
+  }
+
+  return null
+}
+
 export default function DispensarioPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const dailyPromo = getDailyPromo()
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -486,14 +479,30 @@ export default function DispensarioPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-purple-50 to-green-50">
+      {dailyPromo && (
+        <div className={`${dailyPromo.bgColor} ${dailyPromo.textColor} py-3 px-4 text-center relative overflow-hidden`}>
+          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="relative z-10 container mx-auto">
+            <div className="flex items-center justify-center space-x-2 animate-pulse">
+              <span className="font-bold text-sm md:text-base">{dailyPromo.title}:</span>
+              <span className="text-sm md:text-base">{dailyPromo.text}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-green-200 shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <LeafIcon className="h-8 w-8 text-green-600" />
+            <div className="flex items-center space-x-3">
+              <img
+                src="/images/smoke-duck-logo.png"
+                alt="Smoke Duck Logo"
+                className="h-10 w-10 rounded-full object-cover"
+              />
               <span className="text-2xl font-bold bg-gradient-to-r from-green-600 to-purple-600 bg-clip-text text-transparent">
-                Dispensario Premium
+                SMOKE DUCK
               </span>
             </div>
 
@@ -506,37 +515,7 @@ export default function DispensarioPage() {
                 Inicio
               </button>
 
-              {/* Dropdown Menu for Products */}
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="text-gray-700 hover:text-green-600 transition-colors font-medium">
-                    Productos <ChevronDownIcon className="ml-1 h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56">
-                  <DropdownMenuLabel>Vapes</DropdownMenuLabel>
-                  {vapesProducts.slice(0, 5).map((product) => (
-                    <DropdownMenuItem
-                      key={product.name}
-                      onClick={() => scrollToSection("vapes")}
-                      className="cursor-pointer"
-                    >
-                      {product.name}
-                    </DropdownMenuItem>
-                  ))}
-                  <DropdownMenuSeparator />
-                  <DropdownMenuLabel>Flowers</DropdownMenuLabel>
-                  {flowersProducts.slice(0, 5).map((product) => (
-                    <DropdownMenuItem
-                      key={product.name}
-                      onClick={() => scrollToSection("flowers")}
-                      className="cursor-pointer"
-                    >
-                      {product.name}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
+              
 
               <button
                 onClick={() => scrollToSection("vapes")}
@@ -597,31 +576,33 @@ export default function DispensarioPage() {
       </header>
 
       {/* Hero Section */}
-      <section id="inicio" className="py-20 px-4">
-        <div className="container mx-auto text-center">
+      <section
+        id="inicio"
+        className="px-4 relative bg-cover bg-center bg-no-repeat min-h-screen"
+        style={{
+          backgroundImage: "url('/images/smoke-duck-hero-bg.jpg')",
+        }}
+      >
+        <div className="container mx-auto text-center relative z-10 h-full flex items-end justify-center min-h-screen pb-20 font-bold text-black">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-              Catálogo Premium
-            </h2>
-            <p className="text-xl md:text-2xl text-gray-700 mb-8 leading-relaxed">
-              Descubre nuestra selección exclusiva de productos de la más alta calidad
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-start">
               <Button
                 size="lg"
                 onClick={() => scrollToSection("vapes")}
-                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black"
               >
-                Ver Vapes
+                VER VAPES
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => scrollToSection("flowers")}
-                className="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-              >
-                Ver Flowers
-              </Button>
+
+
+
+ <Button
+  size="lg"
+  onClick={() => scrollToSection("flowers")}
+  className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black"
+>
+  VER FLOWERS
+</Button>
             </div>
           </div>
         </div>
@@ -632,11 +613,8 @@ export default function DispensarioPage() {
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-              Vapes Premium
+              Vapes
             </h3>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Cartuchos y productos vaporizables de las mejores marcas
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -650,11 +628,13 @@ export default function DispensarioPage() {
                     <ProductImage productName={product.name} category="vapes" alt={product.name} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <CardTitle className="text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors">
+                  <CardTitle className="text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
                     {product.name}
                   </CardTitle>
-                  {product.description && (
-                    <p className="text-sm text-gray-600 line-clamp-2 mt-1">{product.description}</p>
+                  {product.strain && (
+                    <div className="w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                      {toTitleCase(product.strain)}
+                    </div>
                   )}
                 </CardHeader>
                 <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
@@ -668,7 +648,7 @@ export default function DispensarioPage() {
                   </div>
                   <Button
                     onClick={() => openWhatsApp(product.name)}
-                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 shadow-md hover:shadow-lg transition-all duration-300"
+                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
                   >
                     <WhatsAppIcon className="w-4 h-4 mr-2" />
                     Contáctanos
@@ -685,11 +665,8 @@ export default function DispensarioPage() {
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-purple-700 bg-clip-text text-transparent">
-              Flowers Premium
+              Flowers
             </h3>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Flores de cannabis de la más alta calidad y potencia
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -703,40 +680,36 @@ export default function DispensarioPage() {
                     <ProductImage productName={product.name} category="flowers" alt={product.name} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <CardTitle className="text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-purple-700 transition-colors">
+                  <CardTitle className="text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-purple-700 transition-colors mb-1">
                     {product.name}
                   </CardTitle>
+                  {product.strain && (
+                    <div className="w-fit bg-white text-purple-700 border border-purple-600 hover:bg-purple-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
+                      {toTitleCase(product.strain)}
+                    </div>
+                  )}
                   {product.description && (
                     <p className="text-sm text-gray-600 line-clamp-2 mt-1">{product.description}</p>
                   )}
-                </CardHeader>
-                <CardContent className="p-4 pt-0 flex flex-col">
-                  <Badge variant="secondary" className="w-fit mb-3 bg-purple-100 text-purple-800 hover:bg-purple-200">
-                    {product.strain}
-                  </Badge>
-
                   {product.effects && renderEffects(product.effects)}
-
-                  {product.calmingLevel && renderLevelBar(product.calmingLevel, "energizante", "calmante")}
-
+                  {product.calmingLevel && renderLevelBar(product.calmingLevel, "Calmante", "Energizante")}
                   {product.thcLevel &&
-                    renderLevelBar(product.thcLevel, "bajo contenido de THC", "alto contenido de THC")}
-
-                  <div className="space-y-2 mt-auto mb-3">
-                    {product.prices.map((priceOption, priceIndex) => (
-                      <div
-                        key={priceIndex}
-                        className="flex items-center justify-between bg-gray-50 rounded-lg px-3 py-2"
-                      >
+                    product.name !== "Gak Bx1" &&
+                    product.name !== "Red Bullz" &&
+                    renderLevelBar(product.thcLevel, "Bajo contenido de THC", "Alto contenido de THC")}
+                </CardHeader>
+                <CardContent className="p-4 pt-0">
+                  <div className="space-y-2 mb-4">
+                    {product.prices?.map((priceOption, priceIndex) => (
+                      <div key={priceIndex} className="flex justify-between items-center bg-purple-50 rounded-lg p-2">
                         <span className="text-sm font-medium text-gray-700">{priceOption.weight}</span>
                         <span className="text-lg font-bold text-purple-600">${priceOption.price}</span>
                       </div>
                     ))}
                   </div>
-
                   <Button
                     onClick={() => openWhatsApp(product.name)}
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white transition-colors duration-200"
+                    className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
                   >
                     <WhatsAppIcon className="w-4 h-4 mr-2" />
                     Contáctanos
@@ -752,8 +725,12 @@ export default function DispensarioPage() {
       <footer className="bg-gradient-to-r from-green-800 to-purple-800 text-white py-12">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center space-x-2 mb-6">
-            <LeafIcon className="h-8 w-8" />
-            <span className="text-2xl font-bold">Dispensario Premium</span>
+            <img
+              src="/images/smoke-duck-logo.png"
+              alt="Smoke Duck Logo"
+              className="h-8 w-8 rounded-full object-cover"
+            />
+            <span className="text-2xl font-bold">SMOKE DUCK</span>
           </div>
           <p className="text-green-100 mb-6 max-w-2xl mx-auto">
             Tu destino confiable para productos de cannabis de la más alta calidad. Experiencia premium garantizada.
