@@ -14,6 +14,13 @@ export const metadata: Metadata = {
   description:
     "Conoce aquí nuestro catálogo de productos de Vapes y Flowers. Haz tu pedido hoy. Contamos con envío a domicilio. Productos de cannabis legales, seguros y de la más alta calidad.",
   generator: "v0.dev",
+  // Se agrega la configuración del favicon aquí
+  icons: {
+    icon: "/images/smoke-duck-logo-favicon.png",
+  },
+   openGraph: {
+    images: "/images/smoke-duck-hero-bg.jpg",
+  },
 }
 
 export default function RootLayout({

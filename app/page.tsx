@@ -19,12 +19,6 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-const ChevronDownIcon = ({ className }: { className?: string }) => (
-  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-  </svg>
-)
-
 const vapesProducts = [
   {
     name: "STIIIZY 40s Blue Dream",
@@ -419,47 +413,49 @@ const toTitleCase = (str: string) => {
   return str.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
 }
 
-const getDailyPromo = () => {
+const getDailyPromos = () => {
   const today = new Date()
   const dayOfMonth = today.getDate()
   const dayOfWeek = today.getDay() // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
+  const promos = []
+
   // Días específicos del mes (7, 14, 21, 28)
   if ([7, 14, 21, 28].includes(dayOfMonth)) {
-    return {
+    promos.push({
       title: "Promo del Día",
       text: "7g por $500 en las flores Green House (Lantz, Mt. Hood Magic, Guava y Golden Goat) y 7g por $777 en cualquier flor Indoor (todas las demás del catálogo) - Pregunta por tu promo",
-      bgColor: "bg-gradient-to-r from-green-500 to-green-700",
+      bgColor: "bg-gradient-to-r from-purple-500 to-purple-700",
       textColor: "text-white",
-    }
+    })
   }
 
   // Martes (día 2)
   if (dayOfWeek === 2) {
-    return {
-      title: "Promo del Día - Martes",
+    promos.push({
+      title: "Promo del Día",
       text: "Los prerolados STIIIZY y Sluggers en $1150 - Pregunta por tu promo",
       bgColor: "bg-gradient-to-r from-green-500 to-green-700",
       textColor: "text-white",
-    }
+    })
   }
 
   // Jueves (día 4)
   if (dayOfWeek === 4) {
-    return {
-      title: "Promo del Día - Jueves",
+    promos.push({
+      title: "Promo del Día",
       text: "Todos los vapes en $1150 - Pregunta por tu promo",
-      bgColor: "bg-gradient-to-r from-green-500 to-green-700",
+      bgColor: "bg-gradient-to-r from-orange-500 to-red-600",
       textColor: "text-white",
-    }
+    })
   }
 
-  return null
+  return promos.length > 0 ? promos : null
 }
 
 export default function DispensarioPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const dailyPromo = getDailyPromo()
+  const dailyPromos = getDailyPromos()
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -471,20 +467,27 @@ export default function DispensarioPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-purple-50 to-green-50">
-      {dailyPromo && (
-        <div className={`${dailyPromo.bgColor} ${dailyPromo.textColor} py-3 px-4 text-center relative overflow-hidden`}>
-          <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative z-10 container mx-auto">
-            <div className="flex items-center justify-center space-x-2 animate-pulse">
-              <span className="font-bold text-sm md:text-base">{dailyPromo.title}:</span>
-              <span className="text-sm md:text-base">{dailyPromo.text}</span>
+      {dailyPromos && (
+        <div className="sticky top-20 z-40">
+          {dailyPromos.map((promo, index) => (
+            <div
+              key={index}
+              className={`${promo.bgColor} ${promo.textColor} py-3 px-4 text-center relative overflow-hidden`}
+            >
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="relative z-10 container mx-auto">
+                <div className="flex items-center justify-center space-x-2 animate-pulse">
+                  <span className="font-bold text-sm md:text-base">{promo.title}:</span>
+                  <span className="text-sm md:text-base">{promo.text}</span>
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       )}
 
       {/* Header */}
-      <header className="top-0 z-50 bg-white backdrop-blur-sm shadow-sm">
+      <header className="sticky top-0 z-40 bg-white backdrop-blur-sm shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -518,38 +521,63 @@ export default function DispensarioPage() {
             </nav>
 
             {/* Mobile Navigation */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
-            >
-              <ChevronDownIcon className="w-6 h-6" />
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden p-2">
+              <div className="w-6 h-6 flex flex-col justify-center items-center">
+                <span
+                  className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${mobileMenuOpen ? "rotate-45 translate-y-1" : "-translate-y-0.5"}`}
+                ></span>
+                <span
+                  className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${mobileMenuOpen ? "opacity-0" : "opacity-100"}`}
+                ></span>
+                <span
+                  className={`bg-gray-600 block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${mobileMenuOpen ? "-rotate-45 -translate-y-1" : "translate-y-0.5"}`}
+                ></span>
+              </div>
             </button>
-            {mobileMenuOpen && (
-              <nav className="md:hidden mt-4 pb-4 border-t border-green-200 pt-4">
-                <div className="flex flex-col space-y-4">
-                  <button
-                    onClick={() => scrollToSection("vapes")}
-                    className="text-left text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
-                  >
-                    VAPES
-                  </button>
-                  <button
-                    onClick={() => scrollToSection("flowers")}
-                    className="text-left text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
-                  >
-                    FLOWERS
-                  </button>
-                  <button
-                    onClick={() => scrollToSection("promos")}
-                    className="text-left text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
-                  >
-                    PROMOS
-                  </button>
-                </div>
-              </nav>
-            )}
           </div>
         </div>
+        {mobileMenuOpen && (
+          <div className="md:hidden fixed inset-0 bg-white z-50">
+            <div className="flex justify-between items-center p-4 border-b border-gray-200">
+              <div className="flex items-center space-x-3">
+                <img
+                  src="/images/smoke-duck-logo.png"
+                  alt="Smoke Duck Logo"
+                  className="h-12 w-12 rounded-full object-cover"
+                />
+                <span className="text-xl font-bold text-gray-800">SMOKE DUCK</span>
+              </div>
+              <button onClick={() => setMobileMenuOpen(false)} className="p-2">
+                <div className="w-6 h-6 flex flex-col justify-center items-center">
+                  <span className="bg-gray-600 block h-0.5 w-6 rounded-sm rotate-45 translate-y-0"></span>
+                  <span className="bg-gray-600 block h-0.5 w-6 rounded-sm -rotate-45 -translate-y-0.5"></span>
+                </div>
+              </button>
+            </div>
+            <nav className="p-6 bg-white">
+              <div className="flex flex-col space-y-6">
+                <button
+                  onClick={() => scrollToSection("vapes")}
+                  className="text-left text-lg text-gray-700 hover:text-green-600 transition-colors font-medium font-header py-3 border-b border-gray-100"
+                >
+                  VAPES
+                </button>
+                <button
+                  onClick={() => scrollToSection("flowers")}
+                  className="text-left text-lg text-gray-700 hover:text-green-600 transition-colors font-medium font-header py-3 border-b border-gray-100"
+                >
+                  FLOWERS
+                </button>
+                <button
+                  onClick={() => scrollToSection("promos")}
+                  className="text-left text-lg text-gray-700 hover:text-green-600 transition-colors font-medium font-header py-3 border-b border-gray-100"
+                >
+                  PROMOS
+                </button>
+              </div>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* Hero Section */}
