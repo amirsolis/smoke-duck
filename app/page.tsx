@@ -312,7 +312,7 @@ const flowersProducts = [
 ]
 
 const openWhatsApp = (productName: string) => {
-  const phoneNumber = "5255434372364"
+  const phoneNumber = "5215543472364"
   const message = `Hola! Me interesa el producto: ${productName}. ¿Podrías darme más información?`
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
   window.open(whatsappUrl, "_blank")
