@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { getProductImage } from "@/lib/product-images"
 
 // Reemplazando iconos de lucide-react con SVG inline
@@ -429,7 +429,7 @@ const getDailyPromo = () => {
     return {
       title: "Promo del Día",
       text: "7g por $500 en las flores Green House (Lantz, Mt. Hood Magic, Guava y Golden Goat) y 7g por $777 en cualquier flor Indoor (todas las demás del catálogo) - Pregunta por tu promo",
-      bgColor: "bg-gradient-to-r from-purple-600 to-purple-700",
+      bgColor: "bg-gradient-to-r from-green-500 to-green-700",
       textColor: "text-white",
     }
   }
@@ -439,7 +439,7 @@ const getDailyPromo = () => {
     return {
       title: "Promo del Día - Martes",
       text: "Los prerolados STIIIZY y Sluggers en $1150 - Pregunta por tu promo",
-      bgColor: "bg-gradient-to-r from-green-600 to-green-700",
+      bgColor: "bg-gradient-to-r from-green-500 to-green-700",
       textColor: "text-white",
     }
   }
@@ -449,7 +449,7 @@ const getDailyPromo = () => {
     return {
       title: "Promo del Día - Jueves",
       text: "Todos los vapes en $1150 - Pregunta por tu promo",
-      bgColor: "bg-gradient-to-r from-orange-500 to-red-600",
+      bgColor: "bg-gradient-to-r from-green-500 to-green-700",
       textColor: "text-white",
     }
   }
@@ -484,7 +484,7 @@ export default function DispensarioPage() {
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white backdrop-blur-sm shadow-sm">
+      <header className="top-0 z-50 bg-white backdrop-blur-sm shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -498,12 +498,6 @@ export default function DispensarioPage() {
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-8">
               <button
-                onClick={() => scrollToSection("inicio")}
-                className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
-              >
-                INICIO
-              </button>
-              <button
                 onClick={() => scrollToSection("vapes")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
               >
@@ -514,6 +508,12 @@ export default function DispensarioPage() {
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
               >
                 FLOWERS
+              </button>
+              <button
+                onClick={() => scrollToSection("promos")}
+                className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
+              >
+                PROMOS
               </button>
             </nav>
 
@@ -528,12 +528,6 @@ export default function DispensarioPage() {
               <nav className="md:hidden mt-4 pb-4 border-t border-green-200 pt-4">
                 <div className="flex flex-col space-y-4">
                   <button
-                    onClick={() => scrollToSection("inicio")}
-                    className="text-left text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
-                  >
-                    INICIO
-                  </button>
-                  <button
                     onClick={() => scrollToSection("vapes")}
                     className="text-left text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
                   >
@@ -544,6 +538,12 @@ export default function DispensarioPage() {
                     className="text-left text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
                   >
                     FLOWERS
+                  </button>
+                  <button
+                    onClick={() => scrollToSection("promos")}
+                    className="text-left text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
+                  >
+                    PROMOS
                   </button>
                 </div>
               </nav>
@@ -602,9 +602,9 @@ export default function DispensarioPage() {
                     <ProductImage productName={product.name} category="vapes" alt={product.name} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <CardTitle className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                  <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
                     {product.name}
-                  </CardTitle>
+                  </h3>
                   {product.strain && (
                     <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
                       {toTitleCase(product.strain)}
@@ -635,10 +635,10 @@ export default function DispensarioPage() {
       </section>
 
       {/* Flowers Section */}
-      <section id="flowers" className="py-16 px-4">
+      <section id="flowers" className="py-16 px-4 bg-white/100">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-purple-700 bg-clip-text text-transparent">
+            <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
               FLOWERS
             </h3>
           </div>
@@ -647,18 +647,18 @@ export default function DispensarioPage() {
             {flowersProducts.map((product, index) => (
               <Card
                 key={index}
-                className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white/90 backdrop-blur-sm border-purple-200"
+                className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white/90 backdrop-blur-sm border-gray-100"
               >
                 <CardHeader className="p-4">
                   <div className="relative overflow-hidden rounded-lg mb-3">
                     <ProductImage productName={product.name} category="flowers" alt={product.name} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
-                  <CardTitle className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-purple-700 transition-colors mb-1">
+                  <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
                     {product.name}
-                  </CardTitle>
+                  </h3>
                   {product.strain && (
-                    <div className="font-card w-fit bg-white text-purple-700 border border-purple-600 hover:bg-purple-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
+                    <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
                       {toTitleCase(product.strain)}
                     </div>
                   )}
@@ -675,15 +675,15 @@ export default function DispensarioPage() {
                 <CardContent className="p-4 pt-0">
                   <div className="space-y-2 mb-4">
                     {product.prices?.map((priceOption, priceIndex) => (
-                      <div key={priceIndex} className="flex justify-between items-center bg-purple-50 rounded-lg p-2">
+                      <div key={priceIndex} className="flex justify-between items-center bg-green-50 rounded-lg p-2">
                         <span className="text-sm font-medium text-gray-700">{priceOption.weight}</span>
-                        <span className="text-lg font-bold text-purple-600">${priceOption.price}</span>
+                        <span className="text-lg font-bold text-green-600">${priceOption.price}</span>
                       </div>
                     ))}
                   </div>
                   <Button
                     onClick={() => openWhatsApp(product.name)}
-                    className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
                   >
                     <WhatsAppIcon className="w-4 h-4 mr-2" />
                     Contáctanos
@@ -695,27 +695,139 @@ export default function DispensarioPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gradient-to-r from-green-800 to-purple-800 text-white py-12">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center space-x-2 mb-6">
-            <img
-              src="/images/smoke-duck-logo.png"
-              alt="Smoke Duck Logo"
-              className="h-8 w-8 rounded-full object-cover"
-            />
-            <span className="text-2xl font-bold">SMOKE DUCK</span>
+      {/* Promos Section */}
+      <section id="promos" className="py-16 px-4 bg-white/50">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl md:text-5xl font-bold mb-4 text-gray-700">PROMOS</h3>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">¡Aprovecha nuestras promociones especiales!</p>
           </div>
-          <p className="text-green-100 mb-6 max-w-2xl mx-auto">
-            Tu destino confiable para productos de cannabis de la más alta calidad. Experiencia premium garantizada.
-          </p>
-          <Button
-            onClick={() => scrollToSection("inicio")}
-            variant="outline"
-            className="border-white text-white hover:bg-white hover:text-green-800 transition-all duration-300"
-          >
-            Regresar al Inicio
-          </Button>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Promo Mensual */}
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-500 to-green-700 text-white border-0">
+              <CardHeader className="p-6">
+                <div className="text-center">
+                  <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">🌿</span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Promoción Mensual</h3>
+                  <p className="text-green-100 text-sm font-bold">Días 7, 14, 21 y 28 de cada mes</p>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 pt-0">
+                <div className="space-y-4">
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <h4 className="font-bold mb-2 text-white">🏠 Green House</h4>        
+                    <p className="text-sm text-green-200 mt-1 font-semibold">
+                    Lantz, Mt. Hood Magic, Guava y Golden Goat
+                    </p>
+                    <p className="text-2xl font-bold text-white">7g por $500</p>
+                  </div>
+                  <div className="bg-white/10 rounded-lg p-4">
+                    <h4 className="font-bold mb-2 text-white">🏢 Indoor</h4>
+                    <p className="text-sm text-green-200 mt-1 font-semibold">Todas las demás flores del catálogo</p>
+                    <p className="text-2xl font-bold text-white">7g por $777</p>
+                  </div>
+                </div>
+               
+              </CardContent>
+            </Card>
+
+            {/* Promo Martes */}
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-500 to-green-700 text-white border-0">
+              <CardHeader className="p-6">
+                <div className="text-center">
+                  <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">🚬</span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Martes de Prerolados</h3>
+                  <p className="text-green-100 text-sm font-bold">Todos los martes</p>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 pt-0">
+                <div className="bg-white/10 rounded-lg p-4 mb-4">
+                  <h4 className="font-bold mb-2 text-white">💨 Prerolados Premium</h4>
+                  <p className="text-sm text-green-100 font-semibold">STIIIZY y Sluggers</p>
+                  <p className="text-2xl font-bold text-white mt-2">$1,150</p>
+                </div>
+          
+              </CardContent>
+            </Card>
+
+            {/* Promo Jueves */}
+            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-500 to-green-700 text-white border-0">
+              <CardHeader className="p-6">
+                <div className="text-center">
+                  <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">💨</span>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Jueves de Vapes</h3>
+                  <p className="text-green-100 text-sm font-bold">Todos los jueves</p>
+                </div>
+              </CardHeader>
+              <CardContent className="p-6 pt-0">
+                <div className="bg-white/10 rounded-lg p-4 mb-4">
+                  <h4 className="font-bold mb-2 text-white">🔥 Todos los Vapes</h4>
+                  <p className="text-sm text-green-100 font-semibold">Cualquier vape del catálogo</p>
+                  <p className="text-2xl font-bold text-white mt-2">$1,150</p>
+                </div>
+             
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center mt-12">
+            <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-2xl mx-auto">
+              <h4 className="text-xl font-bold text-gray-800 mb-2">📱 ¿Cómo aplicar las promociones?</h4>
+              <p className="text-gray-600">
+                Da clic en el vape o flower que te interese para que nos contactes por 
+                WhatsApp para confirmar tu pedido, coméntanos que estás interesado en la promo para aplicar el descuento correspondiente.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-75 text-gray-800 py-12">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center space-x-2 mb-6">
+              <img
+                src="/images/smoke-duck-logo.png"
+                alt="Smoke Duck Logo"
+                className="h-20 w-20 rounded-full object-cover"
+              />
+              <span className="text-2xl font-bold text-gray-800">SMOKE DUCK</span>
+            </div>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
+            <button
+              onClick={() => scrollToSection("vapes")}
+              className="bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+            >
+              VAPES
+            </button>
+            <button
+              onClick={() => scrollToSection("flowers")}
+              className="bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+            >
+              FLOWERS
+            </button>
+            <button
+              onClick={() => scrollToSection("promos")}
+              className="bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+            >
+              PROMOS
+            </button>
+          </div>
+
+          <div className="text-center">
+            <p className="text-gray-500 text-sm">© 2025 Smoke Duck. Todos los derechos reservados.</p>
+          </div>
         </div>
       </footer>
     </div>
