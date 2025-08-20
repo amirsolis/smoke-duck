@@ -806,8 +806,7 @@ export default function DispensarioPage() {
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-2xl mx-auto">
               <h4 className="text-xl font-bold text-gray-800 mb-2">¿Cómo aplicar las promociones?</h4>
               <p className="text-gray-600">
-                Da clic en el vape o flower que te interese para que nos contactes por WhatsApp para confirmar tu
-                pedido, coméntanos que estás interesado en la promo para aplicar el descuento correspondiente.
+                Da clic en el vape o flower que te interesa para contáctarnos por  WhatsApp, coméntanos que estás interesado en la promo y te aplicamos el descuento correspondiente.
               </p>
             </div>
           </div>
