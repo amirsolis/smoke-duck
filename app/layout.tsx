@@ -10,8 +10,9 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Dispensario Premium - Catálogo",
-  description: "Catálogo premium de productos de cannabis de la más alta calidad",
+  title: "Smoke Duck - Catálogo Vapes y Flowers",
+  description:
+    "Conoce aquí nuestro catálogo de productos de Vapes y Flowers. Haz tu pedido hoy. Contamos con envío a domicilio. Productos de cannabis legales, seguros y de la más alta calidad.",
   generator: "v0.dev",
 }
 
