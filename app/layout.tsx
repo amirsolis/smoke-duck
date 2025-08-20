@@ -12,7 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Smoke Duck - Catálogo Vapes y Flowers",
   description:
-    "Conoce aquí nuestro catálogo de productos de Vapes y Flowers. Haz tu pedido hoy. Contamos con envío a domicilio. Productos de cannabis legales, seguros y de la más alta calidad.",
+    "Conoce aquí nuestro catálogo de productos de Vapes y Flowers. Haz tu pedido hoy. Envío a domicilio.",
   generator: "v0.dev",
   // Se agrega la configuración del favicon aquí
   icons: {

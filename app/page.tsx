@@ -321,7 +321,7 @@ const renderLevelBar = (level: number, leftLabel: string, rightLabel: string) =>
         <span>{rightLabel}</span>
       </div>
       <div className="w-full bg-gray-200 rounded-full h-2">
-        <div className="bg-gray-800 h-2 rounded-full transition-all duration-300" style={{ width: `${percentage}%` }} />
+        <div className="bg-green-600 h-2 rounded-full transition-all duration-300" style={{ width: `${percentage}%` }} />
       </div>
     </div>
   )
@@ -739,21 +739,21 @@ export default function DispensarioPage() {
                   <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl">🌿</span>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">Promoción Mensual</h3>
+                  <h3 className="text-xl font-bold mb-2">Promoción de Flowers</h3>
                   <p className="text-green-100 text-lg font-bold">Días 7, 14, 21 y 28 de cada mes</p>
                 </div>
               </CardHeader>
               <CardContent className="p-6 pt-0">
                 <div className="space-y-4">
                   <div className="bg-white/10 rounded-lg p-4">
-                    <h4 className="font-bold mb-2 text-white">🏠 Green House</h4>
+                    <h4 className="font-bold mb-2 text-white">Flowers Green House</h4>
                     <p className="text-sm text-green-200 mt-1 font-semibold">
                       Lantz, Mt. Hood Magic, Guava y Golden Goat
                     </p>
                     <p className="text-2xl font-bold text-white">7g por $500</p>
                   </div>
                   <div className="bg-white/10 rounded-lg p-4">
-                    <h4 className="font-bold mb-2 text-white">🏢 Indoor</h4>
+                    <h4 className="font-bold mb-2 text-white">Flowers Indoor</h4>
                     <p className="text-sm text-green-200 mt-1 font-semibold">Todas las demás flores del catálogo</p>
                     <p className="text-2xl font-bold text-white">7g por $777</p>
                   </div>
@@ -774,7 +774,7 @@ export default function DispensarioPage() {
               </CardHeader>
               <CardContent className="p-6 pt-0">
                 <div className="bg-white/10 rounded-lg p-4 mb-4">
-                  <h4 className="font-bold mb-2 text-white">💨 Prerolados Premium</h4>
+                  <h4 className="font-bold mb-2 text-white">Prerolados</h4>
                   <p className="text-sm text-green-100 font-semibold">STIIIZY y Sluggers</p>
                   <p className="text-2xl font-bold text-white mt-2">$1,150</p>
                 </div>
@@ -794,7 +794,7 @@ export default function DispensarioPage() {
               </CardHeader>
               <CardContent className="p-6 pt-0">
                 <div className="bg-white/10 rounded-lg p-4 mb-4">
-                  <h4 className="font-bold mb-2 text-white">🔥 Todos los Vapes</h4>
+                  <h4 className="font-bold mb-2 text-white">Todos los Vapes</h4>
                   <p className="text-sm text-green-100 font-semibold">Cualquier vape del catálogo</p>
                   <p className="text-2xl font-bold text-white mt-2">$1,150</p>
                 </div>
@@ -804,7 +804,7 @@ export default function DispensarioPage() {
 
           <div className="text-center mt-12">
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-2xl mx-auto">
-              <h4 className="text-xl font-bold text-gray-800 mb-2">📱 ¿Cómo aplicar las promociones?</h4>
+              <h4 className="text-xl font-bold text-gray-800 mb-2">¿Cómo aplicar las promociones?</h4>
               <p className="text-gray-600">
                 Da clic en el vape o flower que te interese para que nos contactes por WhatsApp para confirmar tu
                 pedido, coméntanos que estás interesado en la promo para aplicar el descuento correspondiente.
