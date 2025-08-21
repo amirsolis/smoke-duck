@@ -427,7 +427,7 @@ const getDailyPromos = () => {
   if ([7, 14, 21, 28].includes(dayOfMonth)) {
     promos.push({
       title: "Promo del Día",
-      text: "7g por $500 en las flores Green House y 7g por $777 en cualquier flor Indoor - Pregunta por tu promo",
+      text: "7g por $500 en las flores Green House y 7g por $777 en cualquier flor Indoor",
       bgColor: "bg-gradient-to-r from-purple-500 to-purple-700",
       textColor: "text-white",
     })
