@@ -828,7 +828,7 @@ export default function DispensarioPage() {
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-500 to-green-700 text-white border-0">
               <CardHeader className="p-6">
                 <div className="text-center">
-                  <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl">🌿</span>
                   </div>
                   <h3 className="text-xl font-bold mb-2">Promoción de Flowers</h3>
@@ -857,7 +857,7 @@ export default function DispensarioPage() {
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-500 to-green-700 text-white border-0">
               <CardHeader className="p-6">
                 <div className="text-center">
-                  <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl">🚬</span>
                   </div>
                   <h3 className="text-xl font-bold mb-2">Martes de Prerolados</h3>
@@ -877,7 +877,7 @@ export default function DispensarioPage() {
             <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-500 to-green-700 text-white border-0">
               <CardHeader className="p-6">
                 <div className="text-center">
-                  <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl">💨</span>
                   </div>
                   <h3 className="text-xl font-bold mb-2">Jueves de Vapes</h3>
