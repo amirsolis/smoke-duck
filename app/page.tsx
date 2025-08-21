@@ -22,123 +22,123 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 const vapesProducts = [
   {
     name: "STIIIZY 40s Blue Dream",
-    type: "vape cartridge",
+    type: ["vape", "stiiizy"],
     strain: "blue dream",
     description: "",
     content: "Cont. 1 pz",
   },
   {
     name: "CAKE OG Classics Hawaiian Guava",
-    type: "vape cartridge",
+    type: "vape",
     strain: "hawaiian guava",
     description: "",
     content: "Cont. 1 g",
   },
   {
     name: "BOUTIQ Switch Hawaiian Snow Sour Slush",
-    type: "vape cartridge",
+    type: "vape",
     strain: "hawaiian snow",
     content: "Cont. 1 g",
   },
   {
     name: "CAKE Designer Distillate Strawberry Mango",
-    type: "vape cartridge",
+    type: "vape",
     strain: "strawberry mango",
     content: "Cont. 1.25 g",
   },
   {
     name: "The Cure Company Papaya",
-    type: "vape cartridge",
+    type: "vape",
     strain: "papaya",
     content: "Cont. 1 g",
   },
   {
     name: "8-BIT BUDS Infused Live Rosin Piña Colada",
-    type: "vape cartridge",
+    type: "vape",
     strain: "piña colada",
     content: "Cont. 1 g",
   },
   {
     name: "Cure Injoy Strawnana",
-    type: "vape cartridge",
+    type: "vape",
     strain: "strawnana",
     content: "Cont. 1 g",
   },
   {
     name: "Muha Meds Live Resin Sour Diesel",
-    type: "vape cartridge",
+    type: "vape",
     strain: "sour diesel",
     content: "Cont. 1 g",
   },
   {
     name: "Cali Clear Sour Diesel",
-    type: "vape cartridge",
+    type: "vape",
     strain: "sour diesel",
     content: "Cont. 1 g",
   },
   {
     name: "Crystal Clear Blue Dream",
-    type: "vape cartridge",
+    type: "vape",
     strain: "blue dream",
     content: "Cont. 1 g",
   },
   {
     name: "DAB DADDY Thin Mint Cookies x Jealousy",
-    type: "vape cartridge",
+    type: "vape",
     strain: "thin mint cookies",
     content: "Cont. 1 g",
   },
   {
     name: "Gramlin Sour Apple Pie",
-    type: "vape cartridge",
+    type: "vape",
     strain: "sour apple pie",
     content: "Cont. 1 g",
   },
   {
     name: "Pretty Dope Strawberry Mimosa",
-    type: "vape cartridge",
+    type: "vape",
     strain: "strawberry mimosa",
     content: "Cont. 1 g",
   },
   {
     name: "Side Hustle Blue Dream",
-    type: "vape cartridge",
+    type: "vape",
     strain: "blue dream",
     content: "Cont. 1 g",
   },
   {
     name: "Gelato Green Crack",
-    type: "vape cartridge",
+    type: "vape",
     strain: "green crack",
     content: "Cont. 1 g",
   },
   {
     name: "Cabo Canabotanica",
-    type: "vape cartridge",
+    type: "vape",
     strain: "hybrid",
     content: "Cont. 1 g",
   },
   {
     name: "BIG CHIEF Pineapple Express",
-    type: "vape cartridge",
+    type: "vape",
     strain: "pineapple express",
     content: "Cont. 1 g",
   },
   {
     name: "West Coast Cure Orange Creamsicle",
-    type: "vape cartridge",
+    type: "vape",
     strain: "orange creamsicle",
     content: "Cont. 1 g",
   },
   {
     name: "Kushy Punch Blue Raspberry",
-    type: "gummies",
+    type: "vape",
     strain: "blue raspberry",
     content: "Cont. 1 g",
   },
   {
     name: "Eureka AIO Tropical Twist",
-    type: "gummies",
+    type: "vape",
     strain: "Tropical Twist",
     content: "Cont. 1 g",
   },
@@ -147,7 +147,7 @@ const vapesProducts = [
 const flowersProducts = [
   {
     name: "Blue Runtz",
-    type: "cannabis flower",
+    type: "indoor",
     strain: "Híbrido",
     description: "",
     effects: ["Relajado", "Hormigueo", "Eufórico"],
@@ -161,7 +161,7 @@ const flowersProducts = [
   },
   {
     name: "Gak Bx1",
-    type: "cannabis flower",
+    type: "indoor",
     strain: "Híbrido",
     description: "",
     effects: ["Energético", "Charlatán", "Feliz"],
@@ -175,7 +175,7 @@ const flowersProducts = [
   },
   {
     name: "Golden Goat",
-    type: "cannabis flower",
+    type: "green house",
     strain: "Híbrido",
     effects: ["Energético", "Enfocado", "Elevado"],
     calmingLevel: 4.5,
@@ -188,7 +188,7 @@ const flowersProducts = [
   },
   {
     name: "Guava",
-    type: "cannabis flower",
+    type: "green house",
     strain: "Sativa",
     effects: ["Charlatán", "Enfocado", "Energético"],
     calmingLevel: 4,
@@ -201,7 +201,7 @@ const flowersProducts = [
   },
   {
     name: "Lantz",
-    type: "cannabis flower",
+    type: "green house",
     strain: "Híbrido",
     effects: ["Enfocado", "Eufórico", "Relajado"],
     calmingLevel: 2.5,
@@ -214,7 +214,7 @@ const flowersProducts = [
   },
   {
     name: "Mt. Hood Magic",
-    type: "cannabis flower",
+    type: "green house",
     strain: "Híbrido",
     effects: ["Eufórico", "Elevado", "Creativo"],
     calmingLevel: 4,
@@ -227,7 +227,7 @@ const flowersProducts = [
   },
   {
     name: "Mixed Berry",
-    type: "cannabis flower",
+    type: "indoor",
     strain: "Híbrido",
     effects: ["Excitado", "Creativo", "Hambriento"],
     calmingLevel: 2.5,
@@ -240,7 +240,7 @@ const flowersProducts = [
   },
   {
     name: "OG Diesel Kush",
-    type: "cannabis flower",
+    type: "indoor",
     strain: "Híbrido",
     effects: ["Charlatán", "Feliz", "Creativo"],
     calmingLevel: 3.5,
@@ -253,7 +253,7 @@ const flowersProducts = [
   },
   {
     name: "Skittlez Mintz",
-    type: "cannabis flower",
+    type: "indoor",
     strain: "Híbrido",
     effects: ["Risueño", "Charlatán", "Hambriento"],
     calmingLevel: 3.5,
@@ -266,7 +266,7 @@ const flowersProducts = [
   },
   {
     name: "Agent Orange",
-    type: "cannabis flower",
+    type: "indoor",
     strain: "Híbrido",
     effects: ["Enfocado", "Elevado", "Feliz"],
     calmingLevel: 4.5,
@@ -279,7 +279,7 @@ const flowersProducts = [
   },
   {
     name: "Red Bullz",
-    type: "cannabis flower",
+    type: "indoor",
     strain: "Híbrido",
     effects: ["Excitado", "Energético", "Enfocado"],
     calmingLevel: 4.5,
@@ -292,7 +292,7 @@ const flowersProducts = [
   },
   {
     name: "White Runtz",
-    type: "cannabis flower",
+    type: "indoor",
     strain: "Híbrido",
     effects: ["Relajado", "Hormigueo", "Eufórico"],
     calmingLevel: 2.5,
@@ -427,7 +427,7 @@ const getDailyPromos = () => {
   if ([7, 14, 21, 28].includes(dayOfMonth)) {
     promos.push({
       title: "Promo del Día",
-      text: "7g por $500 en las flores Green House (Lantz, Mt. Hood Magic, Guava y Golden Goat) y 7g por $777 en cualquier flor Indoor (todas las demás del catálogo) - Pregunta por tu promo",
+      text: "7g por $500 en las flores Green House y 7g por $777 en cualquier flor Indoor - Pregunta por tu promo",
       bgColor: "bg-gradient-to-r from-purple-500 to-purple-700",
       textColor: "text-white",
     })
@@ -454,6 +454,109 @@ const getDailyPromos = () => {
   }
 
   return promos.length > 0 ? promos : null
+}
+
+const getPromotionalPrice = (product: any, category: "vapes" | "flowers") => {
+  const today = new Date()
+  const dayOfMonth = today.getDate()
+  const dayOfWeek = today.getDay() // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+  if (category === "vapes") {
+    // Martes: productos type "stiiizy" a $1150
+    if (dayOfWeek === 2) {
+      const types = Array.isArray(product.type) ? product.type : [product.type]
+      if (types.includes("stiiizy")) {
+        return { originalPrice: 1400, promoPrice: 1150, hasPromo: true }
+      }
+    }
+
+    // Jueves: todos los vapes a $1150
+    if (dayOfWeek === 4) {
+      return { originalPrice: 1400, promoPrice: 1150, hasPromo: true }
+    }
+
+    return { originalPrice: 1400, promoPrice: null, hasPromo: false }
+  }
+
+  if (category === "flowers") {
+    // Días 7, 14, 21, 28: green house 7g por $500, indoor 7g por $777
+    if ([7, 14, 21, 28].includes(dayOfMonth)) {
+      if (product.type === "green house") {
+        return {
+          originalPrice: product.prices[0].price,
+          promoPrice: 500,
+          hasPromo: true,
+          weight: "7g",
+        }
+      }
+      if (product.type === "indoor") {
+        return {
+          originalPrice: product.prices[0].price,
+          promoPrice: 777,
+          hasPromo: true,
+          weight: "7g",
+        }
+      }
+    }
+
+    return { originalPrice: null, promoPrice: null, hasPromo: false }
+  }
+
+  return { originalPrice: null, promoPrice: null, hasPromo: false }
+}
+
+const PriceDisplay = ({ product, category }: { product: any; category: "vapes" | "flowers" }) => {
+  const priceInfo = getPromotionalPrice(product, category)
+
+  if (category === "vapes") {
+    if (priceInfo.hasPromo) {
+      return (
+        <div className="flex items-center space-x-2">
+          <span className="text-2xl font-bold text-green-600">${priceInfo.promoPrice}</span>
+          <span className="text-sm text-gray-500 line-through">${priceInfo.originalPrice}</span>
+        </div>
+      )
+    }
+    return <span className="text-2xl font-bold text-green-600">${priceInfo.originalPrice}</span>
+  }
+
+  if (category === "flowers") {
+    if (priceInfo.hasPromo) {
+      return (
+        <div className="space-y-2 mb-4">
+          {/* Precio promocional destacado */}
+          <div className="flex justify-between items-center bg-green-100 border-2 border-green-500 rounded-lg p-3">
+            <span className="text-sm font-bold text-green-800"> {priceInfo.weight} </span>
+            <div className="flex items-center space-x-2">
+              <span className="text-xl font-bold text-green-600">${priceInfo.promoPrice}</span>
+              <span className="text-sm text-gray-500 line-through">${priceInfo.originalPrice}</span>
+            </div>
+          </div>
+          {/* Otros precios normales */}
+          {product.prices?.slice(1).map((priceOption: any, priceIndex: number) => (
+            <div key={priceIndex + 1} className="flex justify-between items-center bg-green-50 rounded-lg p-2">
+              <span className="text-sm font-medium text-gray-700">{priceOption.weight}</span>
+              <span className="text-lg font-bold text-green-600">${priceOption.price}</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    // Precios normales sin promoción
+    return (
+      <div className="space-y-2 mb-4">
+        {product.prices?.map((priceOption: any, priceIndex: number) => (
+          <div key={priceIndex} className="flex justify-between items-center bg-green-50 rounded-lg p-2">
+            <span className="text-sm font-medium text-gray-700">{priceOption.weight}</span>
+            <span className="text-lg font-bold text-green-600">${priceOption.price}</span>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
+  return null
 }
 
 export default function DispensarioPage() {
@@ -644,7 +747,7 @@ export default function DispensarioPage() {
                 </CardHeader>
                 <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-2xl font-bold text-green-600">$1,400</span>
+                    <PriceDisplay product={product} category="vapes" />
                     {product.content && (
                       <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
                         {product.content}
@@ -704,21 +807,7 @@ export default function DispensarioPage() {
                     renderLevelBar(product.thcLevel, "Bajo contenido de THC", "Alto contenido de THC")}
                 </CardHeader>
                 <CardContent className="p-4 pt-0">
-                  <div className="space-y-2 mb-4">
-                    {product.prices?.map((priceOption, priceIndex) => (
-                      <div key={priceIndex} className="flex justify-between items-center bg-green-50 rounded-lg p-2">
-                        <span className="text-sm font-medium text-gray-700">{priceOption.weight}</span>
-                        <span className="text-lg font-bold text-green-600">${priceOption.price}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <Button
-                    onClick={() => openWhatsApp(product.name)}
-                    className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
-                  >
-                    <WhatsAppIcon className="w-4 h-4 mr-2" />
-                    Contáctanos
-                  </Button>
+                  <PriceDisplay product={product} category="flowers" />
                 </CardContent>
               </Card>
             ))}
