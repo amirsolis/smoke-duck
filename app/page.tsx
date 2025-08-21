@@ -321,7 +321,10 @@ const renderLevelBar = (level: number, leftLabel: string, rightLabel: string) =>
         <span>{rightLabel}</span>
       </div>
       <div className="w-full bg-gray-200 rounded-full h-2">
-        <div className="bg-green-600 h-2 rounded-full transition-all duration-300" style={{ width: `${percentage}%` }} />
+        <div
+          className="bg-green-600 h-2 rounded-full transition-all duration-300"
+          style={{ width: `${percentage}%` }}
+        />
       </div>
     </div>
   )
@@ -468,7 +471,7 @@ export default function DispensarioPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-purple-50 to-green-50">
       {dailyPromos && (
-        <div className="sticky top-20 z-40">
+        <div className="relative z-50">
           {dailyPromos.map((promo, index) => (
             <div
               key={index}
@@ -487,7 +490,7 @@ export default function DispensarioPage() {
       )}
 
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white backdrop-blur-sm shadow-sm">
+      <header className="relative z-40 bg-white backdrop-blur-sm shadow-sm">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -558,19 +561,19 @@ export default function DispensarioPage() {
               <div className="flex flex-col space-y-6">
                 <button
                   onClick={() => scrollToSection("vapes")}
-                  className="text-left text-lg text-gray-700 hover:text-green-600 transition-colors font-medium font-header py-3 border-b border-gray-100"
+                  className="text-left text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100"
                 >
                   VAPES
                 </button>
                 <button
                   onClick={() => scrollToSection("flowers")}
-                  className="text-left text-lg text-gray-700 hover:text-green-600 transition-colors font-medium font-header py-3 border-b border-gray-100"
+                  className="text-left text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100"
                 >
                   FLOWERS
                 </button>
                 <button
                   onClick={() => scrollToSection("promos")}
-                  className="text-left text-lg text-gray-700 hover:text-green-600 transition-colors font-medium font-header py-3 border-b border-gray-100"
+                  className="text-left text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100"
                 >
                   PROMOS
                 </button>
@@ -806,7 +809,8 @@ export default function DispensarioPage() {
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-2xl mx-auto">
               <h4 className="text-xl font-bold text-gray-800 mb-2">¿Cómo aplicar las promociones?</h4>
               <p className="text-gray-600">
-                Da clic en el vape o flower que te interesa para contáctarnos por  WhatsApp, coméntanos que estás interesado en la promo y te aplicamos el descuento correspondiente.
+                Da clic en el vape o flower que te interesa para contáctarnos por WhatsApp, coméntanos que estás
+                interesado en la promo y te aplicamos el descuento correspondiente.
               </p>
             </div>
           </div>
