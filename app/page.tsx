@@ -778,39 +778,48 @@ export default function DispensarioPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {flowersProducts.map((product, index) => (
-              <Card
-                key={index}
-                className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white/90 backdrop-blur-sm border-gray-100"
-              >
-                <CardHeader className="p-4">
-                  <div className="relative overflow-hidden rounded-lg mb-3">
-                    <ProductImage productName={product.name} category="flowers" alt={product.name} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
-                    {product.name}
-                  </h3>
-                  {product.strain && (
-                    <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
-                      {toTitleCase(product.strain)}
+            {flowersProducts
+              .sort((a, b) => a.prices[0].price - b.prices[0].price)
+              .map((product, index) => (
+                <Card
+                  key={index}
+                  className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white/90 backdrop-blur-sm border-gray-100"
+                >
+                  <CardHeader className="p-4">
+                    <div className="relative overflow-hidden rounded-lg mb-3">
+                      <ProductImage productName={product.name} category="flowers" alt={product.name} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
-                  )}
-                  {product.description && (
-                    <p className="text-sm text-gray-600 line-clamp-2 mt-1">{product.description}</p>
-                  )}
-                  {product.effects && renderEffects(product.effects)}
-                  {product.calmingLevel && renderLevelBar(product.calmingLevel, "Calmante", "Energizante")}
-                  {product.thcLevel &&
-                    product.name !== "Gak Bx1" &&
-                    product.name !== "Red Bullz" &&
-                    renderLevelBar(product.thcLevel, "Bajo contenido de THC", "Alto contenido de THC")}
-                </CardHeader>
-                <CardContent className="p-4 pt-0">
-                  <PriceDisplay product={product} category="flowers" />
-                </CardContent>
-              </Card>
-            ))}
+                    <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                      {product.name}
+                    </h3>
+                    {product.strain && (
+                      <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
+                        {toTitleCase(product.strain)}
+                      </div>
+                    )}
+                    {product.description && (
+                      <p className="text-sm text-gray-600 line-clamp-2 mt-1">{product.description}</p>
+                    )}
+                    {product.effects && renderEffects(product.effects)}
+                    {product.calmingLevel && renderLevelBar(product.calmingLevel, "Calmante", "Energizante")}
+                    {product.thcLevel &&
+                      product.name !== "Gak Bx1" &&
+                      product.name !== "Red Bullz" &&
+                      renderLevelBar(product.thcLevel, "Bajo contenido de THC", "Alto contenido de THC")}
+                  </CardHeader>
+                  <CardContent className="p-4 pt-0">
+                    <PriceDisplay product={product} category="flowers" />
+                    <Button
+                      onClick={() => openWhatsApp(product.name)}
+                      className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                    >
+                      <WhatsAppIcon className="w-4 h-4 mr-2" />
+                      Contáctanos
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
           </div>
         </div>
       </section>
