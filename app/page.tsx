@@ -14,8 +14,8 @@ const LeafIcon = ({ className }: { className?: string }) => (
 )
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
-  <svg className={className} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-.272.778-.272 1.188 0 .297.198.595.272.793.173.198.446.347.644.446.198.099.396.149.595.149.198 0 .396-.05.595-.149.198-.099.371-.248.544-.446.173-.198.272-.495.272-.793 0-.41 0-.891-.272-1.188-.272-.298-.594-.372-.792-.372-.199 0-.397.002-.57.01-.182.01-.427-.069-.669-.51-.247-.595-.841-2.058-.916-2.207-.075-.149-.124-.322-.025-.52.1.199.149.323.298.497.148.173.312.387.446.52.148.148.303.309.13.606-.173.298-.77 1.271-1.653 2.059-1.135 1.012 2.093 1.325 2.39 1.475.297.148.471.124.644.075.173.198.743.867.94 1.164.199.298.397.249.67.15.272-.1 1.733-.818 2.03-.967.297-.149.495-.223.495-.372 0-.148-.198-.297-.495-.446z" />
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24">
+    <path d="M12.017 2.011c-5.506 0-9.989 4.483-9.989 9.989 0 1.75.46 3.49 1.34 5.011L2.011 22l5.06-1.327c1.45.78 3.08 1.194 4.946 1.194 5.506 0 9.989-4.483 9.989-9.989S17.523 2.011 12.017 2.011zm0 18.178c-1.51 0-2.99-.41-4.28-1.18l-.31-.18-3.18.83.85-3.11-.2-.32c-.85-1.35-1.3-2.91-1.3-4.52 0-4.68 3.81-8.49 8.49-8.49s8.49 3.81 8.49 8.49-3.81 8.49-8.49 8.49zm4.66-6.36c-.26-.13-1.52-.75-1.75-.84-.24-.08-.41-.13-.58.13-.17.26-.66.84-.81 1.01-.15.17-.3.19-.56.06-.26-.13-1.1-.41-2.1-1.3-.78-.69-1.3-1.54-1.45-1.8-.15-.26-.02-.4.11-.53.12-.12.26-.3.39-.45.13-.15.17-.26.26-.43.09-.17.04-.32-.02-.45-.07-.13-.58-1.4-.8-1.92-.21-.5-.42-.43-.58-.44-.15-.01-.32-.01-.49-.01-.17 0-.45.06-.69.32-.24.26-.92.9-.92 2.2s.94 2.55 1.07 2.73c.13.17 1.88 2.87 4.55 4.02.64.28 1.14.44 1.53.57.64.2 1.23.17 1.69.1.52-.08.92-.33 1.05-.65.13-.32.13-.6.09-.65-.04-.06-.17-.1-.36-.18z" />
   </svg>
 )
 
@@ -698,22 +698,22 @@ export default function DispensarioPage() {
               </button>
             </div>
             <nav className="p-6 bg-white">
-              <div className="flex flex-col space-y-6 items-center">
+              <div className="flex flex-col space-y-6 justify-center items-center">
                 <button
                   onClick={() => scrollToSection("vapes")}
-                  className="text-center text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 px-6 py-2"
+                  className="w-full max-w-xs text-center text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
                   VAPES
                 </button>
                 <button
                   onClick={() => scrollToSection("flowers")}
-                  className="text-center text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 px-6 py-2"
+                  className="w-full max-w-xs text-center text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
                   FLOWERS
                 </button>
                 <button
                   onClick={() => scrollToSection("promos")}
-                  className="text-center text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 px-6 py-2"
+                  className="w-full max-w-xs text-center text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
                   PROMOS
                 </button>
