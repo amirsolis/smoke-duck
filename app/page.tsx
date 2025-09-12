@@ -559,6 +559,36 @@ const PriceDisplay = ({ product, category }: { product: any; category: "vapes" |
   return null
 }
 
+const CalendarIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6.75 3v2.25M17.25 3v2.25m3 8.25v-1.5a3 3 0 00-3-3H6.75a3 3 0 00-3 3v1.5m3 0V15a2.25 2.25 0 002.25 2.25h9A2.25 2.25 0 0021 15v-2.25M3 12h18m-9-4.5v9m4.5-4.5v4.5m-9-4.5v4.5"
+    />
+  </svg>
+)
+
+const VapeIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z"
+    />
+  </svg>
+)
+
+const FlowerIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="1.5">
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"
+    />
+  </svg>
+)
+
 export default function DispensarioPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dailyPromos = getDailyPromos()
@@ -569,6 +599,13 @@ export default function DispensarioPage() {
       element.scrollIntoView({ behavior: "smooth" })
     }
     setMobileMenuOpen(false)
+  }
+
+  const openWhatsAppFooter = () => {
+    const phoneNumber = "5255434372364"
+    const message = "Hola! Me gustaría obtener más información sobre sus productos."
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, "_blank")
   }
 
   return (
@@ -689,25 +726,25 @@ export default function DispensarioPage() {
       {/* Hero Section */}
       <section
         id="inicio"
-        className="px-4 relative bg-cover bg-center bg-no-repeat min-h-screen"
+        className="px-4 relative bg-cover bg-center bg-no-repeat min-h-[70vh] md:min-h-screen"
         style={{
           backgroundImage: "url('/images/smoke-duck-hero-bg.jpg')",
         }}
       >
-        <div className="container mx-auto text-center relative z-10 h-full flex items-end justify-center min-h-screen pb-20 font-bold text-black">
+        <div className="container mx-auto text-center relative z-10 h-full flex items-end justify-center min-h-[70vh] md:min-h-screen pb-20 font-bold text-black">
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col sm:flex-row gap-4 justify-start">
               <Button
                 size="lg"
                 onClick={() => scrollToSection("vapes")}
-                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header"
+                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header w-full sm:w-auto mx-7 sm:mx-0"
               >
                 VER VAPES
               </Button>
               <Button
                 size="lg"
                 onClick={() => scrollToSection("flowers")}
-                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header"
+                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header w-full sm:w-auto mx-7 sm:mx-0"
               >
                 VER FLOWERS
               </Button>
@@ -765,6 +802,16 @@ export default function DispensarioPage() {
               </Card>
             ))}
           </div>
+
+          <div className="text-center mt-8">
+            <Button
+              onClick={() => openWhatsApp("Quiero preguntar por todos los productos de vapes")}
+              className="bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+            >
+              <WhatsAppIcon className="w-4 h-4 mr-2" />
+              Pregunta por todos los productos
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -821,6 +868,16 @@ export default function DispensarioPage() {
                 </Card>
               ))}
           </div>
+
+          <div className="text-center mt-8">
+            <Button
+              onClick={() => openWhatsApp("Quiero preguntar por todos los productos de flowers")}
+              className="bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+            >
+              <WhatsAppIcon className="w-4 h-4 mr-2" />
+              Pregunta por todos los productos
+            </Button>
+          </div>
         </div>
       </section>
 
@@ -834,70 +891,89 @@ export default function DispensarioPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Promo Mensual */}
-            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-500 to-green-700 text-white border-0">
-              <CardHeader className="p-6">
-                <div className="text-center">
-                  <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl">🌿</span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Promoción de Flowers</h3>
-                  <p className="text-green-100 text-lg font-bold">Días 7, 14, 21 y 28 de cada mes</p>
+            <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
+              <CardHeader className="p-4">
+                <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                  <img
+                    src="https://res.cloudinary.com/dmfczq42y/image/upload/v1755130016/blue-runtz_dsey5w.jpg"
+                    alt="OG Diesel Kush"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                  Promoción de Flowers
+                </h3>
+                <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                  Días 7, 14, 21 y 28
                 </div>
               </CardHeader>
-              <CardContent className="p-6 pt-0">
-                <div className="space-y-4">
-                  <div className="bg-white/10 rounded-lg p-4">
-                    <h4 className="font-bold mb-2 text-white">Flowers Green House</h4>
-                    <p className="text-sm text-green-200 mt-1 font-semibold">
-                      Lantz, Mt. Hood Magic, Guava y Golden Goat
-                    </p>
-                    <p className="text-2xl font-bold text-white">7g por $500</p>
+              <CardContent className="p-4 pt-0">
+                <div className="space-y-3 mb-4">
+                  <div className="bg-green-50 rounded-lg p-3">
+                    <h4 className="font-bold text-green-800 text-sm">Green House</h4>
+                    <p className="text-xs text-gray-600 mt-1">Lantz, Mt. Hood Magic, Guava y Golden Goat</p>
+                    <p className="text-lg font-bold text-green-600">7g por $500</p>
                   </div>
-                  <div className="bg-white/10 rounded-lg p-4">
-                    <h4 className="font-bold mb-2 text-white">Flowers Indoor</h4>
-                    <p className="text-sm text-green-200 mt-1 font-semibold">Todas las demás flores del catálogo</p>
-                    <p className="text-2xl font-bold text-white">7g por $777</p>
+                  <div className="bg-green-50 rounded-lg p-3">
+                    <h4 className="font-bold text-green-800 text-sm">Indoor</h4>
+                    <p className="text-xs text-gray-600 mt-1">Todas las demás flores del catálogo</p>
+                    <p className="text-lg font-bold text-green-600">7g por $777</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
             {/* Promo Martes */}
-            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-500 to-green-700 text-white border-0">
-              <CardHeader className="p-6">
-                <div className="text-center">
-                  <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl">🚬</span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Martes de Prerolados</h3>
-                  <p className="text-green-100 text-lg font-bold">Todos los martes</p>
+            <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
+              <CardHeader className="p-4">
+                <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                  <img
+                    src="https://i.imgur.com/gL2oPH6.jpeg"
+                    alt="STIIIZY 40s Blue Dream"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                  Martes de Prerolados
+                </h3>
+                <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                  Todos los martes
                 </div>
               </CardHeader>
-              <CardContent className="p-6 pt-0">
-                <div className="bg-white/10 rounded-lg p-4 mb-4">
-                  <h4 className="font-bold mb-2 text-white">Prerolados</h4>
-                  <p className="text-sm text-green-100 font-semibold">STIIIZY y Sluggers</p>
-                  <p className="text-2xl font-bold text-white mt-2">$1,150</p>
+              <CardContent className="p-4 pt-0">
+                <div className="bg-green-50 rounded-lg p-4 mb-4">
+                  <h4 className="font-bold text-green-800 mb-2">Prerolados</h4>
+                  <p className="text-sm text-gray-600 font-semibold">STIIIZY y Sluggers</p>
+                  <p className="text-2xl font-bold text-green-600 mt-2">$1,150</p>
                 </div>
               </CardContent>
             </Card>
 
             {/* Promo Jueves */}
-            <Card className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 bg-gradient-to-br from-green-500 to-green-700 text-white border-0">
-              <CardHeader className="p-6">
-                <div className="text-center">
-                  <div className="bg-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl">💨</span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Jueves de Vapes</h3>
-                  <p className="text-green-100 text-lg font-bold">Todos los jueves</p>
+            <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
+              <CardHeader className="p-4">
+                <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                  <img
+                    src="https://i.imgur.com/HvcPOHl.jpeg"
+                    alt="BIG CHIEF Pineapple Express"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                  Jueves de Vapes
+                </h3>
+                <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                  Todos los jueves
                 </div>
               </CardHeader>
-              <CardContent className="p-6 pt-0">
-                <div className="bg-white/10 rounded-lg p-4 mb-4">
-                  <h4 className="font-bold mb-2 text-white">Todos los Vapes</h4>
-                  <p className="text-sm text-green-100 font-semibold">Cualquier vape del catálogo</p>
-                  <p className="text-2xl font-bold text-white mt-2">$1,150</p>
+              <CardContent className="p-4 pt-0">
+                <div className="bg-green-50 rounded-lg p-4 mb-4">
+                  <h4 className="font-bold text-green-800 mb-2">Todos los Vapes</h4>
+                  <p className="text-sm text-gray-600 font-semibold">Cualquier vape del catálogo</p>
+                  <p className="text-2xl font-bold text-green-600 mt-2">$1,150</p>
                 </div>
               </CardContent>
             </Card>
@@ -930,24 +1006,31 @@ export default function DispensarioPage() {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
+          <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-8">
             <button
               onClick={() => scrollToSection("vapes")}
-              className="bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
             >
               VAPES
             </button>
             <button
               onClick={() => scrollToSection("flowers")}
-              className="bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
             >
               FLOWERS
             </button>
             <button
               onClick={() => scrollToSection("promos")}
-              className="bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
             >
               PROMOS
+            </button>
+            <button
+              onClick={openWhatsAppFooter}
+              className="w-full sm:w-32 bg-green-600 text-white hover:bg-green-700 px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-green-600 flex items-center justify-center"
+            >
+              <WhatsAppIcon className="w-4 h-4 mr-2" />
+              WHATSAPP
             </button>
           </div>
 
