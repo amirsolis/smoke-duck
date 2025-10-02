@@ -41,12 +41,6 @@ const vapesProducts = [
     content: "Cont. 1 g",
   },
   {
-    name: "CAKE Designer Distillate Strawberry Mango",
-    type: "vape",
-    strain: "strawberry mango",
-    content: "Cont. 1.25 g",
-  },
-  {
     name: "The Cure Company Papaya",
     type: "vape",
     strain: "papaya",
@@ -698,22 +692,22 @@ export default function DispensarioPage() {
               </button>
             </div>
             <nav className="p-6 bg-white">
-              <div className="flex flex-col space-y-6 justify-center items-center">
+              <div className="flex flex-col space-y-6 justify-center items-end">
                 <button
                   onClick={() => scrollToSection("vapes")}
-                  className="w-full max-w-xs text-center text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
+                  className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
                   VAPES
                 </button>
                 <button
                   onClick={() => scrollToSection("flowers")}
-                  className="w-full max-w-xs text-center text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
+                  className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
                   FLOWERS
                 </button>
                 <button
                   onClick={() => scrollToSection("promos")}
-                  className="w-full max-w-xs text-center text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
+                  className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
                   PROMOS
                 </button>
@@ -733,18 +727,18 @@ export default function DispensarioPage() {
       >
         <div className="container mx-auto text-center relative z-10 h-full flex items-end justify-center min-h-[70vh] md:min-h-screen pb-20 font-bold text-black">
           <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col sm:flex-row gap-4 justify-start">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={() => scrollToSection("vapes")}
-                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header w-full sm:w-auto mx-7 sm:mx-0"
+                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header w-full sm:w-auto"
               >
                 VER VAPES
               </Button>
               <Button
                 size="lg"
                 onClick={() => scrollToSection("flowers")}
-                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header w-full sm:w-auto mx-7 sm:mx-0"
+                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header w-full sm:w-auto"
               >
                 VER FLOWERS
               </Button>
