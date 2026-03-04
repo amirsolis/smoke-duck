@@ -299,6 +299,49 @@ const flowersProducts = [
   },
 ]
 
+const preRoladosProducts = [
+  {
+    name: "Smoke Duck",
+    type: "prerolado",
+    strain: "pre rolado infusado",
+    description: "",
+    content: "Cont. 5 cigarros",
+    price: 800,
+  },
+  {
+    name: "Stiiizy 2.5g",
+    type: ["prerolado", "stiiizy"],
+    strain: "pre rolado infusado",
+    description: "",
+    content: "Cont. 5 cigarros",
+    price: 1550,
+  },
+  {
+    name: "Stiiizy 1g",
+    type: ["prerolado", "stiiizy"],
+    strain: "pre rolado infusado",
+    description: "",
+    content: "Cont. 1 cigarro",
+    price: 850,
+  },
+  {
+    name: "Baby Jeeters 2.5g",
+    type: "prerolado",
+    strain: "pre rolado infusado",
+    description: "",
+    content: "Cont. 5 cigarros",
+    price: 1750,
+  },
+  {
+    name: "Moon Rock Presidencial 1g",
+    type: "prerolado",
+    strain: "pre rolado infusado",
+    description: "",
+    content: "Cont. 1 cigarro",
+    price: 950,
+  },
+]
+
 const openWhatsApp = (productName: string) => {
   const phoneNumber = "5215573551881"
   const message = `Hola! Estoy interesado en el ${productName}. ¿Podrías darme más información?`
@@ -650,6 +693,12 @@ export default function DispensarioPage() {
                 FLOWERS
               </button>
               <button
+                onClick={() => scrollToSection("prerolados")}
+                className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
+              >
+                PRE ROLADOS
+              </button>
+              <button
                 onClick={() => scrollToSection("promos")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
               >
@@ -704,6 +753,12 @@ export default function DispensarioPage() {
                   className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
                   FLOWERS
+                </button>
+                <button
+                  onClick={() => scrollToSection("prerolados")}
+                  className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
+                >
+                  PRE ROLADOS
                 </button>
                 <button
                   onClick={() => scrollToSection("promos")}
@@ -875,6 +930,68 @@ export default function DispensarioPage() {
         </div>
       </section>
 
+      {/* Pre Rolados Section */}
+      <section id="prerolados" className="py-16 px-4 bg-white/50">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+              PRE ROLADOS
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {preRoladosProducts.map((product, index) => (
+              <Card
+                key={index}
+                className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col"
+              >
+                <CardHeader className="p-4 flex-shrink-0">
+                  <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                    <ProductImage productName={product.name} category="vapes" alt={product.name} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                    {product.name}
+                  </h3>
+                  {product.strain && (
+                    <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                      {toTitleCase(product.strain)}
+                    </div>
+                  )}
+                </CardHeader>
+                <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-2xl font-bold text-green-600">${product.price}</span>
+                    {product.content && (
+                      <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                        {product.content}
+                      </span>
+                    )}
+                  </div>
+                  <Button
+                    onClick={() => openWhatsApp(product.name)}
+                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                  >
+                    <WhatsAppIcon className="w-4 h-4 mr-2" />
+                    Contáctanos
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <Button
+              onClick={() => openWhatsApp("Quiero preguntar por todos los pre rolados")}
+              className="bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+            >
+              <WhatsAppIcon className="w-4 h-4 mr-2" />
+              Pregunta por todos los productos
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Promos Section */}
       <section id="promos" className="py-16 px-4 bg-white/50">
         <div className="container mx-auto">
@@ -1033,6 +1150,12 @@ export default function DispensarioPage() {
               className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
             >
               FLOWERS
+            </button>
+            <button
+              onClick={() => scrollToSection("prerolados")}
+              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+            >
+              PRE ROLADOS
             </button>
             <button
               onClick={() => scrollToSection("promos")}
