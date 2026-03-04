@@ -369,6 +369,49 @@ const gomitasProducts = [
   },
 ]
 
+const accesoriosProducts = [
+  {
+    name: "Conos RAW",
+    type: "accesorio",
+    strain: "classic",
+    description: "",
+    content: "Cont. 3 paq",
+    price: 70,
+  },
+  {
+    name: "Papel para rolar G-Rollz",
+    type: "accesorio",
+    strain: "organic hemp",
+    description: "",
+    content: "Cont. 50 unidades (sabanas)",
+    price: 60,
+  },
+  {
+    name: "GRAV Classic Spoon",
+    type: "accesorio",
+    strain: "sandblasted spoon",
+    description: "",
+    content: "Cont. 1 pieza",
+    price: 450,
+  },
+  {
+    name: "GRAV Mini Classic Sherlock",
+    type: "accesorio",
+    strain: "vidrio",
+    description: "",
+    content: "Cont. 1 pieza",
+    price: 400,
+  },
+  {
+    name: "Puffco Plus Pen",
+    type: "accesorio",
+    strain: "vape all in one",
+    description: "",
+    content: "Cont. 1 pieza",
+    price: 1500,
+  },
+]
+
 const openWhatsApp = (productName: string) => {
   const phoneNumber = "5215573551881"
   const message = `Hola! Estoy interesado en el ${productName}. ¿Podrías darme más información?`
