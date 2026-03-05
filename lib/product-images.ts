@@ -68,6 +68,9 @@ export const productImages = {
     "Agent Orange": "https://res.cloudinary.com/dmfczq42y/image/upload/v1755130018/orange_xarkce.jpg",
     "Red Bullz": "https://res.cloudinary.com/dmfczq42y/image/upload/v1755130018/redbull_qnikdf.jpg",
     "White Runtz": "https://res.cloudinary.com/dmfczq42y/image/upload/v1755130018/white-runtz_wxojlc.jpg",
+    "Blue Cookies": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674512/galletas_azules_aeupdl.png",
+    "Honey Bananas": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674516/honey_bananas_rrzusd.png",
+    "Supersonic": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674519/2_supersonic_exs4is.png",
   },
 }
 

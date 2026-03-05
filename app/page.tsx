@@ -199,6 +199,45 @@ const flowersProducts = [
       { weight: "28 g", price: 2000 },
     ],
   },
+  {
+    name: "Blue Cookies",
+    type: "indoor",
+    strain: "Híbrido",
+    effects: ["Relajado", "Excitado", "Eufórico"],
+    calmingLevel: 3.5,
+    thcLevel: 4,
+    prices: [
+      { weight: "7 g", price: 1300 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3300 },
+    ],
+  },
+  {
+    name: "Honey Bananas",
+    type: "indoor",
+    strain: "Híbrido",
+    effects: ["Risueño", "Feliz", "Relajado"],
+    calmingLevel: 2.5,
+    thcLevel: 3.5,
+    prices: [
+      { weight: "7 g", price: 1300 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3300 },
+    ],
+  },
+  {
+    name: "Supersonic",
+    type: "indoor",
+    strain: "Sativa",
+    effects: ["Energético", "Charlatán", "Elevado"],
+    calmingLevel: 4.5,
+    thcLevel: 3.5,
+    prices: [
+      { weight: "7 g", price: 1300 },
+      { weight: "14 g", price: 1800 },
+      { weight: "28 g", price: 3300 },
+    ],
+  },
 ]
 
 const preRoladosProducts = [
