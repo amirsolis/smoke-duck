@@ -21,11 +21,11 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 const vapesProducts = [
   {
-    name: "STIIIZY 40s Blue Dream",
+    name: "Stiiizy",
     type: ["vape", "stiiizy"],
     strain: "blue dream",
     description: "",
-    content: "Cont. 1 pz",
+    content: "Cont. 1 g",
   },
   {
     name: "CAKE OG Classics Hawaiian Guava",
@@ -83,7 +83,7 @@ const vapesProducts = [
     content: "Cont. 1 g",
   },
   {
-    name: "Gramlin Sour Apple Pie",
+    name: "Gramlin",
     type: "vape",
     strain: "sour apple pie",
     content: "Cont. 1 g",
@@ -125,7 +125,7 @@ const vapesProducts = [
     content: "Cont. 1 g",
   },
   {
-    name: "Kushy Punch Blue Raspberry",
+    name: "Kushy Punch",
     type: "vape",
     strain: "blue raspberry",
     content: "Cont. 1 g",
@@ -1265,8 +1265,8 @@ export default function DispensarioPage() {
               <CardHeader className="p-4">
                 <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
                   <img
-                    src="https://i.imgur.com/gL2oPH6.jpeg"
-                    alt="STIIIZY 40s Blue Dream"
+                    src="https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Stiiizy_gjn1v1.png"
+                    alt="Stiiizy"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

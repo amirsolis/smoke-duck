@@ -2,7 +2,7 @@
 export const productImages = {
   // Vapes - Reemplaza estas URLs con tus imágenes reales
   vapes: {
-    "STIIIZY 40s Blue Dream": "https://i.imgur.com/gL2oPH6.jpeg",
+    "Stiiizy": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Stiiizy_gjn1v1.png",
     "CAKE OG Classics Hawaiian Guava": "https://i.imgur.com/MJEM85y.jpeg", // Placeholder hasta que tengas la imagen correcta
     "BOUTIQ Switch Hawaiian Snow Sour Slush": "https://i.imgur.com/8mGYvnD.jpeg",
     "Camino Sours Watermelon Spritz": "https://i.imgur.com/LyIQz1A.jpeg",
@@ -15,14 +15,14 @@ export const productImages = {
     "Cali Clear Sour Diesel": "https://i.imgur.com/OKLcTf9.jpeg",
     "Crystal Clear Blue Dream": "https://i.imgur.com/uGF1Dy9.jpeg",
     "DAB DADDY Thin Mint Cookies x Jealousy": "https://i.imgur.com/TC5z8Ua.jpeg",
-    "Gramlin Sour Apple Pie": "https://i.imgur.com/x3tVLzB.jpeg",
+    "Gramlin": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674478/Vape_Gramlin_1g__y3ddeh.png",
     "Pretty Dope Strawberry Mimosa": "https://i.imgur.com/lydWuLp.jpeg",
     "Side Hustle Blue Dream": "https://i.imgur.com/OII0pZF.jpeg",
     "Gelato Green Crack": "https://i.imgur.com/mGD5Lsh.jpeg",
     "Cabo Canabotanica": "https://i.imgur.com/xhxxKUr.jpeg",
     "BIG CHIEF Pineapple Express": "https://i.imgur.com/6J2TblT.jpeg",
     "West Coast Cure Orange Creamsicle": "https://i.imgur.com/HvcPOHl.jpeg",
-    "Kushy Punch Blue Raspberry": "https://i.imgur.com/ZmMd3tN.jpeg",
+    "Kushy Punch": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674477/Vape_kushy_punch_1g_qgjvww.png",
     "Eureka AIO Tropical Twist": "https://i.imgur.com/73reAmY.jpeg" ,
   },
 
