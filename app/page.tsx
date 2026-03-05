@@ -141,18 +141,21 @@ const vapesProducts = [
     type: "vape",
     strain: "hybrid & sativa",
     content: "Cont. 1 g",
+    price: 1350,
   },
   {
     name: "Vape Bloom",
     type: "vape",
     strain: "sativa",
     content: "Cont. 1 g",
+    price: 1450,
   },
   {
     name: "Vape Fuzzies",
     type: "vape",
     strain: "various flavors",
     content: "Cont. 1 g",
+    price: 1400,
   },
 ]
 
