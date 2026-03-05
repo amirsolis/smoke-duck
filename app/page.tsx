@@ -207,9 +207,9 @@ const flowersProducts = [
     calmingLevel: 3.5,
     thcLevel: 4.2,
     prices: [
-      { weight: "7 g", price: 1300 },
-      { weight: "14 g", price: 1800 },
-      { weight: "28 g", price: 3300 },
+      { weight: "7 g", price: 700 },
+      { weight: "14 g", price: 1100 },
+      { weight: "28 g", price: 2000 },
     ],
   },
   {
@@ -220,9 +220,9 @@ const flowersProducts = [
     calmingLevel: 3.5,
     thcLevel: 4,
     prices: [
-      { weight: "7 g", price: 1300 },
-      { weight: "14 g", price: 1800 },
-      { weight: "28 g", price: 3300 },
+      { weight: "7 g", price: 700 },
+      { weight: "14 g", price: 1100 },
+      { weight: "28 g", price: 2000 },
     ],
   },
   {
@@ -233,9 +233,9 @@ const flowersProducts = [
     calmingLevel: 4.7,
     thcLevel: 3.5,
     prices: [
-      { weight: "7 g", price: 1300 },
-      { weight: "14 g", price: 1800 },
-      { weight: "28 g", price: 3300 },
+      { weight: "7 g", price: 700 },
+      { weight: "14 g", price: 1100 },
+      { weight: "28 g", price: 2000 },
     ],
   },
 ]
