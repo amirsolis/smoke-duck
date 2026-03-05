@@ -484,8 +484,8 @@ const getDailyPromos = () => {
   // Martes (día 2)
   if (dayOfWeek === 2) {
     promos.push({
-      title: "Promo del Día",
-      text: "Los prerolados STIIIZY y Sluggers en $1150 - Pregunta por tu promo",
+      title: "Martes de Prerolados",
+      text: "Todos los prerolados con 20% de descuento - Pregunta por tu promo",
       bgColor: "bg-gradient-to-r from-green-500 to-green-700",
       textColor: "text-white",
     })
@@ -494,8 +494,8 @@ const getDailyPromos = () => {
   // Jueves (día 4)
   if (dayOfWeek === 4) {
     promos.push({
-      title: "Promo del Día",
-      text: "Todos los vapes en $1150 - Pregunta por tu promo",
+      title: "Jueves de Vapes",
+      text: "Todos los vapes con 20% de descuento - Pregunta por tu promo",
       bgColor: "bg-gradient-to-r from-orange-500 to-red-600",
       textColor: "text-white",
     })
@@ -504,7 +504,7 @@ const getDailyPromos = () => {
   return promos.length > 0 ? promos : null
 }
 
-const getPromotionalPrice = (product: any, category: "vapes" | "flowers") => {
+const getPromotionalPrice = (product: any, category: "vapes" | "flowers" | "prerolados") => {
   const today = new Date()
   const dayOfMonth = today.getDate()
   const dayOfWeek = today.getDay() // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
@@ -512,17 +512,22 @@ const getPromotionalPrice = (product: any, category: "vapes" | "flowers") => {
   if (category === "vapes") {
     const productPrice = product.price || 1400
 
-    // Martes: productos type "stiiizy" a $1150
-    if (dayOfWeek === 2) {
-      const types = Array.isArray(product.type) ? product.type : [product.type]
-      if (types.includes("stiiizy")) {
-        return { originalPrice: productPrice, promoPrice: 1150, hasPromo: true }
-      }
+    // Jueves: todos los vapes con 20% de descuento
+    if (dayOfWeek === 4) {
+      const promoPrice = Math.round(productPrice * 0.8)
+      return { originalPrice: productPrice, promoPrice, hasPromo: true }
     }
 
-    // Jueves: todos los vapes a $1150
-    if (dayOfWeek === 4) {
-      return { originalPrice: productPrice, promoPrice: 1150, hasPromo: true }
+    return { originalPrice: productPrice, promoPrice: null, hasPromo: false }
+  }
+
+  if (category === "prerolados") {
+    const productPrice = product.price || 800
+
+    // Martes: todos los prerolados con 20% de descuento
+    if (dayOfWeek === 2) {
+      const promoPrice = Math.round(productPrice * 0.8)
+      return { originalPrice: productPrice, promoPrice, hasPromo: true }
     }
 
     return { originalPrice: productPrice, promoPrice: null, hasPromo: false }
@@ -555,10 +560,10 @@ const getPromotionalPrice = (product: any, category: "vapes" | "flowers") => {
   return { originalPrice: null, promoPrice: null, hasPromo: false }
 }
 
-const PriceDisplay = ({ product, category }: { product: any; category: "vapes" | "flowers" }) => {
+const PriceDisplay = ({ product, category }: { product: any; category: "vapes" | "flowers" | "prerolados" }) => {
   const priceInfo = getPromotionalPrice(product, category)
 
-  if (category === "vapes") {
+  if (category === "vapes" || category === "prerolados") {
     if (priceInfo.hasPromo) {
       return (
         <div className="flex items-center space-x-2">
@@ -709,7 +714,7 @@ export default function DispensarioPage() {
                 onClick={() => scrollToSection("prerolados")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
               >
-                Prerolados
+                PRE ROLADOS
               </button>
               <button
                 onClick={() => scrollToSection("gomitas")}
@@ -783,7 +788,7 @@ export default function DispensarioPage() {
                   onClick={() => scrollToSection("prerolados")}
                   className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
-                  Prerolados
+                  PRE ROLADOS
                 </button>
                 <button
                   onClick={() => scrollToSection("gomitas")}
@@ -967,12 +972,12 @@ export default function DispensarioPage() {
         </div>
       </section>
 
-      {/* Prerolados Section */}
+      {/* Pre Rolados Section */}
       <section id="prerolados" className="py-16 px-4 bg-white/50">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-              Prerolados
+              PRE ROLADOS
             </h3>
           </div>
 
@@ -998,7 +1003,7 @@ export default function DispensarioPage() {
                 </CardHeader>
                 <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-2xl font-bold text-green-600">${product.price}</span>
+                    <PriceDisplay product={product} category="prerolados" />
                     {product.content && (
                       <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
                         {product.content}
@@ -1208,8 +1213,8 @@ export default function DispensarioPage() {
               <CardHeader className="p-4">
                 <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
                   <img
-                    src="https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Stiiizy_gjn1v1.png"
-                    alt="Stiiizy"
+                    src="https://res.cloudinary.com/dmfczq42y/image/upload/v1772670780/Smoke_Duck_5_cigarros_lmid50.png"
+                    alt="Prerolados"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -1224,8 +1229,8 @@ export default function DispensarioPage() {
               <CardContent className="p-4 pt-0">
                 <div className="bg-green-50 rounded-lg p-4 mb-4">
                   <h4 className="font-bold text-green-800 mb-2">Prerolados</h4>
-                  <p className="text-sm text-gray-600 font-semibold">STIIIZY y Sluggers</p>
-                  <p className="text-2xl font-bold text-green-600 mt-2">$1,150</p>
+                  <p className="text-sm text-gray-600 font-semibold">Todos los prerolados con</p>
+                  <p className="text-2xl font-bold text-green-600 mt-2">20% de descuento</p>
                 </div>
                 <Button
                   onClick={() => openWhatsApp("Quiero preguntar por la promoción de prerolados")}
@@ -1242,8 +1247,8 @@ export default function DispensarioPage() {
               <CardHeader className="p-4">
                 <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
                   <img
-                    src="https://i.imgur.com/HvcPOHl.jpeg"
-                    alt="BIG CHIEF Pineapple Express"
+                    src="https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Stiiizy_gjn1v1.png"
+                    alt="Vapes"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -1257,9 +1262,9 @@ export default function DispensarioPage() {
               </CardHeader>
               <CardContent className="p-4 pt-0">
                 <div className="bg-green-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-bold text-green-800 mb-2">Todos los Vapes</h4>
-                  <p className="text-sm text-gray-600 font-semibold">Cualquier vape del catálogo</p>
-                  <p className="text-2xl font-bold text-green-600 mt-2">$1,150</p>
+                  <h4 className="font-bold text-green-800 mb-2">Vapes</h4>
+                  <p className="text-sm text-gray-600 font-semibold">Todos los vapes con</p>
+                  <p className="text-2xl font-bold text-green-600 mt-2">20% de descuento</p>
                 </div>
                 <Button
                   onClick={() => openWhatsApp("Quiero preguntar por la promoción de vapes")}
@@ -1316,7 +1321,7 @@ export default function DispensarioPage() {
               onClick={() => scrollToSection("prerolados")}
               className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
             >
-              Prerolados
+              PRE ROLADOS
             </button>
             <button
               onClick={() => scrollToSection("gomitas")}
