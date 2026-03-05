@@ -709,7 +709,7 @@ export default function DispensarioPage() {
                 onClick={() => scrollToSection("prerolados")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
               >
-                PRE ROLADOS
+                Prerolados
               </button>
               <button
                 onClick={() => scrollToSection("gomitas")}
@@ -783,7 +783,7 @@ export default function DispensarioPage() {
                   onClick={() => scrollToSection("prerolados")}
                   className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
-                  PRE ROLADOS
+                  Prerolados
                 </button>
                 <button
                   onClick={() => scrollToSection("gomitas")}
@@ -967,12 +967,12 @@ export default function DispensarioPage() {
         </div>
       </section>
 
-      {/* Pre Rolados Section */}
+      {/* Prerolados Section */}
       <section id="prerolados" className="py-16 px-4 bg-white/50">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-              PRE ROLADOS
+              Prerolados
             </h3>
           </div>
 
@@ -1316,7 +1316,7 @@ export default function DispensarioPage() {
               onClick={() => scrollToSection("prerolados")}
               className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
             >
-              PRE ROLADOS
+              Prerolados
             </button>
             <button
               onClick={() => scrollToSection("gomitas")}
