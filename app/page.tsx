@@ -21,9 +21,9 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 const vapesProducts = [
   {
-    name: "Stiiizy",
+    name: "STIIIZY",
     type: ["vape", "stiiizy"],
-    strain: "blue dream",
+    strain: "Hybrid & sativa",
     description: "",
     content: "Cont. 1 g",
   },
@@ -85,7 +85,7 @@ const vapesProducts = [
   {
     name: "Gramlin",
     type: "vape",
-    strain: "sour apple pie",
+    strain: "various flavors",
     content: "Cont. 1 g",
   },
   {
@@ -127,7 +127,7 @@ const vapesProducts = [
   {
     name: "Kushy Punch",
     type: "vape",
-    strain: "blue raspberry",
+    strain: "tropical punch",
     content: "Cont. 1 g",
   },
   {
