@@ -204,8 +204,8 @@ const flowersProducts = [
     type: "indoor",
     strain: "Híbrido",
     effects: ["Relajado", "Excitado", "Eufórico"],
-    calmingLevel: 3,
-    thcLevel: 4,
+    calmingLevel: 3.5,
+    thcLevel: 4.2,
     prices: [
       { weight: "7 g", price: 1300 },
       { weight: "14 g", price: 1800 },
@@ -230,7 +230,7 @@ const flowersProducts = [
     type: "indoor",
     strain: "Sativa",
     effects: ["Energético", "Charlatán", "Elevado"],
-    calmingLevel: 4.5,
+    calmingLevel: 4.7,
     thcLevel: 3.5,
     prices: [
       { weight: "7 g", price: 1300 },
