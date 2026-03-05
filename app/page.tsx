@@ -136,6 +136,24 @@ const vapesProducts = [
     strain: "Tropical Twist",
     content: "Cont. 1 g",
   },
+  {
+    name: "Vape Platinum",
+    type: "vape",
+    strain: "hybrid & sativa",
+    content: "Cont. 1 g",
+  },
+  {
+    name: "Vape Bloom",
+    type: "vape",
+    strain: "sativa",
+    content: "Cont. 1 g",
+  },
+  {
+    name: "Vape Fuzzies",
+    type: "vape",
+    strain: "various flavors",
+    content: "Cont. 1 g",
+  },
 ]
 
 const flowersProducts = [

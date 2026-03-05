@@ -23,7 +23,10 @@ export const productImages = {
     "BIG CHIEF Pineapple Express": "https://i.imgur.com/6J2TblT.jpeg",
     "West Coast Cure Orange Creamsicle": "https://i.imgur.com/HvcPOHl.jpeg",
     "Kushy Punch": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674477/Vape_kushy_punch_1g_qgjvww.png",
-    "Eureka AIO Tropical Twist": "https://i.imgur.com/73reAmY.jpeg" ,
+    "Eureka AIO Tropical Twist": "https://i.imgur.com/73reAmY.jpeg",
+    "Vape Platinum": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Platinum_lc5ibu.png",
+    "Vape Bloom": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674475/Vape_Bloom_1g_argtk7.png",
+    "Vape Fuzzies": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674477/Vape_fuzzies__r6b1gg.png",
   },
 
   // Pre Rolados
