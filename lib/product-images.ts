@@ -26,6 +26,15 @@ export const productImages = {
     "Eureka AIO Tropical Twist": "https://i.imgur.com/73reAmY.jpeg" ,
   },
 
+  // Pre Rolados
+  prerolados: {
+    "Baby Jeeters 2.5g": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670779/Baby_jeeters_2.5g_5_cigarros_mqo890.png",
+    "Moon Rock Presidencial 1g": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670781/Moon_Rock_Presidencial_1g_1_cigarro_hopu2v.png",
+    "Smoke Duck": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670780/Smoke_Duck_5_cigarros_lmid50.png",
+    "Stiiizy 1g": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670781/Stiiizy_1g_1_cigarro_frdqia.png",
+    "Stiiizy 2.5g": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670780/Stiiizy_2.5g_5_cigarros_uuyrag.png",
+  },
+
   // Flowers - Reemplaza estas URLs con tus imágenes reales
   flowers: {
     "Blue Runtz": "https://res.cloudinary.com/dmfczq42y/image/upload/v1755130016/blue-runtz_dsey5w.jpg",
@@ -54,8 +63,9 @@ export const checkImageExists = async (imagePath: string): Promise<boolean> => {
 }
 
 // Función para obtener imagen del producto
-export const getProductImage = async (productName: string, category: "vapes" | "flowers"): Promise<string> => {
-  const image = productImages[category][productName]
+export const getProductImage = async (productName: string, category: "vapes" | "flowers" | "prerolados" | "gomitas" | "accesorios"): Promise<string> => {
+  const categoryImages = productImages[category as keyof typeof productImages]
+  const image = categoryImages ? categoryImages[productName] : undefined
 
   // Debug: mostrar en consola qué imagen se está buscando
   console.log(`🔍 Buscando imagen para: "${productName}" en categoría: "${category}"`)
@@ -82,10 +92,14 @@ export const getProductImage = async (productName: string, category: "vapes" | "
 }
 
 // Imagen por defecto si no se encuentra
-export const getDefaultImage = (category: "vapes" | "flowers"): string => {
-  const query =
-    category === "vapes"
-      ? "cannabis vape cartridge product photography professional"
-      : "cannabis flower buds product photography professional"
+export const getDefaultImage = (category: "vapes" | "flowers" | "prerolados" | "gomitas" | "accesorios"): string => {
+  const queries: Record<string, string> = {
+    vapes: "cannabis vape cartridge product photography professional",
+    flowers: "cannabis flower buds product photography professional",
+    prerolados: "cannabis pre roll joint product photography professional",
+    gomitas: "cannabis gummies edibles product photography professional",
+    accesorios: "cannabis accessories smoking product photography professional",
+  }
+  const query = queries[category] || queries.vapes
   return `/placeholder.svg?height=400&width=400&query=${encodeURIComponent(query)}`
 }
