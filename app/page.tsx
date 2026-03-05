@@ -26,6 +26,7 @@ const vapesProducts = [
     strain: "Hybrid & sativa",
     description: "",
     content: "Cont. 1 g",
+    price: 1400,
   },
   {
     name: "CAKE OG Classics Hawaiian Guava",
@@ -87,6 +88,7 @@ const vapesProducts = [
     type: "vape",
     strain: "various flavors",
     content: "Cont. 1 g",
+    price: 1500,
   },
   {
     name: "Pretty Dope Strawberry Mimosa",
@@ -129,6 +131,7 @@ const vapesProducts = [
     type: "vape",
     strain: "tropical punch",
     content: "Cont. 1 g",
+    price: 1450,
   },
   {
     name: "Eureka AIO Tropical Twist",
