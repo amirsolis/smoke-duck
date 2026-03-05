@@ -35,6 +35,22 @@ export const productImages = {
     "Stiiizy 2.5g": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670780/Stiiizy_2.5g_5_cigarros_uuyrag.png",
   },
 
+  // Gomitas
+  gomitas: {
+    "Good Tide": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671569/Good_tide_gomitas_10_gomitas_o6ttus.jpg",
+    "Stiiizy": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671570/Stiiizy_gomitas_10_gomitas_qamtkl.png",
+    "Drops": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671569/Drops_Gomitas_biw6z8.png",
+  },
+
+  // Accesorios
+  accesorios: {
+    "Conos RAW": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671694/Conos_RAW_rz9owv.png",
+    "Papel para rolar G-Rollz": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671696/Papel_para_rolar_igya6x.png",
+    "GRAV Classic Spoon": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671695/GRAV_Classic_Spoon_ux4w0l.png",
+    "GRAV Mini Classic Sherlock": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671695/GRAV_Mini_Classic_Sherlock_gvnclq.png",
+    "Puffco Plus Pen": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671699/Puffco_Plus_Pen_tempx2.png",
+  },
+
   // Flowers - Reemplaza estas URLs con tus imágenes reales
   flowers: {
     "Blue Runtz": "https://res.cloudinary.com/dmfczq42y/image/upload/v1755130016/blue-runtz_dsey5w.jpg",

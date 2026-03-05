@@ -1103,7 +1103,7 @@ export default function DispensarioPage() {
               >
                 <CardHeader className="p-4 flex-shrink-0">
                   <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
-                    <ProductImage productName={product.name} category="vapes" alt={product.name} />
+                    <ProductImage productName={product.name} category="gomitas" alt={product.name} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
@@ -1165,7 +1165,7 @@ export default function DispensarioPage() {
               >
                 <CardHeader className="p-4 flex-shrink-0">
                   <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
-                    <ProductImage productName={product.name} category="vapes" alt={product.name} />
+                    <ProductImage productName={product.name} category="accesorios" alt={product.name} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                   <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
