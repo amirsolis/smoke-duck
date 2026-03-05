@@ -510,20 +510,22 @@ const getPromotionalPrice = (product: any, category: "vapes" | "flowers") => {
   const dayOfWeek = today.getDay() // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
   if (category === "vapes") {
+    const productPrice = product.price || 1400
+
     // Martes: productos type "stiiizy" a $1150
     if (dayOfWeek === 2) {
       const types = Array.isArray(product.type) ? product.type : [product.type]
       if (types.includes("stiiizy")) {
-        return { originalPrice: 1400, promoPrice: 1150, hasPromo: true }
+        return { originalPrice: productPrice, promoPrice: 1150, hasPromo: true }
       }
     }
 
     // Jueves: todos los vapes a $1150
     if (dayOfWeek === 4) {
-      return { originalPrice: 1400, promoPrice: 1150, hasPromo: true }
+      return { originalPrice: productPrice, promoPrice: 1150, hasPromo: true }
     }
 
-    return { originalPrice: 1400, promoPrice: null, hasPromo: false }
+    return { originalPrice: productPrice, promoPrice: null, hasPromo: false }
   }
 
   if (category === "flowers") {
