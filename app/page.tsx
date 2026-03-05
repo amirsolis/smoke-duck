@@ -303,7 +303,7 @@ const preRoladosProducts = [
   {
     name: "Smoke Duck",
     type: "prerolado",
-    strain: "pre rolado infusado",
+    strain: "pre rolado infusionado",
     description: "",
     content: "Cont. 5 cigarros",
     price: 800,
@@ -311,7 +311,7 @@ const preRoladosProducts = [
   {
     name: "Stiiizy 2.5g",
     type: ["prerolado", "stiiizy"],
-    strain: "pre rolado infusado",
+    strain: "pre rolado infusionado",
     description: "",
     content: "Cont. 5 cigarros",
     price: 1550,
@@ -319,7 +319,7 @@ const preRoladosProducts = [
   {
     name: "Stiiizy 1g",
     type: ["prerolado", "stiiizy"],
-    strain: "pre rolado infusado",
+    strain: "pre rolado infusionado",
     description: "",
     content: "Cont. 1 cigarro",
     price: 850,
@@ -327,7 +327,7 @@ const preRoladosProducts = [
   {
     name: "Baby Jeeters 2.5g",
     type: "prerolado",
-    strain: "pre rolado infusado",
+    strain: "pre rolado infusionado",
     description: "",
     content: "Cont. 5 cigarros",
     price: 1750,
@@ -335,7 +335,7 @@ const preRoladosProducts = [
   {
     name: "Moon Rock Presidencial 1g",
     type: "prerolado",
-    strain: "pre rolado infusado",
+    strain: "pre rolado infusionado",
     description: "",
     content: "Cont. 1 cigarro",
     price: 950,
