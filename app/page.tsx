@@ -1,9 +1,41 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { getProductImage } from "@/lib/product-images"
+
+// Iconos adicionales para el sistema de referidos
+const CopyIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" strokeWidth="2"/>
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" strokeWidth="2"/>
+  </svg>
+)
+
+const CheckIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="20,6 9,17 4,12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
+const GiftIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="20,12 20,22 4,22 4,12" strokeWidth="2"/>
+    <rect x="2" y="7" width="20" height="5" strokeWidth="2"/>
+    <line x1="12" y1="22" x2="12" y2="7" strokeWidth="2"/>
+    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" strokeWidth="2"/>
+    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" strokeWidth="2"/>
+  </svg>
+)
+
+const CloseIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <line x1="18" y1="6" x2="6" y2="18" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="6" y1="6" x2="18" y2="18" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+)
 
 // Reemplazando iconos de lucide-react con SVG inline
 const LeafIcon = ({ className }: { className?: string }) => (
@@ -650,6 +682,104 @@ const FlowerIcon = ({ className }: { className?: string }) => (
 export default function DispensarioPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dailyPromos = getDailyPromos()
+  
+  // Estados para el sistema de referidos
+  const searchParams = useSearchParams()
+  const [referralName, setReferralName] = useState("")
+  const [generatedCode, setGeneratedCode] = useState("")
+  const [linkCopied, setLinkCopied] = useState(false)
+  const [textCopied, setTextCopied] = useState(false)
+  const [showReferralModal, setShowReferralModal] = useState(false)
+  const [referralModalShown, setReferralModalShown] = useState(false)
+  const [referredName, setReferredName] = useState("")
+  const [referredPhone, setReferredPhone] = useState("")
+  const [referrerCode, setReferrerCode] = useState("")
+  const [showSuccessToast, setShowSuccessToast] = useState(false)
+  const [registrationError, setRegistrationError] = useState(false)
+
+  // Detectar parametro ref en URL
+  useEffect(() => {
+    const refCode = searchParams.get("ref")
+    if (refCode && !referralModalShown) {
+      setReferrerCode(refCode)
+      setShowReferralModal(true)
+      setReferralModalShown(true)
+    }
+  }, [searchParams, referralModalShown])
+
+  // Generar codigo de referido
+  const generateReferralCode = () => {
+    if (referralName.trim()) {
+      const code = `DUCK-${referralName.trim().toUpperCase().replace(/\s+/g, "-")}`
+      setGeneratedCode(code)
+    }
+  }
+
+  // Copiar link al portapapeles
+  const copyReferralLink = () => {
+    if (generatedCode) {
+      const link = `smokeduck2024.com/?ref=${generatedCode}`
+      navigator.clipboard.writeText(link)
+      setLinkCopied(true)
+      setTimeout(() => setLinkCopied(false), 2000)
+    }
+  }
+
+  // Copiar texto sugerido
+  const copySuggestedText = () => {
+    if (generatedCode) {
+      const text = `Oye! Compra en Smoke Duck con mi link y los dos ganamos 🦆🔥 Usa mi link para que yo acumule mis 5 referidos y gane 7g de regalo (te compartiré de mi regalo🫶🏻) smokeduck2024.com/?ref=${generatedCode}`
+      navigator.clipboard.writeText(text)
+      setTextCopied(true)
+      setTimeout(() => setTextCopied(false), 2000)
+    }
+  }
+
+  // Abrir WhatsApp para reclamar regalo
+  const claimReward = () => {
+    if (generatedCode) {
+      const phoneNumber = "5215573551881"
+      const message = `Hola Smoke Duck! 🦆 Quiero reclamar mis 7g de regalo, ya referí a 5 amigos con mi código ${generatedCode} 🎁`
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+      window.open(whatsappUrl, "_blank")
+    }
+  }
+
+  // Confirmar registro de referido
+  const confirmReferral = async () => {
+    const phoneNumber = "5215573551881"
+    
+    // Enviar datos al Google Apps Script (no-cors)
+    try {
+      fetch("https://script.google.com/macros/s/AKfycbyGNfdLYzKl1jdFdH7QUudBOc5jjABmekADTtTHyxPHthmeXU3emHBpE_IOectzyun8/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: referredName,
+          numero: referredPhone,
+          codigoReferidor: referrerCode,
+        }),
+      })
+      setRegistrationError(false)
+    } catch (error) {
+      setRegistrationError(true)
+    }
+
+    // Cerrar modal
+    setShowReferralModal(false)
+    
+    // Mostrar toast de exito
+    setShowSuccessToast(true)
+    setTimeout(() => setShowSuccessToast(false), 4000)
+
+    // Abrir WhatsApp con mensaje prellenado
+    const message = `Hola Smoke Duck! 🦆 Me recomendaron con el código ${referrerCode}. Mi nombre es ${referredName} y mi número es ${referredPhone} — quiero hacer un pedido 🛒`
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, "_blank")
+  }
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -668,6 +798,73 @@ export default function DispensarioPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-purple-50 to-green-50">
+      {/* Modal de Referido */}
+      {showReferralModal && (
+        <div className="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative animate-in fade-in zoom-in duration-300">
+            <button
+              onClick={() => setShowReferralModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <CloseIcon className="w-6 h-6" />
+            </button>
+            
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-3xl">👋</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Alguien te recomendó Smoke Duck</h3>
+              <p className="text-gray-600 text-sm">Registra tus datos para que tu amigo reciba su regalo</p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Nombre o apodo</label>
+                <input
+                  type="text"
+                  value={referredName}
+                  onChange={(e) => setReferredName(e.target.value)}
+                  placeholder="Tu nombre"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Tu número de WhatsApp</label>
+                <input
+                  type="tel"
+                  value={referredPhone}
+                  onChange={(e) => setReferredPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                  placeholder="10 dígitos"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+            </div>
+
+            <Button
+              onClick={confirmReferral}
+              disabled={!referredName.trim() || referredPhone.length !== 10}
+              className="w-full mt-6 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-3 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Confirmar y ver el catálogo
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Toast de éxito */}
+      {showSuccessToast && (
+        <div className="fixed bottom-4 right-4 z-[100] animate-in slide-in-from-bottom fade-in duration-300">
+          <div className={`${registrationError ? "bg-yellow-500" : "bg-green-600"} text-white px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3`}>
+            <span className="text-2xl">{registrationError ? "😊" : "🎉"}</span>
+            <span className="font-medium">
+              {registrationError 
+                ? "Hubo un problema al registrar, pero igual puedes contactarnos" 
+                : "¡Registro exitoso! Tu amigo acumuló un referido"}
+            </span>
+          </div>
+        </div>
+      )}
+
       {dailyPromos && (
         <div className="relative z-50">
           {dailyPromos.map((promo, index) => (
@@ -1276,6 +1473,107 @@ export default function DispensarioPage() {
                   <WhatsAppIcon className="w-4 h-4 mr-2" />
                   Pregunta por tu promo
                 </Button>
+              </CardContent>
+            </Card>
+
+            {/* Promo Referidos */}
+            <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
+              <CardHeader className="p-4">
+                <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                  <img
+                    src="https://res.cloudinary.com/dmfczq42y/image/upload/v1755130018/orange_xarkce.jpg"
+                    alt="Agent Orange - Invita a tus amigos"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                  Invita a tus amigos y Gana
+                </h3>
+                <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                  Todos los días
+                </div>
+              </CardHeader>
+              <CardContent className="p-4 pt-0">
+                <div className="bg-green-50 rounded-lg p-4 mb-4">
+                  <h4 className="font-bold text-green-800 mb-2">Gana con Smoke Duck</h4>
+                  <p className="text-sm text-gray-600 font-semibold">Invita a 5 amigos a que compren en Smoke Duck y</p>
+                  <p className="text-xl font-bold text-green-600 mt-2">gana 7g de regalo, ¡gratis!</p>
+                </div>
+
+                {/* Campo para generar codigo */}
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-600 mb-1">Tu nombre o apodo</label>
+                    <input
+                      type="text"
+                      value={referralName}
+                      onChange={(e) => setReferralName(e.target.value)}
+                      placeholder="Escribe tu nombre"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                    />
+                  </div>
+                  
+                  <Button
+                    onClick={generateReferralCode}
+                    disabled={!referralName.trim()}
+                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                  >
+                    Generar mi link de referido
+                  </Button>
+
+                  {generatedCode && (
+                    <div className="space-y-3 pt-2">
+                      {/* Link generado */}
+                      <div className="bg-gray-100 rounded-lg p-3">
+                        <p className="text-xs text-gray-500 mb-1">Tu link de referido:</p>
+                        <div className="flex items-center justify-between">
+                          <code className="text-xs text-green-700 font-mono break-all">smokeduck2024.com/?ref={generatedCode}</code>
+                          <button
+                            onClick={copyReferralLink}
+                            className="ml-2 p-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex-shrink-0"
+                          >
+                            {linkCopied ? <CheckIcon className="w-4 h-4" /> : <CopyIcon className="w-4 h-4" />}
+                          </button>
+                        </div>
+                        {linkCopied && <p className="text-xs text-green-600 mt-1">¡Copiado!</p>}
+                      </div>
+
+                      {/* Texto sugerido */}
+                      <div className="bg-gray-100 rounded-lg p-3">
+                        <p className="text-xs text-gray-500 mb-1">Texto sugerido para compartir:</p>
+                        <p className="text-xs text-gray-700 mb-2">
+                          Oye! Compra en Smoke Duck con mi link y los dos ganamos 🦆🔥 Usa mi link para que yo acumule mis 5 referidos y gane 7g de regalo (te compartiré de mi regalo🫶🏻)
+                        </p>
+                        <button
+                          onClick={copySuggestedText}
+                          className="w-full py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-xs font-medium flex items-center justify-center"
+                        >
+                          {textCopied ? (
+                            <>
+                              <CheckIcon className="w-4 h-4 mr-1" />
+                              ¡Copiado!
+                            </>
+                          ) : (
+                            <>
+                              <CopyIcon className="w-4 h-4 mr-1" />
+                              Copiar texto
+                            </>
+                          )}
+                        </button>
+                      </div>
+
+                      {/* Boton reclamar regalo */}
+                      <Button
+                        onClick={claimReward}
+                        className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0 text-sm"
+                      >
+                        <GiftIcon className="w-4 h-4 mr-2" />
+                        Reclamar mi regalo 🎁
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </CardContent>
             </Card>
           </div>
