@@ -37,6 +37,18 @@ const CloseIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
+const ChevronLeftIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="15,18 9,12 15,6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
+const ChevronRightIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="9,6 15,12 9,18" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
 // Reemplazando iconos de lucide-react con SVG inline
 const LeafIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -683,6 +695,19 @@ export default function DispensarioPage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dailyPromos = getDailyPromos()
   
+  // Estado para el carrusel de vapes
+  const [vapesCarouselIndex, setVapesCarouselIndex] = useState(0)
+  const vapesPerPage = typeof window !== "undefined" && window.innerWidth < 768 ? 1 : typeof window !== "undefined" && window.innerWidth < 1024 ? 2 : typeof window !== "undefined" && window.innerWidth < 1280 ? 3 : 4
+  const totalVapesPages = Math.ceil(vapesProducts.length / vapesPerPage)
+
+  const nextVapesSlide = () => {
+    setVapesCarouselIndex((prev) => (prev + 1) % totalVapesPages)
+  }
+
+  const prevVapesSlide = () => {
+    setVapesCarouselIndex((prev) => (prev - 1 + totalVapesPages) % totalVapesPages)
+  }
+  
   // Estados para el sistema de referidos
   const searchParams = useSearchParams()
   const [referralName, setReferralName] = useState("")
@@ -1053,45 +1078,93 @@ export default function DispensarioPage() {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {vapesProducts.map((product, index) => (
-              <Card
-                key={index}
-                className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col"
+          {/* Carrusel de Vapes */}
+          <div className="relative">
+            {/* Flechas de navegacion */}
+            <button
+              onClick={prevVapesSlide}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 md:-translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 md:p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-5 h-5 md:w-6 md:h-6 text-green-700" />
+            </button>
+            <button
+              onClick={nextVapesSlide}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 md:p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-5 h-5 md:w-6 md:h-6 text-green-700" />
+            </button>
+
+            {/* Contenedor del carrusel con scroll horizontal */}
+            <div className="overflow-hidden mx-6 md:mx-10">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${vapesCarouselIndex * 100}%)` }}
               >
-                <CardHeader className="p-4 flex-shrink-0">
-                  <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
-                    <ProductImage productName={product.name} category="vapes" alt={product.name} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
-                    {product.name}
-                  </h3>
-                  {product.strain && (
-                    <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
-                      {toTitleCase(product.strain)}
+                {/* Agrupar productos en paginas */}
+                {Array.from({ length: Math.ceil(vapesProducts.length / 4) }).map((_, pageIndex) => (
+                  <div key={pageIndex} className="w-full flex-shrink-0">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                      {vapesProducts.slice(pageIndex * 4, (pageIndex + 1) * 4).map((product, index) => (
+                        <Card
+                          key={index}
+                          className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col"
+                        >
+                          <CardHeader className="p-4 flex-shrink-0">
+                            <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                              <ProductImage productName={product.name} category="vapes" alt={product.name} />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </div>
+                            <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                              {product.name}
+                            </h3>
+                            {product.strain && (
+                              <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                                {toTitleCase(product.strain)}
+                              </div>
+                            )}
+                          </CardHeader>
+                          <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                            <div className="flex items-center justify-between mb-3">
+                              <PriceDisplay product={product} category="vapes" />
+                              {product.content && (
+                                <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                                  {product.content}
+                                </span>
+                              )}
+                            </div>
+                            <Button
+                              onClick={() => openWhatsApp(product.name)}
+                              className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                            >
+                              <WhatsAppIcon className="w-4 h-4 mr-2" />
+                              Contáctanos
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      ))}
                     </div>
-                  )}
-                </CardHeader>
-                <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
-                  <div className="flex items-center justify-between mb-3">
-                    <PriceDisplay product={product} category="vapes" />
-                    {product.content && (
-                      <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
-                        {product.content}
-                      </span>
-                    )}
                   </div>
-                  <Button
-                    onClick={() => openWhatsApp(product.name)}
-                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
-                  >
-                    <WhatsAppIcon className="w-4 h-4 mr-2" />
-                    Contáctanos
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Indicadores de pagina */}
+            <div className="flex justify-center mt-6 gap-2">
+              {Array.from({ length: Math.ceil(vapesProducts.length / 4) }).map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setVapesCarouselIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    vapesCarouselIndex === index 
+                      ? "bg-green-600 w-8" 
+                      : "bg-gray-300 hover:bg-gray-400"
+                  }`}
+                  aria-label={`Ir a pagina ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
 
           <div className="text-center mt-8">
