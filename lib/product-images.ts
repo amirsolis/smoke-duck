@@ -2,7 +2,7 @@
 export const productImages = {
   // Vapes - Reemplaza estas URLs con tus imágenes reales
   vapes: {
-    "Stiiizy": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Stiiizy_gjn1v1.png",
+    "STIIIZY": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Stiiizy_gjn1v1.png",
     "CAKE OG Classics Hawaiian Guava": "https://i.imgur.com/MJEM85y.jpeg", // Placeholder hasta que tengas la imagen correcta
     "BOUTIQ Switch Hawaiian Snow Sour Slush": "https://i.imgur.com/8mGYvnD.jpeg",
     "Camino Sours Watermelon Spritz": "https://i.imgur.com/LyIQz1A.jpeg",
