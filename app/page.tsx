@@ -1680,44 +1680,66 @@ export default function DispensarioPage() {
             </div>
           </div>
 
-          {/* Grid de Accesorios - Desktop (sin carrusel ya que son solo 2 productos) */}
-          <div className="hidden lg:block">
-            <div className="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
-              {accesoriosProducts.map((product, index) => (
-                <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col h-full">
-                  <CardHeader className="p-4 flex-shrink-0">
-                    <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
-                      <ProductImage productName={product.name} category="accesorios" alt={product.name} />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
-                      {product.name}
-                    </h3>
-                    {product.strain && (
-                      <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
-                        {toTitleCase(product.strain)}
-                      </div>
-                    )}
-                  </CardHeader>
-                  <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-2xl font-bold text-green-600">${product.price}</span>
-                      {product.content && (
-                        <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
-                          {product.content}
-                        </span>
-                      )}
-                    </div>
-                    <Button
-                      onClick={() => openWhatsApp(product.name)}
-                      className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
-                    >
-                      <WhatsAppIcon className="w-4 h-4 mr-2" />
-                      Contactanos
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
+          {/* Carrusel de Accesorios - Desktop */}
+          <div className="relative hidden lg:block">
+            <button
+              onClick={() => setAccesoriosCarouselIndex((prev) => (prev - 1 + accesoriosProducts.length) % accesoriosProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-6 h-6 text-green-700" />
+            </button>
+            <button
+              onClick={() => setAccesoriosCarouselIndex((prev) => (prev + 1) % accesoriosProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-6 h-6 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-12">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(calc(-${accesoriosCarouselIndex} * (25% + 0.375rem)))` }}
+              >
+                {accesoriosProducts.map((product, index) => (
+                  <div key={index} className="w-1/4 flex-shrink-0 pr-6 last:pr-0">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col h-full">
+                      <CardHeader className="p-4 flex-shrink-0">
+                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                          <ProductImage productName={product.name} category="accesorios" alt={product.name} />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                          {product.name}
+                        </h3>
+                        {product.strain && (
+                          <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                            {toTitleCase(product.strain)}
+                          </div>
+                        )}
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-2xl font-bold text-green-600">${product.price}</span>
+                          {product.content && (
+                            <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                              {product.content}
+                            </span>
+                          )}
+                        </div>
+                        <Button
+                          onClick={() => openWhatsApp(product.name)}
+                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 mr-2" />
+                          Contactanos
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
