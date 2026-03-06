@@ -691,7 +691,7 @@ const FlowerIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-export default function DispensarioPage() {
+function DispensarioPageContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dailyPromos = getDailyPromos()
   
@@ -2328,5 +2328,13 @@ export default function DispensarioPage() {
         </div>
       </footer>
     </div>
+  )
+}
+
+export default function DispensarioPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center"><span className="text-gray-500">Cargando...</span></div>}>
+      <DispensarioPageContent />
+    </Suspense>
   )
 }
