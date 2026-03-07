@@ -1,9 +1,53 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { getProductImage } from "@/lib/product-images"
+
+// Iconos adicionales para el sistema de referidos
+const CopyIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" strokeWidth="2"/>
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" strokeWidth="2"/>
+  </svg>
+)
+
+const CheckIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="20,6 9,17 4,12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
+const GiftIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="20,12 20,22 4,22 4,12" strokeWidth="2"/>
+    <rect x="2" y="7" width="20" height="5" strokeWidth="2"/>
+    <line x1="12" y1="22" x2="12" y2="7" strokeWidth="2"/>
+    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" strokeWidth="2"/>
+    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" strokeWidth="2"/>
+  </svg>
+)
+
+const CloseIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <line x1="18" y1="6" x2="6" y2="18" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="6" y1="6" x2="18" y2="18" strokeWidth="2" strokeLinecap="round"/>
+  </svg>
+)
+
+const ChevronLeftIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="15,18 9,12 15,6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
+
+const ChevronRightIcon = ({ className }: { className?: string }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <polyline points="9,6 15,12 9,18" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+)
 
 // Reemplazando iconos de lucide-react con SVG inline
 const LeafIcon = ({ className }: { className?: string }) => (
@@ -21,11 +65,12 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
 
 const vapesProducts = [
   {
-    name: "STIIIZY 40s Blue Dream",
+    name: "STIIIZY",
     type: ["vape", "stiiizy"],
-    strain: "blue dream",
+    strain: "Hybrid & sativa",
     description: "",
-    content: "Cont. 1 pz",
+    content: "Cont. 1 g",
+    price: 1400,
   },
   {
     name: "CAKE OG Classics Hawaiian Guava",
@@ -83,10 +128,11 @@ const vapesProducts = [
     content: "Cont. 1 g",
   },
   {
-    name: "Gramlin Sour Apple Pie",
+    name: "Gramlin",
     type: "vape",
-    strain: "sour apple pie",
+    strain: "various flavors",
     content: "Cont. 1 g",
+    price: 1500,
   },
   {
     name: "Pretty Dope Strawberry Mimosa",
@@ -125,10 +171,11 @@ const vapesProducts = [
     content: "Cont. 1 g",
   },
   {
-    name: "Kushy Punch Blue Raspberry",
+    name: "Kushy Punch",
     type: "vape",
-    strain: "blue raspberry",
+    strain: "tropical punch",
     content: "Cont. 1 g",
+    price: 1450,
   },
   {
     name: "Eureka AIO Tropical Twist",
@@ -136,30 +183,36 @@ const vapesProducts = [
     strain: "Tropical Twist",
     content: "Cont. 1 g",
   },
+  {
+    name: "Vape Platinum",
+    type: "vape",
+    strain: "hybrid & sativa",
+    content: "Cont. 1 g",
+    price: 1350,
+  },
+  {
+    name: "Vape Bloom",
+    type: "vape",
+    strain: "sativa",
+    content: "Cont. 1 g",
+    price: 1450,
+  },
+  {
+    name: "Vape Fuzzies",
+    type: "vape",
+    strain: "various flavors",
+    content: "Cont. 1 g",
+    price: 1400,
+  },
 ]
 
 const flowersProducts = [
   {
-    name: "Blue Runtz",
+    name: "Agent Orange",
     type: "indoor",
     strain: "Híbrido",
-    description: "",
-    effects: ["Relajado", "Hormigueo", "Eufórico"],
-    calmingLevel: 2.5,
-    thcLevel: 4,
-    prices: [
-      { weight: "7 g", price: 1300 },
-      { weight: "14 g", price: 1800 },
-      { weight: "28 g", price: 3300 },
-    ],
-  },
-  {
-    name: "Gak Bx1",
-    type: "indoor",
-    strain: "Híbrido",
-    description: "",
-    effects: ["Energético", "Charlatán", "Feliz"],
-    calmingLevel: 3.5,
+    effects: ["Enfocado", "Elevado", "Feliz"],
+    calmingLevel: 4.5,
     thcLevel: 3,
     prices: [
       { weight: "7 g", price: 1300 },
@@ -194,12 +247,12 @@ const flowersProducts = [
     ],
   },
   {
-    name: "Lantz",
-    type: "green house",
+    name: "Blue Cookies",
+    type: "indoor",
     strain: "Híbrido",
-    effects: ["Enfocado", "Eufórico", "Relajado"],
-    calmingLevel: 2.5,
-    thcLevel: 4.5,
+    effects: ["Relajado", "Excitado", "Eufórico"],
+    calmingLevel: 3.5,
+    thcLevel: 4.2,
     prices: [
       { weight: "7 g", price: 700 },
       { weight: "14 g", price: 1100 },
@@ -207,95 +260,143 @@ const flowersProducts = [
     ],
   },
   {
-    name: "Mt. Hood Magic",
-    type: "green house",
-    strain: "Híbrido",
-    effects: ["Eufórico", "Elevado", "Creativo"],
-    calmingLevel: 4,
-    thcLevel: 3.75,
-    prices: [
-      { weight: "7 g", price: 750 },
-      { weight: "14 g", price: 1300 },
-      { weight: "28 g", price: 2500 },
-    ],
-  },
-  {
-    name: "Mixed Berry",
+    name: "Honey Bananas",
     type: "indoor",
     strain: "Híbrido",
-    effects: ["Excitado", "Creativo", "Hambriento"],
-    calmingLevel: 2.5,
-    thcLevel: 3,
-    prices: [
-      { weight: "7 g", price: 1300 },
-      { weight: "14 g", price: 1800 },
-      { weight: "28 g", price: 3300 },
-    ],
-  },
-  {
-    name: "OG Diesel Kush",
-    type: "indoor",
-    strain: "Híbrido",
-    effects: ["Charlatán", "Feliz", "Creativo"],
+    effects: ["Risueño", "Feliz", "Relajado"],
     calmingLevel: 3.5,
     thcLevel: 4,
     prices: [
-      { weight: "7 g", price: 1500 },
-      { weight: "14 g", price: 1800 },
-      { weight: "28 g", price: 3600 },
+      { weight: "7 g", price: 700 },
+      { weight: "14 g", price: 1100 },
+      { weight: "28 g", price: 2000 },
     ],
   },
   {
-    name: "Skittlez Mintz",
+    name: "Supersonic",
     type: "indoor",
-    strain: "Híbrido",
-    effects: ["Risueño", "Charlatán", "Hambriento"],
-    calmingLevel: 3.5,
-    thcLevel: 5,
-    prices: [
-      { weight: "7 g", price: 1300 },
-      { weight: "14 g", price: 1800 },
-      { weight: "28 g", price: 3300 },
-    ],
-  },
-  {
-    name: "Agent Orange",
-    type: "indoor",
-    strain: "Híbrido",
-    effects: ["Enfocado", "Elevado", "Feliz"],
-    calmingLevel: 4.5,
-    thcLevel: 3,
-    prices: [
-      { weight: "7 g", price: 1300 },
-      { weight: "14 g", price: 1800 },
-      { weight: "28 g", price: 3300 },
-    ],
-  },
-  {
-    name: "Red Bullz",
-    type: "indoor",
-    strain: "Híbrido",
-    effects: ["Excitado", "Energético", "Enfocado"],
-    calmingLevel: 4.5,
-    thcLevel: 3,
-    prices: [
-      { weight: "7 g", price: 1500 },
-      { weight: "14 g", price: 1800 },
-      { weight: "28 g", price: 3600 },
-    ],
-  },
-  {
-    name: "White Runtz",
-    type: "indoor",
-    strain: "Híbrido",
-    effects: ["Relajado", "Hormigueo", "Eufórico"],
-    calmingLevel: 2.5,
+    strain: "Sativa",
+    effects: ["Energético", "Charlatán", "Elevado"],
+    calmingLevel: 4.7,
     thcLevel: 3.5,
     prices: [
-      { weight: "7 g", price: 1000 },
-      { weight: "14 g", price: 1650 },
-      { weight: "28 g", price: 3000 },
+      { weight: "7 g", price: 700 },
+      { weight: "14 g", price: 1100 },
+      { weight: "28 g", price: 2000 },
     ],
+  },
+]
+
+const preRoladosProducts = [
+  {
+    name: "Smoke Duck",
+    type: "prerolado",
+    strain: "pre rolado infusionado",
+    description: "",
+    content: "Cont. 5 cigarros",
+    price: 800,
+  },
+  {
+    name: "Stiiizy 2.5g",
+    type: ["prerolado", "stiiizy"],
+    strain: "pre rolado infusionado",
+    description: "",
+    content: "Cont. 5 cigarros",
+    price: 1550,
+  },
+  {
+    name: "Stiiizy 1g",
+    type: ["prerolado", "stiiizy"],
+    strain: "pre rolado infusionado",
+    description: "",
+    content: "Cont. 1 cigarro",
+    price: 850,
+  },
+  {
+    name: "Baby Jeeters 2.5g",
+    type: "prerolado",
+    strain: "pre rolado infusionado",
+    description: "",
+    content: "Cont. 5 cigarros",
+    price: 1750,
+  },
+  {
+    name: "Moon Rock Presidencial 1g",
+    type: "prerolado",
+    strain: "pre rolado infusionado",
+    description: "",
+    content: "Cont. 1 cigarro",
+    price: 950,
+  },
+]
+
+const gomitasProducts = [
+  {
+    name: "Good Tide",
+    type: "gomitas",
+    strain: "gomitas",
+    description: "",
+    content: "Cont. 10 gomitas",
+    price: 950,
+  },
+  {
+    name: "Stiiizy",
+    type: ["gomitas", "stiiizy"],
+    strain: "gomitas",
+    description: "",
+    content: "Cont. 10 gomitas",
+    price: 950,
+  },
+  {
+    name: "Drops",
+    type: "gomitas",
+    strain: "gomitas",
+    description: "",
+    content: "Cont. 2 gomitas",
+    price: 850,
+  },
+]
+
+const accesoriosProducts = [
+  {
+    name: "Conos RAW",
+    type: "accesorio",
+    strain: "classic",
+    description: "",
+    content: "Cont. 3 paq",
+    price: 70,
+  },
+  {
+    name: "Papel para rolar G-Rollz",
+    type: "accesorio",
+    strain: "organic hemp",
+    description: "",
+    content: "Cont. 50 unidades (sabanas)",
+    price: 60,
+  },
+  {
+    name: "GRAV Classic Spoon",
+    type: "accesorio",
+    strain: "sandblasted spoon",
+    description: "",
+    content: "Cont. 1 pieza",
+    price: 450,
+  },
+  {
+    name: "GRAV Mini Classic Sherlock",
+    type: "accesorio",
+    strain: "vidrio",
+    description: "",
+    content: "Cont. 1 pieza",
+    price: 400,
+  },
+  {
+    name: "Puffco Plus Pen",
+    type: "accesorio",
+    strain: "vape all in one",
+    description: "",
+    content: "Cont. 1 pieza",
+    price: 1500,
   },
 ]
 
@@ -359,7 +460,7 @@ const ProductImage = ({
   productName,
   category,
   alt,
-}: { productName: string; category: "vapes" | "flowers"; alt: string }) => {
+}: { productName: string; category: "vapes" | "flowers" | "prerolados" | "gomitas" | "accesorios"; alt: string }) => {
   const [imageSrc, setImageSrc] = useState<string>("")
   const [isLoading, setIsLoading] = useState(true)
 
@@ -430,8 +531,8 @@ const getDailyPromos = () => {
   // Martes (día 2)
   if (dayOfWeek === 2) {
     promos.push({
-      title: "Promo del Día",
-      text: "Los prerolados STIIIZY y Sluggers en $1150 - Pregunta por tu promo",
+      title: "Martes de Prerolados",
+      text: "Todos los prerolados con 20% de descuento - Pregunta por tu promo",
       bgColor: "bg-gradient-to-r from-green-500 to-green-700",
       textColor: "text-white",
     })
@@ -440,8 +541,8 @@ const getDailyPromos = () => {
   // Jueves (día 4)
   if (dayOfWeek === 4) {
     promos.push({
-      title: "Promo del Día",
-      text: "Todos los vapes en $1150 - Pregunta por tu promo",
+      title: "Jueves de Vapes",
+      text: "Todos los vapes con 20% de descuento - Pregunta por tu promo",
       bgColor: "bg-gradient-to-r from-orange-500 to-red-600",
       textColor: "text-white",
     })
@@ -450,26 +551,33 @@ const getDailyPromos = () => {
   return promos.length > 0 ? promos : null
 }
 
-const getPromotionalPrice = (product: any, category: "vapes" | "flowers") => {
+const getPromotionalPrice = (product: any, category: "vapes" | "flowers" | "prerolados") => {
   const today = new Date()
   const dayOfMonth = today.getDate()
   const dayOfWeek = today.getDay() // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
 
   if (category === "vapes") {
-    // Martes: productos type "stiiizy" a $1150
-    if (dayOfWeek === 2) {
-      const types = Array.isArray(product.type) ? product.type : [product.type]
-      if (types.includes("stiiizy")) {
-        return { originalPrice: 1400, promoPrice: 1150, hasPromo: true }
-      }
-    }
+    const productPrice = product.price || 1400
 
-    // Jueves: todos los vapes a $1150
+    // Jueves: todos los vapes con 20% de descuento
     if (dayOfWeek === 4) {
-      return { originalPrice: 1400, promoPrice: 1150, hasPromo: true }
+      const promoPrice = Math.round(productPrice * 0.8)
+      return { originalPrice: productPrice, promoPrice, hasPromo: true }
     }
 
-    return { originalPrice: 1400, promoPrice: null, hasPromo: false }
+    return { originalPrice: productPrice, promoPrice: null, hasPromo: false }
+  }
+
+  if (category === "prerolados") {
+    const productPrice = product.price || 800
+
+    // Martes: todos los prerolados con 20% de descuento
+    if (dayOfWeek === 2) {
+      const promoPrice = Math.round(productPrice * 0.8)
+      return { originalPrice: productPrice, promoPrice, hasPromo: true }
+    }
+
+    return { originalPrice: productPrice, promoPrice: null, hasPromo: false }
   }
 
   if (category === "flowers") {
@@ -499,10 +607,10 @@ const getPromotionalPrice = (product: any, category: "vapes" | "flowers") => {
   return { originalPrice: null, promoPrice: null, hasPromo: false }
 }
 
-const PriceDisplay = ({ product, category }: { product: any; category: "vapes" | "flowers" }) => {
+const PriceDisplay = ({ product, category }: { product: any; category: "vapes" | "flowers" | "prerolados" }) => {
   const priceInfo = getPromotionalPrice(product, category)
 
-  if (category === "vapes") {
+  if (category === "vapes" || category === "prerolados") {
     if (priceInfo.hasPromo) {
       return (
         <div className="flex items-center space-x-2">
@@ -583,9 +691,115 @@ const FlowerIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-export default function DispensarioPage() {
+function DispensarioPageContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dailyPromos = getDailyPromos()
+  
+  // Estados para los carruseles
+  const [vapesCarouselIndex, setVapesCarouselIndex] = useState(0)
+  const [flowersCarouselIndex, setFlowersCarouselIndex] = useState(0)
+  const [preroladosCarouselIndex, setPreroladosCarouselIndex] = useState(0)
+  const [gomitasCarouselIndex, setGomitasCarouselIndex] = useState(0)
+  const [accesoriosCarouselIndex, setAccesoriosCarouselIndex] = useState(0)
+  const [promosCarouselIndex, setPromosCarouselIndex] = useState(0)
+  
+  // Estados para el sistema de referidos
+  const searchParams = useSearchParams()
+  const [referralName, setReferralName] = useState("")
+  const [generatedCode, setGeneratedCode] = useState("")
+  const [linkCopied, setLinkCopied] = useState(false)
+  const [textCopied, setTextCopied] = useState(false)
+  const [showReferralModal, setShowReferralModal] = useState(false)
+  const [referralModalShown, setReferralModalShown] = useState(false)
+  const [referredName, setReferredName] = useState("")
+  const [referredPhone, setReferredPhone] = useState("")
+  const [referrerCode, setReferrerCode] = useState("")
+  const [showSuccessToast, setShowSuccessToast] = useState(false)
+  const [registrationError, setRegistrationError] = useState(false)
+
+  // Detectar parametro ref en URL
+  useEffect(() => {
+    const refCode = searchParams.get("ref")
+    if (refCode && !referralModalShown) {
+      setReferrerCode(refCode)
+      setShowReferralModal(true)
+      setReferralModalShown(true)
+    }
+  }, [searchParams, referralModalShown])
+
+  // Generar codigo de referido
+  const generateReferralCode = () => {
+    if (referralName.trim()) {
+      const code = `DUCK-${referralName.trim().toUpperCase().replace(/\s+/g, "-")}`
+      setGeneratedCode(code)
+    }
+  }
+
+  // Copiar link al portapapeles
+  const copyReferralLink = () => {
+    if (generatedCode) {
+      const link = `smokeduck2024.com/?ref=${generatedCode}`
+      navigator.clipboard.writeText(link)
+      setLinkCopied(true)
+      setTimeout(() => setLinkCopied(false), 2000)
+    }
+  }
+
+  // Copiar texto sugerido
+  const copySuggestedText = () => {
+    if (generatedCode) {
+      const text = `Oye! Compra en Smoke Duck con mi link y los dos ganamos 🦆🔥 Usa mi link para que yo acumule mis 5 referidos y gane 7g de regalo (te compartiré de mi regalo🫶🏻) smokeduck2024.com/?ref=${generatedCode}`
+      navigator.clipboard.writeText(text)
+      setTextCopied(true)
+      setTimeout(() => setTextCopied(false), 2000)
+    }
+  }
+
+  // Abrir WhatsApp para reclamar regalo
+  const claimReward = () => {
+    if (generatedCode) {
+      const phoneNumber = "5215573551881"
+      const message = `Hola Smoke Duck! 🦆 Quiero reclamar mis 7g de regalo, ya referí a 5 amigos con mi código ${generatedCode} 🎁`
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+      window.open(whatsappUrl, "_blank")
+    }
+  }
+
+  // Confirmar registro de referido
+  const confirmReferral = async () => {
+    const phoneNumber = "5215573551881"
+    
+    // Enviar datos al Google Apps Script (no-cors)
+    try {
+      fetch("https://script.google.com/macros/s/AKfycbyGNfdLYzKl1jdFdH7QUudBOc5jjABmekADTtTHyxPHthmeXU3emHBpE_IOectzyun8/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: referredName,
+          numero: referredPhone,
+          codigoReferidor: referrerCode,
+        }),
+      })
+      setRegistrationError(false)
+    } catch (error) {
+      setRegistrationError(true)
+    }
+
+    // Cerrar modal
+    setShowReferralModal(false)
+    
+    // Mostrar toast de exito
+    setShowSuccessToast(true)
+    setTimeout(() => setShowSuccessToast(false), 4000)
+
+    // Abrir WhatsApp con mensaje prellenado
+    const message = `Hola Smoke Duck! 🦆 Me recomendaron con el código ${referrerCode}. Mi nombre es ${referredName} y mi número es ${referredPhone} — quiero hacer un pedido 🛒`
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, "_blank")
+  }
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -604,6 +818,73 @@ export default function DispensarioPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-purple-50 to-green-50">
+      {/* Modal de Referido */}
+      {showReferralModal && (
+        <div className="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative animate-in fade-in zoom-in duration-300">
+            <button
+              onClick={() => setShowReferralModal(false)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <CloseIcon className="w-6 h-6" />
+            </button>
+            
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-3xl">👋</span>
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Alguien te recomendó Smoke Duck</h3>
+              <p className="text-gray-600 text-sm">Registra tus datos para que tu amigo reciba su regalo</p>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Nombre o apodo</label>
+                <input
+                  type="text"
+                  value={referredName}
+                  onChange={(e) => setReferredName(e.target.value)}
+                  placeholder="Tu nombre"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Tu número de WhatsApp</label>
+                <input
+                  type="tel"
+                  value={referredPhone}
+                  onChange={(e) => setReferredPhone(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                  placeholder="10 dígitos"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+            </div>
+
+            <Button
+              onClick={confirmReferral}
+              disabled={!referredName.trim() || referredPhone.length !== 10}
+              className="w-full mt-6 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-3 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Confirmar y ver el catálogo
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Toast de éxito */}
+      {showSuccessToast && (
+        <div className="fixed bottom-4 right-4 z-[100] animate-in slide-in-from-bottom fade-in duration-300">
+          <div className={`${registrationError ? "bg-yellow-500" : "bg-green-600"} text-white px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3`}>
+            <span className="text-2xl">{registrationError ? "😊" : "🎉"}</span>
+            <span className="font-medium">
+              {registrationError 
+                ? "Hubo un problema al registrar, pero igual puedes contactarnos" 
+                : "¡Registro exitoso! Tu amigo acumuló un referido"}
+            </span>
+          </div>
+        </div>
+      )}
+
       {dailyPromos && (
         <div className="relative z-50">
           {dailyPromos.map((promo, index) => (
@@ -648,6 +929,24 @@ export default function DispensarioPage() {
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
               >
                 FLOWERS
+              </button>
+              <button
+                onClick={() => scrollToSection("prerolados")}
+                className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
+              >
+                PRE ROLADOS
+              </button>
+              <button
+                onClick={() => scrollToSection("gomitas")}
+                className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
+              >
+                GOMITAS
+              </button>
+              <button
+                onClick={() => scrollToSection("accesorios")}
+                className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
+              >
+                ACCESORIOS
               </button>
               <button
                 onClick={() => scrollToSection("promos")}
@@ -706,6 +1005,24 @@ export default function DispensarioPage() {
                   FLOWERS
                 </button>
                 <button
+                  onClick={() => scrollToSection("prerolados")}
+                  className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
+                >
+                  PRE ROLADOS
+                </button>
+                <button
+                  onClick={() => scrollToSection("gomitas")}
+                  className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
+                >
+                  GOMITAS
+                </button>
+                <button
+                  onClick={() => scrollToSection("accesorios")}
+                  className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
+                >
+                  ACCESORIOS
+                </button>
+                <button
                   onClick={() => scrollToSection("promos")}
                   className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
@@ -756,55 +1073,132 @@ export default function DispensarioPage() {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {vapesProducts.map((product, index) => (
-              <Card
-                key={index}
-                className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col"
+          {/* Carrusel de Vapes - Mobile/Tablet (1 producto por slide) */}
+          <div className="relative lg:hidden">
+            <button
+              onClick={() => setVapesCarouselIndex((prev) => (prev - 1 + vapesProducts.length) % vapesProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-5 h-5 text-green-700" />
+            </button>
+            <button
+              onClick={() => setVapesCarouselIndex((prev) => (prev + 1) % vapesProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-5 h-5 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-8">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${vapesCarouselIndex * 100}%)` }}
               >
-                <CardHeader className="p-4 flex-shrink-0">
-                  <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
-                    <ProductImage productName={product.name} category="vapes" alt={product.name} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
-                    {product.name}
-                  </h3>
-                  {product.strain && (
-                    <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
-                      {toTitleCase(product.strain)}
+                {vapesProducts.map((product, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-2">
+                    <div className="max-w-sm mx-auto">
+                      <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col">
+                        <CardHeader className="p-4 flex-shrink-0">
+                          <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                            <ProductImage productName={product.name} category="vapes" alt={product.name} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          </div>
+                          <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                            {product.name}
+                          </h3>
+                          {product.strain && (
+                            <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                              {toTitleCase(product.strain)}
+                            </div>
+                          )}
+                        </CardHeader>
+                        <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                          <div className="flex items-center justify-between mb-3">
+                            <PriceDisplay product={product} category="vapes" />
+                            {product.content && (
+                              <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                                {product.content}
+                              </span>
+                            )}
+                          </div>
+                          <Button
+                            onClick={() => openWhatsApp(product.name)}
+                            className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                          >
+                            <WhatsAppIcon className="w-4 h-4 mr-2" />
+                            Contáctanos
+                          </Button>
+                        </CardContent>
+                      </Card>
                     </div>
-                  )}
-                </CardHeader>
-                <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
-                  <div className="flex items-center justify-between mb-3">
-                    <PriceDisplay product={product} category="vapes" />
-                    {product.content && (
-                      <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
-                        {product.content}
-                      </span>
-                    )}
                   </div>
-                  <Button
-                    onClick={() => openWhatsApp(product.name)}
-                    className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
-                  >
-                    <WhatsAppIcon className="w-4 h-4 mr-2" />
-                    Contáctanos
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="text-center mt-8">
-            <Button
-              onClick={() => openWhatsApp("Quiero preguntar por todos los productos de vapes")}
-              className="bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+          {/* Carrusel de Vapes - Desktop (4 productos visibles, avanza de 1 en 1) */}
+          <div className="relative hidden lg:block">
+            <button
+              onClick={() => setVapesCarouselIndex((prev) => (prev - 1 + vapesProducts.length) % vapesProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
             >
-              <WhatsAppIcon className="w-4 h-4 mr-2" />
-              Pregunta por todos los productos
-            </Button>
+              <ChevronLeftIcon className="w-6 h-6 text-green-700" />
+            </button>
+            <button
+              onClick={() => setVapesCarouselIndex((prev) => (prev + 1) % vapesProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-6 h-6 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-12">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(calc(-${vapesCarouselIndex} * (25% + 0.375rem)))` }}
+              >
+                {vapesProducts.map((product, index) => (
+                  <div key={index} className="w-1/4 flex-shrink-0 pr-6 last:pr-0">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col h-full">
+                      <CardHeader className="p-4 flex-shrink-0">
+                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                          <ProductImage productName={product.name} category="vapes" alt={product.name} />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                          {product.name}
+                        </h3>
+                        {product.strain && (
+                          <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                            {toTitleCase(product.strain)}
+                          </div>
+                        )}
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                        <div className="flex items-center justify-between mb-3">
+                          <PriceDisplay product={product} category="vapes" />
+                          {product.content && (
+                            <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                              {product.content}
+                            </span>
+                          )}
+                        </div>
+                        <Button
+                          onClick={() => openWhatsApp(product.name)}
+                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 mr-2" />
+                          Contáctanos
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -818,54 +1212,540 @@ export default function DispensarioPage() {
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {flowersProducts
-              .sort((a, b) => a.prices[0].price - b.prices[0].price)
-              .map((product, index) => (
-                <Card
-                  key={index}
-                  className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white/90 backdrop-blur-sm border-gray-100"
-                >
-                  <CardHeader className="p-4">
-                    <div className="relative overflow-hidden rounded-lg mb-3">
-                      <ProductImage productName={product.name} category="flowers" alt={product.name} />
+          {/* Carrusel de Flowers - Mobile/Tablet (1 producto por slide) */}
+          <div className="relative lg:hidden">
+            <button
+              onClick={() => setFlowersCarouselIndex((prev) => (prev - 1 + flowersProducts.length) % flowersProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-5 h-5 text-green-700" />
+            </button>
+            <button
+              onClick={() => setFlowersCarouselIndex((prev) => (prev + 1) % flowersProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-5 h-5 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-8">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${flowersCarouselIndex * 100}%)` }}
+              >
+                {flowersProducts
+                  .sort((a, b) => a.prices[0].price - b.prices[0].price)
+                  .map((product, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-2">
+                    <div className="max-w-sm mx-auto">
+                      <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col">
+                        <CardHeader className="p-4 flex-shrink-0">
+                          <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                            <ProductImage productName={product.name} category="flowers" alt={product.name} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          </div>
+                          <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                            {product.name}
+                          </h3>
+                          {product.strain && (
+                            <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
+                              {toTitleCase(product.strain)}
+                            </div>
+                          )}
+                          {product.description && (
+                            <p className="text-sm text-gray-600 line-clamp-2 mt-1">{product.description}</p>
+                          )}
+                          {product.effects && renderEffects(product.effects)}
+                          {product.calmingLevel && renderLevelBar(product.calmingLevel, "Calmante", "Energizante")}
+                          {product.thcLevel &&
+                            product.name !== "Gak Bx1" &&
+                            product.name !== "Red Bullz" &&
+                            renderLevelBar(product.thcLevel, "Bajo contenido de THC", "Alto contenido de THC")}
+                        </CardHeader>
+                        <CardContent className="p-4 pt-0">
+                          <PriceDisplay product={product} category="flowers" />
+                          <Button
+                            onClick={() => openWhatsApp(product.name)}
+                            className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                          >
+                            <WhatsAppIcon className="w-4 h-4 mr-2" />
+                            Contactanos
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Carrusel de Flowers - Desktop (4 productos visibles, avanza de 1 en 1) */}
+          <div className="relative hidden lg:block">
+            <button
+              onClick={() => setFlowersCarouselIndex((prev) => (prev - 1 + flowersProducts.length) % flowersProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-6 h-6 text-green-700" />
+            </button>
+            <button
+              onClick={() => setFlowersCarouselIndex((prev) => (prev + 1) % flowersProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-6 h-6 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-12">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(calc(-${flowersCarouselIndex} * (25% + 0.375rem)))` }}
+              >
+                {flowersProducts
+                  .sort((a, b) => a.prices[0].price - b.prices[0].price)
+                  .map((product, index) => (
+                  <div key={index} className="w-1/4 flex-shrink-0 pr-6 last:pr-0">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col h-full">
+                      <CardHeader className="p-4 flex-shrink-0">
+                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                          <ProductImage productName={product.name} category="flowers" alt={product.name} />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                          {product.name}
+                        </h3>
+                        {product.strain && (
+                          <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
+                            {toTitleCase(product.strain)}
+                          </div>
+                        )}
+                        {product.description && (
+                          <p className="text-sm text-gray-600 line-clamp-2 mt-1">{product.description}</p>
+                        )}
+                        {product.effects && renderEffects(product.effects)}
+                        {product.calmingLevel && renderLevelBar(product.calmingLevel, "Calmante", "Energizante")}
+                        {product.thcLevel &&
+                          product.name !== "Gak Bx1" &&
+                          product.name !== "Red Bullz" &&
+                          renderLevelBar(product.thcLevel, "Bajo contenido de THC", "Alto contenido de THC")}
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0">
+                        <PriceDisplay product={product} category="flowers" />
+                        <Button
+                          onClick={() => openWhatsApp(product.name)}
+                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 mr-2" />
+                          Contactanos
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pre Rolados Section */}
+      <section id="prerolados" className="py-16 px-4 bg-white/50">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+              PRE ROLADOS
+            </h3>
+          </div>
+
+          {/* Carrusel de Prerolados - Mobile/Tablet */}
+          <div className="relative lg:hidden">
+            <button
+              onClick={() => setPreroladosCarouselIndex((prev) => (prev - 1 + preRoladosProducts.length) % preRoladosProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-5 h-5 text-green-700" />
+            </button>
+            <button
+              onClick={() => setPreroladosCarouselIndex((prev) => (prev + 1) % preRoladosProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-5 h-5 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-8">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${preroladosCarouselIndex * 100}%)` }}
+              >
+                {preRoladosProducts.map((product, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-2">
+                    <div className="max-w-sm mx-auto">
+                      <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col">
+                        <CardHeader className="p-4 flex-shrink-0">
+                          <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                            <ProductImage productName={product.name} category="prerolados" alt={product.name} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          </div>
+                          <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                            {product.name}
+                          </h3>
+                          {product.strain && (
+                            <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                              {toTitleCase(product.strain)}
+                            </div>
+                          )}
+                        </CardHeader>
+                        <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                          <div className="flex items-center justify-between mb-3">
+                            <PriceDisplay product={product} category="prerolados" />
+                            {product.content && (
+                              <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                                {product.content}
+                              </span>
+                            )}
+                          </div>
+                          <Button
+                            onClick={() => openWhatsApp(product.name)}
+                            className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                          >
+                            <WhatsAppIcon className="w-4 h-4 mr-2" />
+                            Contactanos
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Carrusel de Prerolados - Desktop */}
+          <div className="relative hidden lg:block">
+            <button
+              onClick={() => setPreroladosCarouselIndex((prev) => (prev - 1 + preRoladosProducts.length) % preRoladosProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-6 h-6 text-green-700" />
+            </button>
+            <button
+              onClick={() => setPreroladosCarouselIndex((prev) => (prev + 1) % preRoladosProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-6 h-6 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-12">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(calc(-${preroladosCarouselIndex} * (25% + 0.375rem)))` }}
+              >
+                {preRoladosProducts.map((product, index) => (
+                  <div key={index} className="w-1/4 flex-shrink-0 pr-6 last:pr-0">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col h-full">
+                      <CardHeader className="p-4 flex-shrink-0">
+                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                          <ProductImage productName={product.name} category="prerolados" alt={product.name} />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                          {product.name}
+                        </h3>
+                        {product.strain && (
+                          <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                            {toTitleCase(product.strain)}
+                          </div>
+                        )}
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                        <div className="flex items-center justify-between mb-3">
+                          <PriceDisplay product={product} category="prerolados" />
+                          {product.content && (
+                            <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                              {product.content}
+                            </span>
+                          )}
+                        </div>
+                        <Button
+                          onClick={() => openWhatsApp(product.name)}
+                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 mr-2" />
+                          Contactanos
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Gomitas Section */}
+      <section id="gomitas" className="py-16 px-4 bg-white/100">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+              GOMITAS
+            </h3>
+          </div>
+
+          {/* Carrusel de Gomitas - Mobile/Tablet */}
+          <div className="relative lg:hidden">
+            <button
+              onClick={() => setGomitasCarouselIndex((prev) => (prev - 1 + gomitasProducts.length) % gomitasProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-5 h-5 text-green-700" />
+            </button>
+            <button
+              onClick={() => setGomitasCarouselIndex((prev) => (prev + 1) % gomitasProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-5 h-5 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-8">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${gomitasCarouselIndex * 100}%)` }}
+              >
+                {gomitasProducts.map((product, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-2">
+                    <div className="max-w-sm mx-auto">
+                      <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col">
+                        <CardHeader className="p-4 flex-shrink-0">
+                          <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                            <ProductImage productName={product.name} category="gomitas" alt={product.name} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          </div>
+                          <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                            {product.name}
+                          </h3>
+                          {product.strain && (
+                            <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                              {toTitleCase(product.strain)}
+                            </div>
+                          )}
+                        </CardHeader>
+                        <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-2xl font-bold text-green-600">${product.price}</span>
+                            {product.content && (
+                              <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                                {product.content}
+                              </span>
+                            )}
+                          </div>
+                          <Button
+                            onClick={() => openWhatsApp(product.name)}
+                            className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                          >
+                            <WhatsAppIcon className="w-4 h-4 mr-2" />
+                            Contactanos
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Grid de Gomitas - Desktop (sin carrusel ya que son solo 3 productos) */}
+          <div className="hidden lg:block">
+            <div className="grid grid-cols-3 gap-6 max-w-4xl mx-auto">
+              {gomitasProducts.map((product, index) => (
+                <Card key={index} className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col h-full">
+                  <CardHeader className="p-4 flex-shrink-0">
+                    <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                      <ProductImage productName={product.name} category="gomitas" alt={product.name} />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
                     <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
                       {product.name}
                     </h3>
                     {product.strain && (
-                      <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
+                      <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
                         {toTitleCase(product.strain)}
                       </div>
                     )}
-                    {product.description && (
-                      <p className="text-sm text-gray-600 line-clamp-2 mt-1">{product.description}</p>
-                    )}
-                    {product.effects && renderEffects(product.effects)}
-                    {product.calmingLevel && renderLevelBar(product.calmingLevel, "Calmante", "Energizante")}
-                    {product.thcLevel &&
-                      product.name !== "Gak Bx1" &&
-                      product.name !== "Red Bullz" &&
-                      renderLevelBar(product.thcLevel, "Bajo contenido de THC", "Alto contenido de THC")}
                   </CardHeader>
-                  <CardContent className="p-4 pt-0">
-                    <PriceDisplay product={product} category="flowers" />
+                  <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-2xl font-bold text-green-600">${product.price}</span>
+                      {product.content && (
+                        <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                          {product.content}
+                        </span>
+                      )}
+                    </div>
                     <Button
                       onClick={() => openWhatsApp(product.name)}
                       className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
                     >
                       <WhatsAppIcon className="w-4 h-4 mr-2" />
-                      Contáctanos
+                      Contactanos
                     </Button>
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Accesorios Section */}
+      <section id="accesorios" className="py-16 px-4 bg-white/50">
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+              ACCESORIOS
+            </h3>
+          </div>
+
+          {/* Carrusel de Accesorios - Mobile/Tablet (1 producto por slide) */}
+          <div className="relative lg:hidden">
+            <button
+              onClick={() => setAccesoriosCarouselIndex((prev) => (prev - 1 + accesoriosProducts.length) % accesoriosProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-5 h-5 text-green-700" />
+            </button>
+            <button
+              onClick={() => setAccesoriosCarouselIndex((prev) => (prev + 1) % accesoriosProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-5 h-5 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-8">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${accesoriosCarouselIndex * 100}%)` }}
+              >
+                {accesoriosProducts.map((product, index) => (
+                  <div key={index} className="w-full flex-shrink-0 px-2">
+                    <div className="max-w-sm mx-auto">
+                      <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col">
+                        <CardHeader className="p-4 flex-shrink-0">
+                          <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                            <ProductImage productName={product.name} category="accesorios" alt={product.name} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                          </div>
+                          <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                            {product.name}
+                          </h3>
+                          {product.strain && (
+                            <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                              {toTitleCase(product.strain)}
+                            </div>
+                          )}
+                        </CardHeader>
+                        <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                          <div className="flex items-center justify-between mb-3">
+                            <span className="text-2xl font-bold text-green-600">${product.price}</span>
+                            {product.content && (
+                              <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                                {product.content}
+                              </span>
+                            )}
+                          </div>
+                          <Button
+                            onClick={() => openWhatsApp(product.name)}
+                            className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                          >
+                            <WhatsAppIcon className="w-4 h-4 mr-2" />
+                            Contactanos
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Carrusel de Accesorios - Desktop */}
+          <div className="relative hidden lg:block">
+            <button
+              onClick={() => setAccesoriosCarouselIndex((prev) => (prev - 1 + accesoriosProducts.length) % accesoriosProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-6 h-6 text-green-700" />
+            </button>
+            <button
+              onClick={() => setAccesoriosCarouselIndex((prev) => (prev + 1) % accesoriosProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-6 h-6 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-12">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(calc(-${accesoriosCarouselIndex} * (25% + 0.375rem)))` }}
+              >
+                {accesoriosProducts.map((product, index) => (
+                  <div key={index} className="w-1/4 flex-shrink-0 pr-6 last:pr-0">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col h-full">
+                      <CardHeader className="p-4 flex-shrink-0">
+                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                          <ProductImage productName={product.name} category="accesorios" alt={product.name} />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                          {product.name}
+                        </h3>
+                        {product.strain && (
+                          <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                            {toTitleCase(product.strain)}
+                          </div>
+                        )}
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-2xl font-bold text-green-600">${product.price}</span>
+                          {product.content && (
+                            <span className="text-sm font-medium text-gray-700 bg-gray-100 px-2 py-1 rounded-full">
+                              {product.content}
+                            </span>
+                          )}
+                        </div>
+                        <Button
+                          onClick={() => openWhatsApp(product.name)}
+                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 mr-2" />
+                          Contactanos
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="text-center mt-8">
             <Button
-              onClick={() => openWhatsApp("Quiero preguntar por todos los productos de flowers")}
+              onClick={() => openWhatsApp("Quiero preguntar por todos los accesorios")}
               className="bg-black hover:bg-gray-800 text-white font-semibold py-2 px-6 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
             >
               <WhatsAppIcon className="w-4 h-4 mr-2" />
@@ -883,122 +1763,497 @@ export default function DispensarioPage() {
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">¡Aprovecha nuestras promociones especiales!</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Promo Mensual */}
-            <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
-              <CardHeader className="p-4">
-                <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
-                  <img
-                    src="https://res.cloudinary.com/dmfczq42y/image/upload/v1755130016/blue-runtz_dsey5w.jpg"
-                    alt="OG Diesel Kush"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-                <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
-                  Promoción de Flowers
-                </h3>
-                <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
-                  Días 7, 14, 21 y 28
-                </div>
-              </CardHeader>
-              <CardContent className="p-4 pt-0">
-                <div className="space-y-3 mb-4">
-                  <div className="bg-green-50 rounded-lg p-3">
-                    <h4 className="font-bold text-green-800 text-sm">Green House</h4>
-                    <p className="text-xs text-gray-600 mt-1">Lantz, Mt. Hood Magic, Guava y Golden Goat</p>
-                    <p className="text-lg font-bold text-green-600">7g por $500</p>
-                  </div>
-                  <div className="bg-green-50 rounded-lg p-3">
-                    <h4 className="font-bold text-green-800 text-sm">Indoor</h4>
-                    <p className="text-xs text-gray-600 mt-1">Todas las demás flores del catálogo</p>
-                    <p className="text-lg font-bold text-green-600">7g por $777</p>
-                  </div>
-                </div>
-                <Button
-                  onClick={() => openWhatsApp("Quiero preguntar por la promoción de flowers")}
-                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
-                >
-                  <WhatsAppIcon className="w-4 h-4 mr-2" />
-                  Pregunta por tu promo
-                </Button>
-              </CardContent>
-            </Card>
+          {/* Carrusel de Promos - Mobile/Tablet (1 promo por slide) */}
+          <div className="relative lg:hidden">
+            <button
+              onClick={() => setPromosCarouselIndex((prev) => (prev - 1 + 4) % 4)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-5 h-5 text-green-700" />
+            </button>
+            <button
+              onClick={() => setPromosCarouselIndex((prev) => (prev + 1) % 4)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-2 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-5 h-5 text-green-700" />
+            </button>
 
-            {/* Promo Martes */}
-            <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
-              <CardHeader className="p-4">
-                <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
-                  <img
-                    src="https://i.imgur.com/gL2oPH6.jpeg"
-                    alt="STIIIZY 40s Blue Dream"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="overflow-hidden mx-8">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${promosCarouselIndex * 100}%)` }}
+              >
+                {/* Promo Mensual */}
+                <div className="w-full flex-shrink-0 px-2">
+                  <div className="max-w-sm mx-auto">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
+                      <CardHeader className="p-4">
+                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                          <img
+                            src="https://res.cloudinary.com/dmfczq42y/image/upload/v1755130016/blue-runtz_dsey5w.jpg"
+                            alt="OG Diesel Kush"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                          Promocion de Flowers
+                        </h3>
+                        <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                          Dias 7, 14, 21 y 28
+                        </div>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0">
+                        <div className="space-y-3 mb-4">
+                          <div className="bg-green-50 rounded-lg p-3">
+                            <h4 className="font-bold text-green-800 text-sm">Green House</h4>
+                            <p className="text-xs text-gray-600 mt-1">Lantz, Mt. Hood Magic, Guava y Golden Goat</p>
+                            <p className="text-lg font-bold text-green-600">7g por $500</p>
+                          </div>
+                          <div className="bg-green-50 rounded-lg p-3">
+                            <h4 className="font-bold text-green-800 text-sm">Indoor</h4>
+                            <p className="text-xs text-gray-600 mt-1">Todas las demas flores del catalogo</p>
+                            <p className="text-lg font-bold text-green-600">7g por $777</p>
+                          </div>
+                        </div>
+                        <Button
+                          onClick={() => openWhatsApp("Quiero preguntar por la promocion de flowers")}
+                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 mr-2" />
+                          Pregunta por tu promo
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
-                <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
-                  Martes de Prerolados
-                </h3>
-                <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
-                  Todos los martes
-                </div>
-              </CardHeader>
-              <CardContent className="p-4 pt-0">
-                <div className="bg-green-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-bold text-green-800 mb-2">Prerolados</h4>
-                  <p className="text-sm text-gray-600 font-semibold">STIIIZY y Sluggers</p>
-                  <p className="text-2xl font-bold text-green-600 mt-2">$1,150</p>
-                </div>
-                <Button
-                  onClick={() => openWhatsApp("Quiero preguntar por la promoción de prerolados")}
-                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
-                >
-                  <WhatsAppIcon className="w-4 h-4 mr-2" />
-                  Pregunta por tu promo
-                </Button>
-              </CardContent>
-            </Card>
 
-            {/* Promo Jueves */}
-            <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
-              <CardHeader className="p-4">
-                <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
-                  <img
-                    src="https://i.imgur.com/HvcPOHl.jpeg"
-                    alt="BIG CHIEF Pineapple Express"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Promo Martes */}
+                <div className="w-full flex-shrink-0 px-2">
+                  <div className="max-w-sm mx-auto">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
+                      <CardHeader className="p-4">
+                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                          <img
+                            src="https://res.cloudinary.com/dmfczq42y/image/upload/v1772670780/Smoke_Duck_5_cigarros_lmid50.png"
+                            alt="Prerolados"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                          Martes de Prerolados
+                        </h3>
+                        <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                          Todos los martes
+                        </div>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0">
+                        <div className="bg-green-50 rounded-lg p-4 mb-4">
+                          <h4 className="font-bold text-green-800 mb-2">Prerolados</h4>
+                          <p className="text-sm text-gray-600 font-semibold">Todos los prerolados con</p>
+                          <p className="text-2xl font-bold text-green-600 mt-2">20% de descuento</p>
+                        </div>
+                        <Button
+                          onClick={() => openWhatsApp("Quiero preguntar por la promocion de prerolados")}
+                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 mr-2" />
+                          Pregunta por tu promo
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
-                <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
-                  Jueves de Vapes
-                </h3>
-                <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
-                  Todos los jueves
+
+                {/* Promo Jueves */}
+                <div className="w-full flex-shrink-0 px-2">
+                  <div className="max-w-sm mx-auto">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
+                      <CardHeader className="p-4">
+                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                          <img
+                            src="https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Stiiizy_gjn1v1.png"
+                            alt="Vapes"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                          Jueves de Vapes
+                        </h3>
+                        <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                          Todos los jueves
+                        </div>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0">
+                        <div className="bg-green-50 rounded-lg p-4 mb-4">
+                          <h4 className="font-bold text-green-800 mb-2">Vapes</h4>
+                          <p className="text-sm text-gray-600 font-semibold">Todos los vapes con</p>
+                          <p className="text-2xl font-bold text-green-600 mt-2">20% de descuento</p>
+                        </div>
+                        <Button
+                          onClick={() => openWhatsApp("Quiero preguntar por la promocion de vapes")}
+                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 mr-2" />
+                          Pregunta por tu promo
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
-              </CardHeader>
-              <CardContent className="p-4 pt-0">
-                <div className="bg-green-50 rounded-lg p-4 mb-4">
-                  <h4 className="font-bold text-green-800 mb-2">Todos los Vapes</h4>
-                  <p className="text-sm text-gray-600 font-semibold">Cualquier vape del catálogo</p>
-                  <p className="text-2xl font-bold text-green-600 mt-2">$1,150</p>
+
+                {/* Promo Referidos */}
+                <div className="w-full flex-shrink-0 px-2">
+                  <div className="max-w-sm mx-auto">
+                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm">
+                      <CardHeader className="p-4">
+                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                          <img
+                            src="https://res.cloudinary.com/dmfczq42y/image/upload/v1755130018/orange_xarkce.jpg"
+                            alt="Agent Orange - Invita a tus amigos"
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                          Invita a tus amigos y Gana
+                        </h3>
+                        <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                          Todos los dias
+                        </div>
+                      </CardHeader>
+                      <CardContent className="p-4 pt-0">
+                        <div className="bg-green-50 rounded-lg p-4 mb-4">
+                          <h4 className="font-bold text-green-800 mb-2">Gana con Smoke Duck</h4>
+                          <p className="text-sm text-gray-600 font-semibold">Invita a 5 amigos a que compren en Smoke Duck y</p>
+                          <p className="text-xl font-bold text-green-600 mt-2">gana 7g de regalo, gratis!</p>
+                        </div>
+
+                        <div className="space-y-3">
+                          <div>
+                            <label className="block text-xs font-medium text-gray-600 mb-1">Tu nombre o apodo</label>
+                            <input
+                              type="text"
+                              value={referralName}
+                              onChange={(e) => setReferralName(e.target.value)}
+                              placeholder="Escribe tu nombre"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                            />
+                          </div>
+                          
+                          <Button
+                            onClick={generateReferralCode}
+                            disabled={!referralName.trim()}
+                            className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                          >
+                            Generar mi link de referido
+                          </Button>
+
+                          {generatedCode && (
+                            <div className="space-y-3 pt-2">
+                              <div className="bg-gray-100 rounded-lg p-3">
+                                <p className="text-xs text-gray-500 mb-1">Tu link de referido:</p>
+                                <div className="flex items-center justify-between">
+                                  <code className="text-xs text-green-700 font-mono break-all">smokeduck2024.com/?ref={generatedCode}</code>
+                                  <button
+                                    onClick={copyReferralLink}
+                                    className="ml-2 p-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex-shrink-0"
+                                  >
+                                    {linkCopied ? <CheckIcon className="w-4 h-4" /> : <CopyIcon className="w-4 h-4" />}
+                                  </button>
+                                </div>
+                                {linkCopied && <p className="text-xs text-green-600 mt-1">Copiado!</p>}
+                              </div>
+
+                              <div className="bg-gray-100 rounded-lg p-3">
+                                <p className="text-xs text-gray-500 mb-1">Texto sugerido para compartir:</p>
+                                <p className="text-xs text-gray-700 mb-2">
+                                  Oye! Compra en Smoke Duck con mi link y los dos ganamos. Usa mi link para que yo acumule mis 5 referidos y gane 7g de regalo (te compartire de mi regalo)
+                                </p>
+                                <button
+                                  onClick={copySuggestedText}
+                                  className="w-full py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-xs font-medium flex items-center justify-center"
+                                >
+                                  {textCopied ? (
+                                    <>
+                                      <CheckIcon className="w-4 h-4 mr-1" />
+                                      Copiado!
+                                    </>
+                                  ) : (
+                                    <>
+                                      <CopyIcon className="w-4 h-4 mr-1" />
+                                      Copiar texto
+                                    </>
+                                  )}
+                                </button>
+                              </div>
+
+                              <Button
+                                onClick={claimReward}
+                                className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0 text-sm"
+                              >
+                                <GiftIcon className="w-4 h-4 mr-2" />
+                                Reclamar mi regalo
+                              </Button>
+                            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
                 </div>
-                <Button
-                  onClick={() => openWhatsApp("Quiero preguntar por la promoción de vapes")}
-                  className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
-                >
-                  <WhatsAppIcon className="w-4 h-4 mr-2" />
-                  Pregunta por tu promo
-                </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
+          </div>
+
+          {/* Carrusel de Promos - Desktop (4 promos visibles, avanza de 1 en 1) */}
+          <div className="relative hidden lg:block">
+            <button
+              onClick={() => setPromosCarouselIndex((prev) => (prev - 1 + 4) % 4)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-6 h-6 text-green-700" />
+            </button>
+            <button
+              onClick={() => setPromosCarouselIndex((prev) => (prev + 1) % 4)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-6 h-6 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-12">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out gap-6"
+                style={{ transform: `translateX(-${promosCarouselIndex * (100 / 4 + 1.5)}%)` }}
+              >
+                {/* Promo Mensual */}
+                <div className="w-1/4 flex-shrink-0">
+                  <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm h-full flex flex-col">
+                    <CardHeader className="p-4">
+                      <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                        <img
+                          src="https://res.cloudinary.com/dmfczq42y/image/upload/v1755130016/blue-runtz_dsey5w.jpg"
+                          alt="OG Diesel Kush"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                      <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                        Promocion de Flowers
+                      </h3>
+                      <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                        Dias 7, 14, 21 y 28
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                      <div className="space-y-3 mb-4">
+                        <div className="bg-green-50 rounded-lg p-3">
+                          <h4 className="font-bold text-green-800 text-sm">Green House</h4>
+                          <p className="text-xs text-gray-600 mt-1">Lantz, Mt. Hood Magic, Guava y Golden Goat</p>
+                          <p className="text-lg font-bold text-green-600">7g por $500</p>
+                        </div>
+                        <div className="bg-green-50 rounded-lg p-3">
+                          <h4 className="font-bold text-green-800 text-sm">Indoor</h4>
+                          <p className="text-xs text-gray-600 mt-1">Todas las demas flores del catalogo</p>
+                          <p className="text-lg font-bold text-green-600">7g por $777</p>
+                        </div>
+                      </div>
+                      <Button
+                        onClick={() => openWhatsApp("Quiero preguntar por la promocion de flowers")}
+                        className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                      >
+                        <WhatsAppIcon className="w-4 h-4 mr-2" />
+                        Pregunta por tu promo
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Promo Martes */}
+                <div className="w-1/4 flex-shrink-0">
+                  <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm h-full flex flex-col">
+                    <CardHeader className="p-4">
+                      <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                        <img
+                          src="https://res.cloudinary.com/dmfczq42y/image/upload/v1772670780/Smoke_Duck_5_cigarros_lmid50.png"
+                          alt="Prerolados"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                      <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                        Martes de Prerolados
+                      </h3>
+                      <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                        Todos los martes
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                      <div className="bg-green-50 rounded-lg p-4 mb-4">
+                        <h4 className="font-bold text-green-800 mb-2">Prerolados</h4>
+                        <p className="text-sm text-gray-600 font-semibold">Todos los prerolados con</p>
+                        <p className="text-2xl font-bold text-green-600 mt-2">20% de descuento</p>
+                      </div>
+                      <Button
+                        onClick={() => openWhatsApp("Quiero preguntar por la promocion de prerolados")}
+                        className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                      >
+                        <WhatsAppIcon className="w-4 h-4 mr-2" />
+                        Pregunta por tu promo
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Promo Jueves */}
+                <div className="w-1/4 flex-shrink-0">
+                  <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm h-full flex flex-col">
+                    <CardHeader className="p-4">
+                      <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                        <img
+                          src="https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Stiiizy_gjn1v1.png"
+                          alt="Vapes"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                      <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                        Jueves de Vapes
+                      </h3>
+                      <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                        Todos los jueves
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                      <div className="bg-green-50 rounded-lg p-4 mb-4">
+                        <h4 className="font-bold text-green-800 mb-2">Vapes</h4>
+                        <p className="text-sm text-gray-600 font-semibold">Todos los vapes con</p>
+                        <p className="text-2xl font-bold text-green-600 mt-2">20% de descuento</p>
+                      </div>
+                      <Button
+                        onClick={() => openWhatsApp("Quiero preguntar por la promocion de vapes")}
+                        className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                      >
+                        <WhatsAppIcon className="w-4 h-4 mr-2" />
+                        Pregunta por tu promo
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Promo Referidos */}
+                <div className="w-1/4 flex-shrink-0">
+                  <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm h-full flex flex-col">
+                    <CardHeader className="p-4">
+                      <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                        <img
+                          src="https://res.cloudinary.com/dmfczq42y/image/upload/v1755130018/orange_xarkce.jpg"
+                          alt="Agent Orange - Invita a tus amigos"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </div>
+                      <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                        Invita a tus amigos y Gana
+                      </h3>
+                      <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-0">
+                        Todos los dias
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-4 pt-0 flex-grow flex flex-col justify-end">
+                      <div className="bg-green-50 rounded-lg p-4 mb-4">
+                        <h4 className="font-bold text-green-800 mb-2">Gana con Smoke Duck</h4>
+                        <p className="text-sm text-gray-600 font-semibold">Invita a 5 amigos a que compren en Smoke Duck y</p>
+                        <p className="text-xl font-bold text-green-600 mt-2">gana 7g de regalo, gratis!</p>
+                      </div>
+
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-xs font-medium text-gray-600 mb-1">Tu nombre o apodo</label>
+                          <input
+                            type="text"
+                            value={referralName}
+                            onChange={(e) => setReferralName(e.target.value)}
+                            placeholder="Escribe tu nombre"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
+                          />
+                        </div>
+                        
+                        <Button
+                          onClick={generateReferralCode}
+                          disabled={!referralName.trim()}
+                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                        >
+                          Generar mi link de referido
+                        </Button>
+
+                        {generatedCode && (
+                          <div className="space-y-3 pt-2">
+                            <div className="bg-gray-100 rounded-lg p-3">
+                              <p className="text-xs text-gray-500 mb-1">Tu link de referido:</p>
+                              <div className="flex items-center justify-between">
+                                <code className="text-xs text-green-700 font-mono break-all">smokeduck2024.com/?ref={generatedCode}</code>
+                                <button
+                                  onClick={copyReferralLink}
+                                  className="ml-2 p-1.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex-shrink-0"
+                                >
+                                  {linkCopied ? <CheckIcon className="w-4 h-4" /> : <CopyIcon className="w-4 h-4" />}
+                                </button>
+                              </div>
+                              {linkCopied && <p className="text-xs text-green-600 mt-1">Copiado!</p>}
+                            </div>
+
+                            <div className="bg-gray-100 rounded-lg p-3">
+                              <p className="text-xs text-gray-500 mb-1">Texto sugerido para compartir:</p>
+                              <p className="text-xs text-gray-700 mb-2">
+                                Oye! Compra en Smoke Duck con mi link y los dos ganamos. Usa mi link para que yo acumule mis 5 referidos y gane 7g de regalo (te compartire de mi regalo)
+                              </p>
+                              <button
+                                onClick={copySuggestedText}
+                                className="w-full py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-xs font-medium flex items-center justify-center"
+                              >
+                                {textCopied ? (
+                                  <>
+                                    <CheckIcon className="w-4 h-4 mr-1" />
+                                    Copiado!
+                                  </>
+                                ) : (
+                                  <>
+                                    <CopyIcon className="w-4 h-4 mr-1" />
+                                    Copiar texto
+                                  </>
+                                )}
+                              </button>
+                            </div>
+
+                            <Button
+                              onClick={claimReward}
+                              className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0 text-sm"
+                            >
+                              <GiftIcon className="w-4 h-4 mr-2" />
+                              Reclamar mi regalo
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div className="text-center mt-12">
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-2xl mx-auto">
-              <h4 className="text-xl font-bold text-gray-800 mb-2">¿Cómo aplicar las promociones?</h4>
+              <h4 className="text-xl font-bold text-gray-800 mb-2">Como aplicar las promociones?</h4>
               <p className="text-gray-600">
-                Da clic en el vape o flower que te interesa para contáctarnos por WhatsApp, coméntanos que estás
+                Da clic en el vape o flower que te interesa para contactarnos por WhatsApp, comentanos que estas
                 interesado en la promo y te aplicamos el descuento correspondiente.
               </p>
             </div>
@@ -1035,6 +2290,24 @@ export default function DispensarioPage() {
               FLOWERS
             </button>
             <button
+              onClick={() => scrollToSection("prerolados")}
+              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+            >
+              PRE ROLADOS
+            </button>
+            <button
+              onClick={() => scrollToSection("gomitas")}
+              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+            >
+              GOMITAS
+            </button>
+            <button
+              onClick={() => scrollToSection("accesorios")}
+              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+            >
+              ACCESORIOS
+            </button>
+            <button
               onClick={() => scrollToSection("promos")}
               className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
             >
@@ -1055,5 +2328,13 @@ export default function DispensarioPage() {
         </div>
       </footer>
     </div>
+  )
+}
+
+export default function DispensarioPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center"><span className="text-gray-500">Cargando...</span></div>}>
+      <DispensarioPageContent />
+    </Suspense>
   )
 }
