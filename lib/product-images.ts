@@ -2,7 +2,7 @@
 export const productImages = {
   // Vapes - Reemplaza estas URLs con tus imágenes reales
   vapes: {
-    "STIIIZY 40s Blue Dream": "https://i.imgur.com/gL2oPH6.jpeg",
+    "STIIIZY": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Stiiizy_gjn1v1.png",
     "CAKE OG Classics Hawaiian Guava": "https://i.imgur.com/MJEM85y.jpeg", // Placeholder hasta que tengas la imagen correcta
     "BOUTIQ Switch Hawaiian Snow Sour Slush": "https://i.imgur.com/8mGYvnD.jpeg",
     "Camino Sours Watermelon Spritz": "https://i.imgur.com/LyIQz1A.jpeg",
@@ -15,15 +15,43 @@ export const productImages = {
     "Cali Clear Sour Diesel": "https://i.imgur.com/OKLcTf9.jpeg",
     "Crystal Clear Blue Dream": "https://i.imgur.com/uGF1Dy9.jpeg",
     "DAB DADDY Thin Mint Cookies x Jealousy": "https://i.imgur.com/TC5z8Ua.jpeg",
-    "Gramlin Sour Apple Pie": "https://i.imgur.com/x3tVLzB.jpeg",
+    "Gramlin": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674478/Vape_Gramlin_1g__y3ddeh.png",
     "Pretty Dope Strawberry Mimosa": "https://i.imgur.com/lydWuLp.jpeg",
     "Side Hustle Blue Dream": "https://i.imgur.com/OII0pZF.jpeg",
     "Gelato Green Crack": "https://i.imgur.com/mGD5Lsh.jpeg",
     "Cabo Canabotanica": "https://i.imgur.com/xhxxKUr.jpeg",
     "BIG CHIEF Pineapple Express": "https://i.imgur.com/6J2TblT.jpeg",
     "West Coast Cure Orange Creamsicle": "https://i.imgur.com/HvcPOHl.jpeg",
-    "Kushy Punch Blue Raspberry": "https://i.imgur.com/ZmMd3tN.jpeg",
-    "Eureka AIO Tropical Twist": "https://i.imgur.com/73reAmY.jpeg" ,
+    "Kushy Punch": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674477/Vape_kushy_punch_1g_qgjvww.png",
+    "Eureka AIO Tropical Twist": "https://i.imgur.com/73reAmY.jpeg",
+    "Vape Platinum": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674479/Vape_Platinum_lc5ibu.png",
+    "Vape Bloom": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674475/Vape_Bloom_1g_argtk7.png",
+    "Vape Fuzzies": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674477/Vape_fuzzies__r6b1gg.png",
+  },
+
+  // Pre Rolados
+  prerolados: {
+    "Baby Jeeters 2.5g": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670779/Baby_jeeters_2.5g_5_cigarros_mqo890.png",
+    "Moon Rock Presidencial 1g": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670781/Moon_Rock_Presidencial_1g_1_cigarro_hopu2v.png",
+    "Smoke Duck": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670780/Smoke_Duck_5_cigarros_lmid50.png",
+    "Stiiizy 1g": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670781/Stiiizy_1g_1_cigarro_frdqia.png",
+    "Stiiizy 2.5g": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772670780/Stiiizy_2.5g_5_cigarros_uuyrag.png",
+  },
+
+  // Gomitas
+  gomitas: {
+    "Good Tide": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671569/Good_tide_gomitas_10_gomitas_o6ttus.jpg",
+    "Stiiizy": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671570/Stiiizy_gomitas_10_gomitas_qamtkl.png",
+    "Drops": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671569/Drops_Gomitas_biw6z8.png",
+  },
+
+  // Accesorios
+  accesorios: {
+    "Conos RAW": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671694/Conos_RAW_rz9owv.png",
+    "Papel para rolar G-Rollz": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671696/Papel_para_rolar_igya6x.png",
+    "GRAV Classic Spoon": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671695/GRAV_Classic_Spoon_ux4w0l.png",
+    "GRAV Mini Classic Sherlock": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671695/GRAV_Mini_Classic_Sherlock_gvnclq.png",
+    "Puffco Plus Pen": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772671699/Puffco_Plus_Pen_tempx2.png",
   },
 
   // Flowers - Reemplaza estas URLs con tus imágenes reales
@@ -40,6 +68,9 @@ export const productImages = {
     "Agent Orange": "https://res.cloudinary.com/dmfczq42y/image/upload/v1755130018/orange_xarkce.jpg",
     "Red Bullz": "https://res.cloudinary.com/dmfczq42y/image/upload/v1755130018/redbull_qnikdf.jpg",
     "White Runtz": "https://res.cloudinary.com/dmfczq42y/image/upload/v1755130018/white-runtz_wxojlc.jpg",
+    "Blue Cookies": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674512/galletas_azules_aeupdl.png",
+    "Honey Bananas": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674516/honey_bananas_rrzusd.png",
+    "Supersonic": "https://res.cloudinary.com/dmfczq42y/image/upload/v1772674519/2_supersonic_exs4is.png",
   },
 }
 
@@ -54,8 +85,9 @@ export const checkImageExists = async (imagePath: string): Promise<boolean> => {
 }
 
 // Función para obtener imagen del producto
-export const getProductImage = async (productName: string, category: "vapes" | "flowers"): Promise<string> => {
-  const image = productImages[category][productName]
+export const getProductImage = async (productName: string, category: "vapes" | "flowers" | "prerolados" | "gomitas" | "accesorios"): Promise<string> => {
+  const categoryImages = productImages[category as keyof typeof productImages]
+  const image = categoryImages ? categoryImages[productName] : undefined
 
   // Debug: mostrar en consola qué imagen se está buscando
   console.log(`🔍 Buscando imagen para: "${productName}" en categoría: "${category}"`)
@@ -82,10 +114,14 @@ export const getProductImage = async (productName: string, category: "vapes" | "
 }
 
 // Imagen por defecto si no se encuentra
-export const getDefaultImage = (category: "vapes" | "flowers"): string => {
-  const query =
-    category === "vapes"
-      ? "cannabis vape cartridge product photography professional"
-      : "cannabis flower buds product photography professional"
+export const getDefaultImage = (category: "vapes" | "flowers" | "prerolados" | "gomitas" | "accesorios"): string => {
+  const queries: Record<string, string> = {
+    vapes: "cannabis vape cartridge product photography professional",
+    flowers: "cannabis flower buds product photography professional",
+    prerolados: "cannabis pre roll joint product photography professional",
+    gomitas: "cannabis gummies edibles product photography professional",
+    accesorios: "cannabis accessories smoking product photography professional",
+  }
+  const query = queries[category] || queries.vapes
   return `/placeholder.svg?height=400&width=400&query=${encodeURIComponent(query)}`
 }
