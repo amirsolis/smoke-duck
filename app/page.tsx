@@ -9,43 +9,43 @@ import { getProductImage } from "@/lib/product-images"
 // Iconos adicionales para el sistema de referidos
 const CopyIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" strokeWidth="2"/>
-    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" strokeWidth="2"/>
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" strokeWidth="2" />
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" strokeWidth="2" />
   </svg>
 )
 
 const CheckIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <polyline points="20,6 9,17 4,12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <polyline points="20,6 9,17 4,12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
 const GiftIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <polyline points="20,12 20,22 4,22 4,12" strokeWidth="2"/>
-    <rect x="2" y="7" width="20" height="5" strokeWidth="2"/>
-    <line x1="12" y1="22" x2="12" y2="7" strokeWidth="2"/>
-    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" strokeWidth="2"/>
-    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" strokeWidth="2"/>
+    <polyline points="20,12 20,22 4,22 4,12" strokeWidth="2" />
+    <rect x="2" y="7" width="20" height="5" strokeWidth="2" />
+    <line x1="12" y1="22" x2="12" y2="7" strokeWidth="2" />
+    <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" strokeWidth="2" />
+    <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" strokeWidth="2" />
   </svg>
 )
 
 const CloseIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <line x1="18" y1="6" x2="6" y2="18" strokeWidth="2" strokeLinecap="round"/>
-    <line x1="6" y1="6" x2="18" y2="18" strokeWidth="2" strokeLinecap="round"/>
+    <line x1="18" y1="6" x2="6" y2="18" strokeWidth="2" strokeLinecap="round" />
+    <line x1="6" y1="6" x2="18" y2="18" strokeWidth="2" strokeLinecap="round" />
   </svg>
 )
 
 const ChevronLeftIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <polyline points="15,18 9,12 15,6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <polyline points="15,18 9,12 15,6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
 const ChevronRightIcon = ({ className }: { className?: string }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <polyline points="9,6 15,12 9,18" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <polyline points="9,6 15,12 9,18" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
 
@@ -694,7 +694,7 @@ const FlowerIcon = ({ className }: { className?: string }) => (
 function DispensarioPageContent() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const dailyPromos = getDailyPromos()
-  
+
   // Estados para los carruseles
   const [vapesCarouselIndex, setVapesCarouselIndex] = useState(0)
   const [flowersCarouselIndex, setFlowersCarouselIndex] = useState(0)
@@ -702,7 +702,7 @@ function DispensarioPageContent() {
   const [gomitasCarouselIndex, setGomitasCarouselIndex] = useState(0)
   const [accesoriosCarouselIndex, setAccesoriosCarouselIndex] = useState(0)
   const [promosCarouselIndex, setPromosCarouselIndex] = useState(0)
-  
+
   // Estados para el sistema de referidos
   const searchParams = useSearchParams()
   const [referralName, setReferralName] = useState("")
@@ -768,7 +768,7 @@ function DispensarioPageContent() {
   // Confirmar registro de referido
   const confirmReferral = async () => {
     const phoneNumber = "5215573551881"
-    
+
     // Enviar datos al Google Apps Script (no-cors)
     try {
       fetch("https://script.google.com/macros/s/AKfycbyGNfdLYzKl1jdFdH7QUudBOc5jjABmekADTtTHyxPHthmeXU3emHBpE_IOectzyun8/exec", {
@@ -790,7 +790,7 @@ function DispensarioPageContent() {
 
     // Cerrar modal
     setShowReferralModal(false)
-    
+
     // Mostrar toast de exito
     setShowSuccessToast(true)
     setTimeout(() => setShowSuccessToast(false), 4000)
@@ -828,7 +828,7 @@ function DispensarioPageContent() {
             >
               <CloseIcon className="w-6 h-6" />
             </button>
-            
+
             <div className="text-center mb-6">
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-3xl">👋</span>
@@ -877,8 +877,8 @@ function DispensarioPageContent() {
           <div className={`${registrationError ? "bg-yellow-500" : "bg-green-600"} text-white px-6 py-4 rounded-xl shadow-lg flex items-center space-x-3`}>
             <span className="text-2xl">{registrationError ? "😊" : "🎉"}</span>
             <span className="font-medium">
-              {registrationError 
-                ? "Hubo un problema al registrar, pero igual puedes contactarnos" 
+              {registrationError
+                ? "Hubo un problema al registrar, pero igual puedes contactarnos"
                 : "¡Registro exitoso! Tu amigo acumuló un referido"}
             </span>
           </div>
@@ -1071,7 +1071,7 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-8">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${vapesCarouselIndex * 100}%)` }}
               >
@@ -1136,7 +1136,7 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-12">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(calc(-${vapesCarouselIndex} * (25% + 0.375rem)))` }}
               >
@@ -1210,16 +1210,84 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-8">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${flowersCarouselIndex * 100}%)` }}
               >
                 {flowersProducts
                   .sort((a, b) => a.prices[0].price - b.prices[0].price)
                   .map((product, index) => (
-                  <div key={index} className="w-full flex-shrink-0 px-2">
-                    <div className="max-w-sm mx-auto">
-                      <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col">
+                    <div key={index} className="w-full flex-shrink-0 px-2">
+                      <div className="max-w-sm mx-auto">
+                        <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col">
+                          <CardHeader className="p-4 flex-shrink-0">
+                            <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
+                              <ProductImage productName={product.name} category="flowers" alt={product.name} />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                            </div>
+                            <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
+                              {product.name}
+                            </h3>
+                            {product.strain && (
+                              <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
+                                {toTitleCase(product.strain)}
+                              </div>
+                            )}
+                            {product.description && (
+                              <p className="text-sm text-gray-600 line-clamp-2 mt-1">{product.description}</p>
+                            )}
+                            {product.effects && renderEffects(product.effects)}
+                            {product.calmingLevel && renderLevelBar(product.calmingLevel, "Calmante", "Energizante")}
+                            {product.thcLevel &&
+                              product.name !== "Gak Bx1" &&
+                              product.name !== "Red Bullz" &&
+                              renderLevelBar(product.thcLevel, "Bajo contenido de THC", "Alto contenido de THC")}
+                          </CardHeader>
+                          <CardContent className="p-4 pt-0">
+                            <PriceDisplay product={product} category="flowers" />
+                            <Button
+                              onClick={() => openWhatsApp(product.name)}
+                              className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
+                            >
+                              <WhatsAppIcon className="w-4 h-4 mr-2" />
+                              Contactanos
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Carrusel de Flowers - Desktop (4 productos visibles, avanza de 1 en 1) */}
+          <div className="relative hidden lg:block">
+            <button
+              onClick={() => setFlowersCarouselIndex((prev) => (prev - 1 + flowersProducts.length) % flowersProducts.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Anterior"
+            >
+              <ChevronLeftIcon className="w-6 h-6 text-green-700" />
+            </button>
+            <button
+              onClick={() => setFlowersCarouselIndex((prev) => (prev + 1) % flowersProducts.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
+              aria-label="Siguiente"
+            >
+              <ChevronRightIcon className="w-6 h-6 text-green-700" />
+            </button>
+
+            <div className="overflow-hidden mx-12">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(calc(-${flowersCarouselIndex} * (25% + 0.375rem)))` }}
+              >
+                {flowersProducts
+                  .sort((a, b) => a.prices[0].price - b.prices[0].price)
+                  .map((product, index) => (
+                    <div key={index} className="w-1/4 flex-shrink-0 pr-6 last:pr-0">
+                      <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col h-full">
                         <CardHeader className="p-4 flex-shrink-0">
                           <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
                             <ProductImage productName={product.name} category="flowers" alt={product.name} />
@@ -1255,75 +1323,7 @@ function DispensarioPageContent() {
                         </CardContent>
                       </Card>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Carrusel de Flowers - Desktop (4 productos visibles, avanza de 1 en 1) */}
-          <div className="relative hidden lg:block">
-            <button
-              onClick={() => setFlowersCarouselIndex((prev) => (prev - 1 + flowersProducts.length) % flowersProducts.length)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
-              aria-label="Anterior"
-            >
-              <ChevronLeftIcon className="w-6 h-6 text-green-700" />
-            </button>
-            <button
-              onClick={() => setFlowersCarouselIndex((prev) => (prev + 1) % flowersProducts.length)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white/90 hover:bg-white shadow-lg rounded-full p-3 transition-all duration-300 hover:scale-110"
-              aria-label="Siguiente"
-            >
-              <ChevronRightIcon className="w-6 h-6 text-green-700" />
-            </button>
-
-            <div className="overflow-hidden mx-12">
-              <div 
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(calc(-${flowersCarouselIndex} * (25% + 0.375rem)))` }}
-              >
-                {flowersProducts
-                  .sort((a, b) => a.prices[0].price - b.prices[0].price)
-                  .map((product, index) => (
-                  <div key={index} className="w-1/4 flex-shrink-0 pr-6 last:pr-0">
-                    <Card className="group hover:shadow-xl transition-all duration-300 border-0 shadow-md bg-white/80 backdrop-blur-sm flex flex-col h-full">
-                      <CardHeader className="p-4 flex-shrink-0">
-                        <div className="relative overflow-hidden rounded-lg mb-3 w-full aspect-square">
-                          <ProductImage productName={product.name} category="flowers" alt={product.name} />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                        </div>
-                        <h3 className="font-card text-lg font-semibold text-gray-800 line-clamp-2 group-hover:text-green-700 transition-colors mb-1">
-                          {product.name}
-                        </h3>
-                        {product.strain && (
-                          <div className="font-card w-fit bg-white text-green-700 border border-green-600 hover:bg-green-600 hover:text-white px-3 py-1 rounded-full font-semibold transition-all duration-300 cursor-default text-sm mb-2">
-                            {toTitleCase(product.strain)}
-                          </div>
-                        )}
-                        {product.description && (
-                          <p className="text-sm text-gray-600 line-clamp-2 mt-1">{product.description}</p>
-                        )}
-                        {product.effects && renderEffects(product.effects)}
-                        {product.calmingLevel && renderLevelBar(product.calmingLevel, "Calmante", "Energizante")}
-                        {product.thcLevel &&
-                          product.name !== "Gak Bx1" &&
-                          product.name !== "Red Bullz" &&
-                          renderLevelBar(product.thcLevel, "Bajo contenido de THC", "Alto contenido de THC")}
-                      </CardHeader>
-                      <CardContent className="p-4 pt-0">
-                        <PriceDisplay product={product} category="flowers" />
-                        <Button
-                          onClick={() => openWhatsApp(product.name)}
-                          className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-2 px-4 shadow-md hover:shadow-lg transition-all duration-300 rounded-full border-0"
-                        >
-                          <WhatsAppIcon className="w-4 h-4 mr-2" />
-                          Contactanos
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           </div>
@@ -1357,7 +1357,7 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-8">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${preroladosCarouselIndex * 100}%)` }}
               >
@@ -1422,7 +1422,7 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-12">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(calc(-${preroladosCarouselIndex} * (25% + 0.375rem)))` }}
               >
@@ -1496,7 +1496,7 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-8">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${gomitasCarouselIndex * 100}%)` }}
               >
@@ -1613,7 +1613,7 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-8">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${accesoriosCarouselIndex * 100}%)` }}
               >
@@ -1678,7 +1678,7 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-12">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(calc(-${accesoriosCarouselIndex} * (25% + 0.375rem)))` }}
               >
@@ -1761,7 +1761,7 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-8">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${promosCarouselIndex * 100}%)` }}
               >
@@ -1924,7 +1924,7 @@ function DispensarioPageContent() {
                               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
                             />
                           </div>
-                          
+
                           <Button
                             onClick={generateReferralCode}
                             disabled={!referralName.trim()}
@@ -2008,7 +2008,7 @@ function DispensarioPageContent() {
             </button>
 
             <div className="overflow-hidden mx-12">
-              <div 
+              <div
                 className="flex transition-transform duration-500 ease-in-out gap-6"
                 style={{ transform: `translateX(-${promosCarouselIndex * (100 / 4 + 1.5)}%)` }}
               >
@@ -2164,7 +2164,7 @@ function DispensarioPageContent() {
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"
                           />
                         </div>
-                        
+
                         <Button
                           onClick={generateReferralCode}
                           disabled={!referralName.trim()}
@@ -2233,7 +2233,7 @@ function DispensarioPageContent() {
             <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 max-w-2xl mx-auto">
               <h4 className="text-xl font-bold text-gray-800 mb-2">Como aplicar las promociones?</h4>
               <p className="text-gray-600">
-                Da clic en el vape o flower que te interesa para contactarnos por WhatsApp, comentanos que estas
+                Da clic en el producto que te interesa para contactarnos por WhatsApp, comentanos que estás
                 interesado en la promo y te aplicamos el descuento correspondiente.
               </p>
             </div>
