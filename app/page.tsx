@@ -2271,7 +2271,7 @@ function DispensarioPageContent() {
             </button>
             <button
               onClick={() => scrollToSection("prerolados")}
-              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black text-center flex items-center justify-center"
             >
               PREROLADOS
             </button>
@@ -2283,7 +2283,7 @@ function DispensarioPageContent() {
             </button>
             <button
               onClick={() => scrollToSection("accesorios")}
-              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
+              className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black text-center flex items-center justify-center"
             >
               ACCESORIOS
             </button>
