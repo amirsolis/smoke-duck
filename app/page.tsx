@@ -2331,6 +2331,15 @@ function DispensarioPageContent() {
   )
 }
 
+function DispensarioPageContent() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center"><span className="text-gray-500">Cargando...</span></div>}>
+      <DispensarioPageContent />
+    </Suspense>
+  )
+}
+
+
 export default function DispensarioPage() {
   return (
     <Suspense fallback={<div className="min-h-screen bg-white flex items-center justify-center"><span className="text-gray-500">Cargando...</span></div>}>
