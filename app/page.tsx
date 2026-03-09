@@ -934,7 +934,7 @@ function DispensarioPageContent() {
                 onClick={() => scrollToSection("prerolados")}
                 className="text-gray-700 hover:text-green-600 transition-colors font-medium font-header"
               >
-                PRE ROLADOS
+                PREROLADOS
               </button>
               <button
                 onClick={() => scrollToSection("gomitas")}
@@ -1008,7 +1008,7 @@ function DispensarioPageContent() {
                   onClick={() => scrollToSection("prerolados")}
                   className="w-full max-w-xs text-right text-lg text-gray-700 hover:text-green-600 transition-all duration-300 rounded-lg border-b border-gray-100 py-2"
                 >
-                  PRE ROLADOS
+                  PREROLADOS
                 </button>
                 <button
                   onClick={() => scrollToSection("gomitas")}
@@ -1042,26 +1042,6 @@ function DispensarioPageContent() {
           backgroundImage: "url('/images/smoke-duck-hero-bg.jpg')",
         }}
       >
-        <div className="container mx-auto text-center relative z-10 h-full flex items-end justify-center min-h-[70vh] md:min-h-screen pb-20 font-bold text-black">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                onClick={() => scrollToSection("vapes")}
-                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header w-full sm:w-auto"
-              >
-                VER VAPES
-              </Button>
-              <Button
-                size="lg"
-                onClick={() => scrollToSection("flowers")}
-                className="bg-black text-white px-10 py-4 text-xl font-bold shadow-lg hover:shadow-xl transition-all duration-300 rounded-full hover:bg-white hover:text-black font-header w-full sm:w-auto"
-              >
-                VER FLOWERS
-              </Button>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* Vapes Section */}
@@ -1355,7 +1335,7 @@ function DispensarioPageContent() {
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <h3 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
-              PRE ROLADOS
+              PREROLADOS
             </h3>
           </div>
 
@@ -2293,7 +2273,7 @@ function DispensarioPageContent() {
               onClick={() => scrollToSection("prerolados")}
               className="w-full sm:w-32 bg-black text-white hover:bg-white hover:text-black px-6 py-3 font-semibold transition-all duration-300 rounded-lg border-2 border-black"
             >
-              PRE ROLADOS
+              PREROLADOS
             </button>
             <button
               onClick={() => scrollToSection("gomitas")}
