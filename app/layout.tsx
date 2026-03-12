@@ -10,15 +10,15 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Smoke Duck - Catálogo Vapes y Flowers",
+  title: "Smoke Duck - Catálogo Dispensario en Línea",
   description:
-    "Conoce aquí nuestro catálogo de productos de Vapes y Flowers. Haz tu pedido hoy. Envío a domicilio.",
+    "Conoce aquí nuestro catálogo de dispensario en línea de productos de vapes, flowers, prerolados, gomitas, accesorios y más. Haz tu pedido hoy. Envío a domicilio.",
   generator: "v0.dev",
   // Se agrega la configuración del favicon aquí
   icons: {
     icon: "/images/smoke-duck-logo-favicon.png",
   },
-   openGraph: {
+  openGraph: {
     images: "/images/smoke-duck-hero-bg.jpg",
   },
 }
