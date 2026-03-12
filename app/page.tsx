@@ -940,7 +940,7 @@ function DispensarioPageContent() {
       {/* Hero Section */}
       <section
         id="inicio"
-        className="px-4 relative bg-cover bg-center bg-no-repeat min-h-[70vh] md:min-h-screen"
+        className="px-4 relative bg-cover bg-center bg-no-repeat min-h-[70vh] md:min-h-[70vh]"
         style={{
           backgroundImage: "url('/images/smoke-duck-hero-bg.jpg')",
         }}
